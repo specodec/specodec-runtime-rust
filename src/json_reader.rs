@@ -16,12 +16,14 @@ impl std::error::Error for SCodecError {}
 pub struct JsonReader<'a> {
     src: &'a str,
     pos: usize,
+    first_field: Vec<bool>,
+    first_elem: Vec<bool>,
 }
 
 impl<'a> JsonReader<'a> {
     pub fn new(data: &'a [u8]) -> Result<Self, SCodecError> {
         let s = std::str::from_utf8(data).map_err(|_| SCodecError::new("json: invalid utf-8"))?;
-        Ok(JsonReader { src: s, pos: 0 })
+        Ok(JsonReader { src: s, pos: 0, first_field: Vec::new(), first_elem: Vec::new() })
     }
 
     pub fn pos(&self) -> usize { self.pos }
@@ -293,26 +295,21 @@ impl<'a> JsonReader<'a> {
                 Err(SCodecError::new("json: unterminated string in skip"))
             }
             b'{' => {
-                self.begin_object()?;
-                let mut first = true;
-                while self.has_next_field()? {
-                    if !first { self.next_field_separator()?; }
-                    first = false;
-                    self.read_field_name()?;
-                    self.expect(b':')?;
+                use crate::spec_reader::SpecReader;
+                SpecReader::begin_object(self)?;
+                while SpecReader::has_next_field(self)? {
+                    SpecReader::read_field_name(self)?;
                     self.skip()?;
                 }
-                self.end_object()
+                SpecReader::end_object(self)
             }
             b'[' => {
-                self.begin_array()?;
-                let mut first = true;
-                while self.has_next_element()? {
-                    if !first { self.next_element_separator()?; }
-                    first = false;
+                use crate::spec_reader::SpecReader;
+                SpecReader::begin_array(self)?;
+                while SpecReader::has_next_element(self)? {
                     self.skip()?;
                 }
-                self.end_array()
+                SpecReader::end_array(self)
             }
             b't' => { for &c in b"true" { if self.read_ch()? != c { return Err(SCodecError::new("json: skip expected true")); } } Ok(()) }
             b'f' => { for &c in b"false" { if self.read_ch()? != c { return Err(SCodecError::new("json: skip expected false")); } } Ok(()) }
@@ -320,11 +317,86 @@ impl<'a> JsonReader<'a> {
             _ => {
                 if (ch >= b'0' && ch <= b'9') || ch == b'-' {
                     self.parse_number_raw()?;
-                    Ok(())
+                     Ok(())
                 } else {
                     Err(SCodecError::new(format!("json: unexpected '{}' in skip", ch as char)))
                 }
             }
         }
     }
+}
+
+impl crate::spec_reader::SpecReader for JsonReader<'_> {
+    fn begin_object(&mut self) -> Result<(), SCodecError> {
+        self.expect(b'{')?;
+        self.first_field.push(true);
+        Ok(())
+    }
+
+    fn has_next_field(&mut self) -> Result<bool, SCodecError> {
+        let ch = self.peek()?;
+        if ch == b'}' {
+            self.first_field.pop();
+            return Ok(false);
+        }
+        let top = self.first_field.len() - 1;
+        if !self.first_field[top] {
+            if ch != b',' { return Err(SCodecError::new(format!("json: expected ',' or '}}', got '{}'", ch as char))); }
+            self.pos += 1;
+        } else {
+            self.first_field[top] = false;
+        }
+        Ok(true)
+    }
+
+    fn read_field_name(&mut self) -> Result<String, SCodecError> {
+        let key = self.parse_string()?;
+        self.ws();
+        if self.pos < self.src.len() && self.src.as_bytes()[self.pos] == b':' {
+            self.pos += 1;
+        } else {
+            return Err(SCodecError::new(format!("json: expected ':' after field name '{}'", key)));
+        }
+        Ok(key)
+    }
+
+    fn end_object(&mut self) -> Result<(), SCodecError> { self.expect(b'}') }
+
+    fn begin_array(&mut self) -> Result<(), SCodecError> {
+        self.expect(b'[')?;
+        self.first_elem.push(true);
+        Ok(())
+    }
+
+    fn has_next_element(&mut self) -> Result<bool, SCodecError> {
+        let ch = self.peek()?;
+        if ch == b']' {
+            self.first_elem.pop();
+            return Ok(false);
+        }
+        let top = self.first_elem.len() - 1;
+        if !self.first_elem[top] {
+            if ch != b',' { return Err(SCodecError::new(format!("json: expected ',' or ']', got '{}'", ch as char))); }
+            self.pos += 1;
+        } else {
+            self.first_elem[top] = false;
+        }
+        Ok(true)
+    }
+
+    fn end_array(&mut self) -> Result<(), SCodecError> { self.expect(b']') }
+
+    fn read_string(&mut self) -> Result<String, SCodecError> { self.parse_string() }
+    fn read_bool(&mut self) -> Result<bool, SCodecError> { self.read_bool() }
+    fn read_int32(&mut self) -> Result<i32, SCodecError> { self.read_int32() }
+    fn read_int64(&mut self) -> Result<i64, SCodecError> { self.read_int64() }
+    fn read_uint32(&mut self) -> Result<u32, SCodecError> { self.read_uint32() }
+    fn read_uint64(&mut self) -> Result<u64, SCodecError> { self.read_uint64() }
+    fn read_float32(&mut self) -> Result<f32, SCodecError> { self.read_float32() }
+    fn read_float64(&mut self) -> Result<f64, SCodecError> { self.read_float64() }
+    fn read_null(&mut self) -> Result<(), SCodecError> { self.read_null() }
+    fn read_bytes(&mut self) -> Result<Vec<u8>, SCodecError> { self.read_bytes() }
+    fn read_enum(&mut self) -> Result<String, SCodecError> { self.parse_string() }
+    fn is_null(&mut self) -> Result<bool, SCodecError> { self.is_null() }
+    fn skip(&mut self) -> Result<(), SCodecError> { self.skip() }
 }

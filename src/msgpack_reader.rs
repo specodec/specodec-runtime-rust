@@ -230,4 +230,73 @@ impl<'a> MsgPackReader<'a> {
     pub fn end_array(&mut self) -> Result<(), SCodecError> {
         Ok(())
     }
+
+    pub fn read_bytes_raw(&mut self) -> Result<Vec<u8>, SCodecError> {
+        let b = self.read_byte()?;
+        let len = match b {
+            0xC4 => self.read_byte()? as usize,
+            0xC5 => self.read_u16()? as usize,
+            0xC6 => self.read_u32()? as usize,
+            _ => return Err(SCodecError::new(format!("msgpack: expected bin, got 0x{b:02X}"))),
+        };
+        if self.pos + len > self.data.len() { return self.eof(); }
+        let v = self.data[self.pos..self.pos + len].to_vec();
+        self.pos += len;
+        Ok(v)
+    }
+}
+
+impl crate::spec_reader::SpecReader for MsgPackReader<'_> {
+    fn begin_object(&mut self) -> Result<(), SCodecError> {
+        let n = self.read_map_header()?;
+        self.container_count.push(n);
+        Ok(())
+    }
+
+    fn has_next_field(&mut self) -> Result<bool, SCodecError> {
+        let top = self.container_count.len() - 1;
+        if self.container_count[top] > 0 {
+            self.container_count[top] -= 1;
+            Ok(true)
+        } else {
+            self.container_count.pop();
+            Ok(false)
+        }
+    }
+
+    fn read_field_name(&mut self) -> Result<String, SCodecError> { self.read_string() }
+    fn end_object(&mut self) -> Result<(), SCodecError> { Ok(()) }
+
+    fn begin_array(&mut self) -> Result<(), SCodecError> {
+        let n = self.read_array_header()?;
+        self.container_count.push(n);
+        Ok(())
+    }
+
+    fn has_next_element(&mut self) -> Result<bool, SCodecError> {
+        let top = self.container_count.len() - 1;
+        if self.container_count[top] > 0 {
+            self.container_count[top] -= 1;
+            Ok(true)
+        } else {
+            self.container_count.pop();
+            Ok(false)
+        }
+    }
+
+    fn end_array(&mut self) -> Result<(), SCodecError> { Ok(()) }
+
+    fn read_string(&mut self) -> Result<String, SCodecError> { self.read_string() }
+    fn read_bool(&mut self) -> Result<bool, SCodecError> { self.read_bool() }
+    fn read_int32(&mut self) -> Result<i32, SCodecError> { Ok(self.read_int()? as i32) }
+    fn read_int64(&mut self) -> Result<i64, SCodecError> { self.read_int() }
+    fn read_uint32(&mut self) -> Result<u32, SCodecError> { Ok(self.read_int()? as u32) }
+    fn read_uint64(&mut self) -> Result<u64, SCodecError> { Ok(self.read_int()? as u64) }
+    fn read_float32(&mut self) -> Result<f32, SCodecError> { Ok(self.read_float()? as f32) }
+    fn read_float64(&mut self) -> Result<f64, SCodecError> { self.read_float() }
+    fn read_null(&mut self) -> Result<(), SCodecError> { self.read_null() }
+    fn read_bytes(&mut self) -> Result<Vec<u8>, SCodecError> { self.read_bytes_raw() }
+    fn read_enum(&mut self) -> Result<String, SCodecError> { self.read_string() }
+    fn is_null(&mut self) -> Result<bool, SCodecError> { Ok(MsgPackReader::is_null(self)) }
+    fn skip(&mut self) -> Result<(), SCodecError> { self.skip() }
 }
