@@ -13,16 +13,16 @@ impl std::fmt::Display for SCodecError {
 
 impl std::error::Error for SCodecError {}
 
-pub struct JsonReader<'a> {
-    src: &'a str,
+pub struct JsonReader {
+    src: String,
     pos: usize,
     first_field: Vec<bool>,
     first_elem: Vec<bool>,
 }
 
-impl<'a> JsonReader<'a> {
-    pub fn new(data: &'a [u8]) -> Result<Self, SCodecError> {
-        let s = std::str::from_utf8(data).map_err(|_| SCodecError::new("json: invalid utf-8"))?;
+impl JsonReader {
+    pub fn new(data: &[u8]) -> Result<Self, SCodecError> {
+        let s = std::str::from_utf8(data).map_err(|_| SCodecError::new("json: invalid utf-8"))?.to_owned();
         Ok(JsonReader { src: s, pos: 0, first_field: Vec::new(), first_elem: Vec::new() })
     }
 
@@ -109,14 +109,28 @@ impl<'a> JsonReader<'a> {
             } else if c < 0x20 {
                 return Err(SCodecError::new(format!("json: unescaped control character U+{:04X}", c)));
             } else {
-                result.push(c as char);
-                self.pos += 1;
+                let bytes = &self.src.as_bytes()[self.pos..];
+                let (ch, size) = if c < 0x80 {
+                    (c as char, 1)
+                } else if c < 0xE0 {
+                    let s = std::str::from_utf8(&bytes[..2]).map_err(|_| SCodecError::new("json: invalid utf-8"))?;
+                    (s.chars().next().unwrap(), s.len())
+                } else if c < 0xF0 {
+                    let s = std::str::from_utf8(&bytes[..3]).map_err(|_| SCodecError::new("json: invalid utf-8"))?;
+                    (s.chars().next().unwrap(), s.len())
+                } else {
+                    let s = std::str::from_utf8(&bytes[..4]).map_err(|_| SCodecError::new("json: invalid utf-8"))?;
+                    (s.chars().next().unwrap(), s.len())
+                };
+                result.push(ch);
+                self.pos += size;
             }
         }
         Err(SCodecError::new("json: unterminated string"))
     }
 
-    fn parse_number_raw(&mut self) -> Result<&'a str, SCodecError> {
+    fn parse_number_raw(&mut self) -> Result<String, SCodecError> {
+        self.ws();
         let start = self.pos;
         if self.pos < self.src.len() && self.src.as_bytes()[self.pos] == b'-' { self.pos += 1; }
         if self.pos >= self.src.len() { return Err(SCodecError::new("json: unexpected end of number")); }
@@ -143,7 +157,7 @@ impl<'a> JsonReader<'a> {
             }
             while self.pos < self.src.len() && self.src.as_bytes()[self.pos] >= b'0' && self.src.as_bytes()[self.pos] <= b'9' { self.pos += 1; }
         }
-        Ok(&self.src[start..self.pos])
+        Ok(self.src[start..self.pos].to_owned())
     }
 
     pub fn read_string(&mut self) -> Result<String, SCodecError> { self.parse_string() }
@@ -326,7 +340,7 @@ impl<'a> JsonReader<'a> {
     }
 }
 
-impl crate::spec_reader::SpecReader for JsonReader<'_> {
+impl crate::spec_reader::SpecReader for JsonReader {
     fn begin_object(&mut self) -> Result<(), SCodecError> {
         self.expect(b'{')?;
         self.first_field.push(true);

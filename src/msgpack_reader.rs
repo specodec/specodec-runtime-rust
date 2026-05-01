@@ -1,14 +1,14 @@
 use crate::json_reader::SCodecError;
 
-pub struct MsgPackReader<'a> {
-    data: &'a [u8],
+pub struct MsgPackReader {
+    data: Vec<u8>,
     pos: usize,
     container_count: Vec<usize>,
 }
 
-impl<'a> MsgPackReader<'a> {
-    pub fn new(data: &'a [u8]) -> Self {
-        MsgPackReader { data, pos: 0, container_count: Vec::new() }
+impl MsgPackReader {
+    pub fn new(data: &[u8]) -> Self {
+        MsgPackReader { data: data.to_vec(), pos: 0, container_count: Vec::new() }
     }
 
     pub fn pos(&self) -> usize {
@@ -43,6 +43,16 @@ impl<'a> MsgPackReader<'a> {
 
     fn read_i16(&mut self) -> Result<i16, SCodecError> { Ok(self.read_u16()? as i16) }
     fn read_i32(&mut self) -> Result<i32, SCodecError> { Ok(self.read_u32()? as i32) }
+    fn read_u64(&mut self) -> Result<u64, SCodecError> {
+        if self.pos + 8 > self.data.len() { return self.eof(); }
+        let v = u64::from_be_bytes([
+            self.data[self.pos], self.data[self.pos+1], self.data[self.pos+2], self.data[self.pos+3],
+            self.data[self.pos+4], self.data[self.pos+5], self.data[self.pos+6], self.data[self.pos+7],
+        ]);
+        self.pos += 8;
+        Ok(v)
+    }
+    fn read_i64(&mut self) -> Result<i64, SCodecError> { Ok(self.read_u64()? as i64) }
 
     fn eof<T>(&self) -> Result<T, SCodecError> {
         Err(SCodecError::new("msgpack: unexpected end of data"))
@@ -90,6 +100,8 @@ impl<'a> MsgPackReader<'a> {
             0xD0 => Ok(self.read_byte()? as i8 as i64),
             0xD1 => Ok(self.read_i16()? as i64),
             0xD2 => Ok(self.read_i32()? as i64),
+            0xD3 => Ok(self.read_i64()?),
+            0xCF => Ok(self.read_u64()? as i64),
             _ => Err(SCodecError::new(format!("msgpack: expected int, got 0x{b:02X}"))),
         }
     }
@@ -117,7 +129,10 @@ impl<'a> MsgPackReader<'a> {
                 self.pos += 8;
                 Ok(f64::from_bits(bits))
             }
-            _ => Err(SCodecError::new(format!("msgpack: expected float, got 0x{b:02X}"))),
+            _ => {
+                self.pos -= 1;
+                Ok(self.read_int()? as f64)
+            }
         }
     }
 
@@ -202,13 +217,8 @@ impl<'a> MsgPackReader<'a> {
         }
     }
 
-    pub fn read_field_name(&mut self) -> Result<String, SCodecError> {
-        self.read_string()
-    }
-
-    pub fn end_object(&mut self) -> Result<(), SCodecError> {
-        Ok(())
-    }
+    pub fn read_field_name(&mut self) -> Result<String, SCodecError> { self.read_string() }
+    pub fn end_object(&mut self) -> Result<(), SCodecError> { Ok(()) }
 
     pub fn begin_array(&mut self) -> Result<(), SCodecError> {
         let n = self.read_array_header()?;
@@ -227,9 +237,7 @@ impl<'a> MsgPackReader<'a> {
         }
     }
 
-    pub fn end_array(&mut self) -> Result<(), SCodecError> {
-        Ok(())
-    }
+    pub fn end_array(&mut self) -> Result<(), SCodecError> { Ok(()) }
 
     pub fn read_bytes_raw(&mut self) -> Result<Vec<u8>, SCodecError> {
         let b = self.read_byte()?;
@@ -246,7 +254,7 @@ impl<'a> MsgPackReader<'a> {
     }
 }
 
-impl crate::spec_reader::SpecReader for MsgPackReader<'_> {
+impl crate::spec_reader::SpecReader for MsgPackReader {
     fn begin_object(&mut self) -> Result<(), SCodecError> {
         let n = self.read_map_header()?;
         self.container_count.push(n);

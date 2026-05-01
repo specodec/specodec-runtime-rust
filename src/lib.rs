@@ -5,7 +5,9 @@ pub mod msgpack_reader;
 pub mod gron_writer;
 pub mod gron_reader;
 pub mod spec_reader;
+pub mod spec_writer;
 pub mod spec_codec;
+pub mod spec_writer_impls;
 
 pub use json_writer::JsonWriter;
 pub use json_reader::JsonReader;
@@ -15,5 +17,5 @@ pub use msgpack_reader::MsgPackReader;
 pub use gron_writer::GronWriter;
 pub use gron_reader::GronReader;
 pub use spec_reader::SpecReader;
-pub use spec_codec::SpecCodec;
-pub use spec_codec::{dispatch, respond};
+pub use spec_writer::SpecWriter;
+pub use spec_codec::{SpecCodec, FormatRegistry, FormatEntry, RespondResult, default_registry, dispatch, respond};

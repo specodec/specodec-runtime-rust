@@ -78,11 +78,19 @@ impl JsonWriter {
         self.buf.push(b'"');
     }
 
+    fn fmt_float(&self, value: f64) -> String {
+        let mut s = format!("{}", value);
+        if s.ends_with(".0") {
+            s.truncate(s.len() - 2);
+        }
+        s
+    }
+
     pub fn write_float32(&mut self, value: f32) {
         if !value.is_finite() {
             panic!("float32: NaN/Infinity not valid JSON");
         }
-        let s = format!("{}", value);
+        let s = self.fmt_float(value as f64);
         self.buf.extend_from_slice(s.as_bytes());
     }
 
@@ -90,7 +98,7 @@ impl JsonWriter {
         if !value.is_finite() {
             panic!("float64: NaN/Infinity not valid JSON");
         }
-        let s = format!("{}", value);
+        let s = self.fmt_float(value);
         self.buf.extend_from_slice(s.as_bytes());
     }
 
@@ -109,7 +117,7 @@ impl JsonWriter {
         self.write_string(value);
     }
 
-    pub fn begin_object(&mut self) {
+    pub fn begin_object(&mut self, _field_count: usize) {
         self.buf.push(b'{');
         self.first_item.push(true);
     }
@@ -120,6 +128,7 @@ impl JsonWriter {
         self.first_item[top] = false;
         self.buf.push(b'"');
         self.escape(name);
+        self.buf.push(b'"');
         self.buf.push(b':');
     }
 
@@ -128,7 +137,7 @@ impl JsonWriter {
         self.buf.push(b'}');
     }
 
-    pub fn begin_array(&mut self) {
+    pub fn begin_array(&mut self, _element_count: usize) {
         self.buf.push(b'[');
         self.first_item.push(true);
     }
