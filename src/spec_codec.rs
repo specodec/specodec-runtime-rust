@@ -38,7 +38,7 @@ impl FormatRegistry {
 
     pub fn match_format(&self, format: &str) -> &FormatEntry {
         for e in &self.entries {
-            if format.contains(e.name) { return e; }
+            if format == e.name { return e; }
         }
         &self.entries[0]
     }
