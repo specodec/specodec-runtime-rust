@@ -13,10 +13,10 @@ pub struct SpecCodec<T> {
 }
 
 // ---------------------------------------------------------------------------
-// FormatEntry
+// FormatEntry: a reader/writer factory pair for one format
 // ---------------------------------------------------------------------------
 pub struct FormatEntry {
-    pub content_type: &'static str,
+    pub name: &'static str,   // e.g. "json", "msgpack", "gron"
     pub new_writer: fn() -> Box<dyn SpecWriter>,
     pub new_reader: fn(&[u8]) -> Result<Box<dyn SpecReader>, SCodecError>,
 }
@@ -36,10 +36,9 @@ impl FormatRegistry {
         self
     }
 
-    pub fn match_format(&self, content_type: &str) -> &FormatEntry {
+    pub fn match_format(&self, format: &str) -> &FormatEntry {
         for e in &self.entries {
-            let sub = e.content_type.split('/').nth(1).unwrap_or("");
-            if content_type.contains(sub) { return e; }
+            if format.contains(e.name) { return e; }
         }
         &self.entries[0]
     }
@@ -51,17 +50,17 @@ impl FormatRegistry {
 pub fn default_registry() -> FormatRegistry {
     FormatRegistry::new()
         .register(FormatEntry {
-            content_type: "application/json",
+            name: "json",
             new_writer: || Box::new(JsonWriter::new()),
             new_reader: |body| Ok(Box::new(JsonReader::new(body)?) as Box<dyn SpecReader>),
         })
         .register(FormatEntry {
-            content_type: "application/msgpack",
+            name: "msgpack",
             new_writer: || Box::new(MsgPackWriter::new()),
             new_reader: |body| Ok(Box::new(MsgPackReader::new(body)) as Box<dyn SpecReader>),
         })
         .register(FormatEntry {
-            content_type: "application/gron",
+            name: "gron",
             new_writer: || Box::new(GronWriter::new()),
             new_reader: |body| Ok(Box::new(GronReader::new(body)) as Box<dyn SpecReader>),
         })
@@ -70,26 +69,25 @@ pub fn default_registry() -> FormatRegistry {
 // ---------------------------------------------------------------------------
 // dispatch / respond
 // ---------------------------------------------------------------------------
-pub fn dispatch<T>(codec: &SpecCodec<T>, body: &[u8], content_type: &str) -> Result<T, SCodecError> {
+pub fn dispatch<T>(codec: &SpecCodec<T>, body: &[u8], format: &str) -> Result<T, SCodecError> {
     let reg = default_registry();
-    let fmt = reg.match_format(content_type);
+    let fmt = reg.match_format(format);
     let mut r = (fmt.new_reader)(body)?;
-    
     (codec.decode)(r.as_mut())
 }
 
 pub struct RespondResult {
     pub body: Vec<u8>,
-    pub content_type: String,
+    pub name: &'static str,  // format name: "json" | "msgpack" | "gron"
 }
 
-pub fn respond<T>(codec: &SpecCodec<T>, obj: &T, accept: &str) -> RespondResult {
+pub fn respond<T>(codec: &SpecCodec<T>, obj: &T, format: &str) -> RespondResult {
     let reg = default_registry();
-    let fmt = reg.match_format(accept);
+    let fmt = reg.match_format(format);
     let mut w = (fmt.new_writer)();
     (codec.encode)(obj, w.as_mut());
     RespondResult {
         body: w.to_bytes(),
-        content_type: fmt.content_type.to_string(),
+        name: fmt.name,
     }
 }
