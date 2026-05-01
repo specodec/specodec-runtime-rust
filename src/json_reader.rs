@@ -258,38 +258,6 @@ impl JsonReader {
 
     pub fn read_enum(&mut self) -> Result<String, SCodecError> { self.parse_string() }
 
-    pub fn begin_object(&mut self) -> Result<(), SCodecError> { self.expect(b'{') }
-
-    pub fn has_next_field(&mut self) -> Result<bool, SCodecError> {
-        Ok(self.peek()? != b'}')
-    }
-
-    pub fn read_field_name(&mut self) -> Result<String, SCodecError> { self.parse_string() }
-
-    pub fn next_field_separator(&mut self) -> Result<(), SCodecError> {
-        let ch = self.peek()?;
-        if ch == b',' { self.pos += 1; }
-        else if ch != b'}' { return Err(SCodecError::new(format!("json: expected ',' or '}}', got '{}'", ch as char))); }
-        Ok(())
-    }
-
-    pub fn end_object(&mut self) -> Result<(), SCodecError> { self.expect(b'}') }
-
-    pub fn begin_array(&mut self) -> Result<(), SCodecError> { self.expect(b'[') }
-
-    pub fn has_next_element(&mut self) -> Result<bool, SCodecError> {
-        Ok(self.peek()? != b']')
-    }
-
-    pub fn next_element_separator(&mut self) -> Result<(), SCodecError> {
-        let ch = self.peek()?;
-        if ch == b',' { self.pos += 1; }
-        else if ch != b']' { return Err(SCodecError::new(format!("json: expected ',' or ']', got '{}'", ch as char))); }
-        Ok(())
-    }
-
-    pub fn end_array(&mut self) -> Result<(), SCodecError> { self.expect(b']') }
-
     pub fn is_null(&mut self) -> Result<bool, SCodecError> {
         Ok(self.peek()? == b'n')
     }

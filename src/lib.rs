@@ -1,3 +1,4 @@
+pub mod float_fmt;
 pub mod json_writer;
 pub mod json_reader;
 pub mod msgpack_writer;

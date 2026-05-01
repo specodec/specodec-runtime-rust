@@ -90,8 +90,11 @@ impl JsonWriter {
         if !value.is_finite() {
             panic!("float32: NaN/Infinity not valid JSON");
         }
-        let s = self.fmt_float(value as f64);
-        self.buf.extend_from_slice(s.as_bytes());
+        if value == 0.0 && value.is_sign_negative() {
+            self.buf.extend_from_slice(b"-0");
+        } else {
+            self.buf.extend_from_slice(crate::float_fmt::fmt_float32(value).as_bytes());
+        }
     }
 
     pub fn write_float64(&mut self, value: f64) {

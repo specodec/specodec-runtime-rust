@@ -99,11 +99,6 @@ impl GronReader {
         if v == "-0" { return Ok(-0.0); }
         v.parse::<f32>().map_err(|_| SCodecError::new("gron: invalid float32"))
     }
-    pub fn read_float32_f64(&mut self) -> Result<f64, SCodecError> {
-        let v = &self.lines[self.cursor].1; self.cursor += 1;
-        if v == "-0" { return Ok(-0.0); }
-        v.parse::<f64>().map_err(|_| SCodecError::new("gron: invalid float32"))
-    }
     pub fn read_float64(&mut self) -> Result<f64, SCodecError> {
         let v = &self.lines[self.cursor].1; self.cursor += 1;
         if v == "-0" { return Ok(-0.0); }
@@ -139,7 +134,6 @@ impl GronReader {
         Ok(self.lines[self.cursor].0[pfx.len()..].to_string())
     }
 
-    pub fn next_field_separator(&mut self) -> Result<(), SCodecError> { Ok(()) }
     pub fn end_object(&mut self) -> Result<(), SCodecError> { self.ctx.pop(); Ok(()) }
 
     pub fn begin_array(&mut self) -> Result<(), SCodecError> {
@@ -157,7 +151,6 @@ impl GronReader {
         Ok(p == &exp || p.starts_with(&format!("{}.", exp)) || p.starts_with(&format!("{}[", exp)))
     }
 
-    pub fn next_element_separator(&mut self) -> Result<(), SCodecError> { Ok(()) }
     pub fn next_element(&mut self) -> Result<(), SCodecError> { self.ctx.last_mut().unwrap().index += 1; Ok(()) }
     pub fn end_array(&mut self) -> Result<(), SCodecError> { self.ctx.pop(); Ok(()) }
 

@@ -88,18 +88,13 @@ impl GronWriter {
     pub fn write_uint64(&mut self, value: u64) { self.emit(&format!("\"{}\"", value)); }
 
     pub fn write_float32(&mut self, value: f32) {
-        if value.is_nan() || value.is_infinite() {
-            panic!("NaN/Infinity");
+        if !value.is_finite() {
+            panic!("float32: NaN/Infinity not valid");
         }
         if value == 0.0 && value.is_sign_negative() {
             self.emit("-0");
         } else {
-            let mut r = format!("{}", value);
-            if r.contains('.') && !r.contains('E') && !r.contains('e') {
-                r = r.trim_end_matches('0').trim_end_matches('.').to_string();
-                if r.is_empty() { r = "0".to_string(); }
-            }
-            self.emit(&r);
+            self.emit(&crate::float_fmt::fmt_float32(value));
         }
     }
 

@@ -200,45 +200,6 @@ impl MsgPackReader {
         Ok(())
     }
 
-    pub fn begin_object(&mut self) -> Result<(), SCodecError> {
-        let n = self.read_map_header()?;
-        self.container_count.push(n);
-        Ok(())
-    }
-
-    pub fn has_next_field(&mut self) -> Result<bool, SCodecError> {
-        let top = self.container_count.len() - 1;
-        if self.container_count[top] > 0 {
-            self.container_count[top] -= 1;
-            Ok(true)
-        } else {
-            self.container_count.pop();
-            Ok(false)
-        }
-    }
-
-    pub fn read_field_name(&mut self) -> Result<String, SCodecError> { self.read_string() }
-    pub fn end_object(&mut self) -> Result<(), SCodecError> { Ok(()) }
-
-    pub fn begin_array(&mut self) -> Result<(), SCodecError> {
-        let n = self.read_array_header()?;
-        self.container_count.push(n);
-        Ok(())
-    }
-
-    pub fn has_next_element(&mut self) -> Result<bool, SCodecError> {
-        let top = self.container_count.len() - 1;
-        if self.container_count[top] > 0 {
-            self.container_count[top] -= 1;
-            Ok(true)
-        } else {
-            self.container_count.pop();
-            Ok(false)
-        }
-    }
-
-    pub fn end_array(&mut self) -> Result<(), SCodecError> { Ok(()) }
-
     pub fn read_bytes_raw(&mut self) -> Result<Vec<u8>, SCodecError> {
         let b = self.read_byte()?;
         let len = match b {
