@@ -1,3 +1,5 @@
+use crate::float_fmt::{format_float32, format_float64};
+
 pub struct JsonWriter {
     buf: Vec<u8>,
     first_item: Vec<bool>,
@@ -78,30 +80,19 @@ impl JsonWriter {
         self.buf.push(b'"');
     }
 
-    fn fmt_float(&self, value: f64) -> String {
-        let mut s = format!("{}", value);
-        if s.ends_with(".0") {
-            s.truncate(s.len() - 2);
-        }
-        s
-    }
-
     pub fn write_float32(&mut self, value: f32) {
         if !value.is_finite() {
             panic!("float32: NaN/Infinity not valid JSON");
         }
-        if value == 0.0 && value.is_sign_negative() {
-            self.buf.extend_from_slice(b"-0");
-        } else {
-            self.buf.extend_from_slice(crate::float_fmt::fmt_float32(value).as_bytes());
-        }
+        let s = format_float32(value);
+        self.buf.extend_from_slice(s.as_bytes());
     }
 
     pub fn write_float64(&mut self, value: f64) {
         if !value.is_finite() {
             panic!("float64: NaN/Infinity not valid JSON");
         }
-        let s = self.fmt_float(value);
+        let s = format_float64(value);
         self.buf.extend_from_slice(s.as_bytes());
     }
 

@@ -1,4 +1,5 @@
 use crate::json_reader::SCodecError;
+use crate::float_fmt::{format_float32, format_float64};
 
 pub struct GronWriter {
     lines: Vec<String>,
@@ -91,27 +92,14 @@ impl GronWriter {
         if !value.is_finite() {
             panic!("float32: NaN/Infinity not valid");
         }
-        if value == 0.0 && value.is_sign_negative() {
-            self.emit("-0");
-        } else {
-            self.emit(&crate::float_fmt::fmt_float32(value));
-        }
+        self.emit(&format_float32(value));
     }
 
     pub fn write_float64(&mut self, value: f64) {
         if value.is_nan() || value.is_infinite() {
             panic!("NaN/Infinity");
         }
-        if value == 0.0 && value.is_sign_negative() {
-            self.emit("-0");
-        } else {
-            let mut r = format!("{}", value);
-            if r.contains('.') && !r.contains('E') && !r.contains('e') {
-                r = r.trim_end_matches('0').trim_end_matches('.').to_string();
-                if r.is_empty() { r = "0".to_string(); }
-            }
-            self.emit(&r);
-        }
+        self.emit(&format_float64(value));
     }
 
     pub fn write_null(&mut self) { self.emit("null"); }

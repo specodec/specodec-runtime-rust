@@ -261,7 +261,10 @@ impl crate::spec_reader::SpecReader for MsgPackReader {
     fn read_int64(&mut self) -> Result<i64, SCodecError> { self.read_int() }
     fn read_uint32(&mut self) -> Result<u32, SCodecError> { Ok(self.read_int()? as u32) }
     fn read_uint64(&mut self) -> Result<u64, SCodecError> { Ok(self.read_int()? as u64) }
-    fn read_float32(&mut self) -> Result<f32, SCodecError> { Ok(self.read_float()? as f32) }
+    fn read_float32(&mut self) -> Result<f32, SCodecError> {
+        let v = self.read_float()?;
+        Ok(v as f32)
+    }
     fn read_float64(&mut self) -> Result<f64, SCodecError> { self.read_float() }
     fn read_null(&mut self) -> Result<(), SCodecError> { self.read_null() }
     fn read_bytes(&mut self) -> Result<Vec<u8>, SCodecError> { self.read_bytes_raw() }

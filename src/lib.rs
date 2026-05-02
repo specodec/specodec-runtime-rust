@@ -1,3 +1,4 @@
+pub mod ryu;
 pub mod float_fmt;
 pub mod json_writer;
 pub mod json_reader;

@@ -96,12 +96,10 @@ impl GronReader {
     pub fn read_uint64(&mut self) -> Result<u64, SCodecError> { let v = Self::unescape(&self.lines[self.cursor].1)?.parse::<u64>().map_err(|_| SCodecError::new("gron: invalid uint64"))?; self.cursor += 1; Ok(v) }
     pub fn read_float32(&mut self) -> Result<f32, SCodecError> {
         let v = &self.lines[self.cursor].1; self.cursor += 1;
-        if v == "-0" { return Ok(-0.0); }
         v.parse::<f32>().map_err(|_| SCodecError::new("gron: invalid float32"))
     }
     pub fn read_float64(&mut self) -> Result<f64, SCodecError> {
         let v = &self.lines[self.cursor].1; self.cursor += 1;
-        if v == "-0" { return Ok(-0.0); }
         v.parse::<f64>().map_err(|_| SCodecError::new("gron: invalid float64"))
     }
     pub fn read_null(&mut self) -> Result<(), SCodecError> {
