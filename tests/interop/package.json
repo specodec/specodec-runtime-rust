@@ -1,14 +1,14 @@
 {
-  "name": "specodec-rust-interop-test",
-  "version": "0.0.1",
+  "name": "specodec-interop-rust",
+  "version": "1.0.0",
   "type": "module",
-  "private": true,
-  "scripts": {
-    "test": "node test.mjs"
-  },
   "dependencies": {
-    "@typespec/compiler": "1.11.0",
-    "@specodec/typespec-emitter-core": "^0.0.1",
-    "@specodec/typespec-emitter-rust": "^0.0.1"
+    "@specodec/typespec-emitter-core": "0.1.0",
+    "@specodec/typespec-emitter-rust": "0.1.0",
+    "@typespec/compiler": "1.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
   }
 }
