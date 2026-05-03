@@ -1,8 +1,8 @@
 // Float64 configuration constants
 const DOUBLE_MANTISSA_BITS: u32 = 52;
 const DOUBLE_BIAS: u32 = 1023;
-const DOUBLE_POW5_INV_BITCOUNT: u32 = 125;
-const DOUBLE_POW5_BITCOUNT: u32 = 125;
+const DOUBLE_POW5_INV_BITCOUNT: i32 = 125;
+const DOUBLE_POW5_BITCOUNT: i32 = 125;
 
 use crate::ryu::ryu_math::*;
 use crate::ryu::tables_f64::*;
@@ -90,7 +90,7 @@ pub fn float64_to_string(d: f64) -> String {
         vm_ = mul_shift_64(mm, &DOUBLE_POW5_SPLIT[i as usize], j as u32);
         
         if q != 0 && (vp - 1) / 10 <= vm_ / 10 {
-            let j2 = q as i32 - 1 - (pow5bits(i + 1) - DOUBLE_POW5_BITCOUNT) as i32;
+            let j2 = q as i32 - 1 - (pow5bits(i + 1) - DOUBLE_POW5_BITCOUNT);
             last_digit = mul_shift_64(mv, &DOUBLE_POW5_SPLIT[(i + 1) as usize], j2 as u32) % 10;
         }
         

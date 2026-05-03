@@ -1,8 +1,8 @@
 // Float32 configuration constants
 const FLOAT_MANTISSA_BITS: u32 = 23;
 const FLOAT_BIAS: u32 = 127;
-const FLOAT_POW5_INV_BITCOUNT: u32 = 59;
-const FLOAT_POW5_BITCOUNT: u32 = 61;
+const FLOAT_POW5_INV_BITCOUNT: i32 = 59;
+const FLOAT_POW5_BITCOUNT: i32 = 61;
 
 use crate::ryu::ryu_math::*;
 use crate::ryu::tables_f32::*;
