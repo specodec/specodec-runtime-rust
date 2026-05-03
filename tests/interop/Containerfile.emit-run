@@ -1,0 +1,22 @@
+FROM dhi.io/rust:1-alpine3.23-dev AS runner
+WORKDIR /app
+ARG HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy
+ENV http_proxy=${HTTP_PROXY} https_proxy=${HTTPS_PROXY} HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTPS_PROXY} ALL_PROXY=${ALL_PROXY}
+
+COPY --from=emit_rust_src Cargo.toml ./
+COPY --from=specodec-rust . /specodec-rust/
+RUN mkdir -p src && echo "fn main(){}" > src/main.rs
+RUN --mount=type=cache,id=emit-run-rust-reg,target=/usr/local/cargo/registry \
+    --mount=type=cache,id=emit-run-rust-tgt,target=/app/target \
+    cargo build --release 2>&1 || true
+
+COPY --from=emit_gen test_service_types.rs gen/
+COPY --from=emit_rust_src src/main.rs src/main.rs
+COPY --from=emit_rust_src src/run_emit.rs src/run_emit.rs
+COPY --from=emit_rust_src src/dump_emit.rs src/dump_emit.rs
+COPY vectors/ /app/vectors/
+RUN mkdir -p /app/output_emit_rust
+ENV VEC_DIR=/app/vectors OUT_DIR=/app/output_emit_rust
+RUN --mount=type=cache,id=emit-run-rust-reg,target=/usr/local/cargo/registry \
+    --mount=type=cache,id=emit-run-rust-tgt,target=/app/target \
+    touch src/main.rs && cargo build --release && ./target/release/emit_test

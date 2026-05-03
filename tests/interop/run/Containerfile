@@ -1,0 +1,9 @@
+FROM dhi.io/rust:1-alpine3.23-dev AS runner
+WORKDIR /app
+RUN apk add --no-cache musl-dev
+COPY Cargo.toml Cargo.lock ./
+COPY src/ src/
+COPY vectors/ /app/vectors/
+RUN mkdir -p /app/output_rust/scalars
+ENV VEC_DIR=/app/vectors OUT_DIR=/app/output_rust
+RUN cargo run --release 2>&1
