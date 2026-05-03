@@ -4,7 +4,7 @@ ARG HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy
 ENV http_proxy=${HTTP_PROXY} https_proxy=${HTTPS_PROXY} HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTPS_PROXY} ALL_PROXY=${ALL_PROXY}
 COPY --from=run Cargo.toml Cargo.lock ./
 RUN mkdir -p src && echo "fn main(){}" > src/main.rs
-COPY --from=specodec-rust . /specodec-rust/
+COPY --from=specodec-runtime-rust . /specodec-rust/
 RUN --mount=type=cache,id=interop-rust-reg,target=/usr/local/cargo/registry \
     --mount=type=cache,id=interop-rust-tgt,target=/app/target \
     cargo build --release 2>&1 || true
