@@ -96,10 +96,16 @@ impl GronReader {
     pub fn read_uint64(&mut self) -> Result<u64, SCodecError> { let v = Self::unescape(&self.lines[self.cursor].1)?.parse::<u64>().map_err(|_| SCodecError::new("gron: invalid uint64"))?; self.cursor += 1; Ok(v) }
     pub fn read_float32(&mut self) -> Result<f32, SCodecError> {
         let v = &self.lines[self.cursor].1; self.cursor += 1;
+        if v == "\"NaN\"" { return Ok(f32::NAN); }
+        if v == "\"Infinity\"" { return Ok(f32::INFINITY); }
+        if v == "\"-Infinity\"" { return Ok(f32::NEG_INFINITY); }
         v.parse::<f32>().map_err(|_| SCodecError::new("gron: invalid float32"))
     }
     pub fn read_float64(&mut self) -> Result<f64, SCodecError> {
         let v = &self.lines[self.cursor].1; self.cursor += 1;
+        if v == "\"NaN\"" { return Ok(f64::NAN); }
+        if v == "\"Infinity\"" { return Ok(f64::INFINITY); }
+        if v == "\"-Infinity\"" { return Ok(f64::NEG_INFINITY); }
         v.parse::<f64>().map_err(|_| SCodecError::new("gron: invalid float64"))
     }
     pub fn read_null(&mut self) -> Result<(), SCodecError> {
@@ -142,14 +148,15 @@ impl GronReader {
 
     pub fn has_next_element(&mut self) -> Result<bool, SCodecError> {
         if self.cursor >= self.lines.len() { return Ok(false); }
-        let arr = self.ctx.last().unwrap();
+        let arr = self.ctx.last_mut().unwrap();
         let ni = arr.index + 1;
         let exp = format!("{}[{}]", arr.prefix, ni);
         let p = &self.lines[self.cursor].0;
-        Ok(p == &exp || p.starts_with(&format!("{}.", exp)) || p.starts_with(&format!("{}[", exp)))
+        let has_next = p == &exp || p.starts_with(&format!("{}.", exp)) || p.starts_with(&format!("{}[", exp));
+        if has_next { arr.index = ni; }
+        Ok(has_next)
     }
 
-    pub fn next_element(&mut self) -> Result<(), SCodecError> { self.ctx.last_mut().unwrap().index += 1; Ok(()) }
     pub fn end_array(&mut self) -> Result<(), SCodecError> { self.ctx.pop(); Ok(()) }
 
     pub fn is_null(&mut self) -> Result<bool, SCodecError> {

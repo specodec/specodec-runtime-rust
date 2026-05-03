@@ -90,14 +90,28 @@ impl GronWriter {
 
     pub fn write_float32(&mut self, value: f32) {
         if !value.is_finite() {
-            panic!("float32: NaN/Infinity not valid");
+            if value.is_nan() {
+                self.emit("\"NaN\"");
+            } else if value > 0.0 {
+                self.emit("\"Infinity\"");
+            } else {
+                self.emit("\"-Infinity\"");
+            }
+            return;
         }
         self.emit(&format_float32(value));
     }
 
     pub fn write_float64(&mut self, value: f64) {
-        if value.is_nan() || value.is_infinite() {
-            panic!("NaN/Infinity");
+        if !value.is_finite() {
+            if value.is_nan() {
+                self.emit("\"NaN\"");
+            } else if value > 0.0 {
+                self.emit("\"Infinity\"");
+            } else {
+                self.emit("\"-Infinity\"");
+            }
+            return;
         }
         self.emit(&format_float64(value));
     }

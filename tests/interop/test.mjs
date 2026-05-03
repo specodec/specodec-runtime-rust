@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { existsSync, mkdirSync, rmSync, readdirSync } from "fs";
+import { existsSync, mkdirSync, rmSync, readdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -44,6 +44,8 @@ if (rustFiles.length > 0) {
   console.error("  FAIL: No generated Rust files");
   process.exit(1);
 }
+writeFileSync(join(GENERATED, "mod.rs"), "pub mod all_types_types;\n");
+console.log("  ✓ Created mod.rs");
 
 console.log("\n=== Step 4: Generate test runner ===");
 run(`cd ${__dir} && VEC_DIR=${VEC_DIR} node generate_emit_runner.mjs`);

@@ -64,10 +64,7 @@ pub fn mul_shift_64(m: u64, mul: &[u64], shift: u32) -> u64 {
 pub fn multiple_of_power_of_5_64(value: u64, q: i32) -> bool {
     if q == 0 { return true; }
     if q >= 64 { return value == 0; }
-    let mut pow5: u64 = 5;
-    for _ in 1..q {
-        pow5 = pow5.wrapping_mul(5);
-    }
+    let pow5 = 5u64.pow(q as u32);
     (value % pow5) == 0
 }
 
@@ -85,7 +82,7 @@ pub fn multiple_of_power_of_5_32(value: u32, q: i32) -> bool {
     }
     let mut pow5: u32 = 5;
     for _ in 1..q {
-        pow5 = pow5.wrapping_mul(5);
+        pow5 *= 5;
     }
     (value % pow5) == 0
 }

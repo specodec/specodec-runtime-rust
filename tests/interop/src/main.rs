@@ -5,17 +5,10 @@ use std::path::Path;
 use specodec::{MsgPackReader, MsgPackWriter, JsonReader, JsonWriter, GronReader, GronWriter, SpecReader, SpecWriter};
 use generated::all_types_types::*;
 
-fn main() {
-    let vec_dir = std::env::var("VEC_DIR").unwrap();
-    let out_dir = std::env::var("OUT_DIR").unwrap();
-    fs::create_dir_all(&out_dir).unwrap();
-    fs::create_dir_all(Path::new(&out_dir).join("scalars")).unwrap();
 
+fn test_scalar_int8_min(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     let mut passed = 0u32;
     let mut failed = 0u32;
-
-    // Scalar tests
-    // int8_min
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int8_min.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -26,8 +19,12 @@ fn main() {
             } else { println!("FAIL int8_min mp: write error"); failed += 1; }
         } else { println!("FAIL int8_min mp: read error"); failed += 1; }
     } else { println!("FAIL int8_min mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int8_max
+fn test_scalar_int8_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int8_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -38,8 +35,12 @@ fn main() {
             } else { println!("FAIL int8_max mp: write error"); failed += 1; }
         } else { println!("FAIL int8_max mp: read error"); failed += 1; }
     } else { println!("FAIL int8_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int16_min
+fn test_scalar_int16_min(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int16_min.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -50,8 +51,12 @@ fn main() {
             } else { println!("FAIL int16_min mp: write error"); failed += 1; }
         } else { println!("FAIL int16_min mp: read error"); failed += 1; }
     } else { println!("FAIL int16_min mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int16_max
+fn test_scalar_int16_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int16_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -62,8 +67,12 @@ fn main() {
             } else { println!("FAIL int16_max mp: write error"); failed += 1; }
         } else { println!("FAIL int16_max mp: read error"); failed += 1; }
     } else { println!("FAIL int16_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int32_min
+fn test_scalar_int32_min(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int32_min.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -74,8 +83,12 @@ fn main() {
             } else { println!("FAIL int32_min mp: write error"); failed += 1; }
         } else { println!("FAIL int32_min mp: read error"); failed += 1; }
     } else { println!("FAIL int32_min mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int32_max
+fn test_scalar_int32_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int32_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int32() {
@@ -86,8 +99,12 @@ fn main() {
             } else { println!("FAIL int32_max mp: write error"); failed += 1; }
         } else { println!("FAIL int32_max mp: read error"); failed += 1; }
     } else { println!("FAIL int32_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int64_min
+fn test_scalar_int64_min(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int64_min.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int64() {
@@ -98,8 +115,12 @@ fn main() {
             } else { println!("FAIL int64_min mp: write error"); failed += 1; }
         } else { println!("FAIL int64_min mp: read error"); failed += 1; }
     } else { println!("FAIL int64_min mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // int64_max
+fn test_scalar_int64_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/int64_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_int64() {
@@ -110,8 +131,12 @@ fn main() {
             } else { println!("FAIL int64_max mp: write error"); failed += 1; }
         } else { println!("FAIL int64_max mp: read error"); failed += 1; }
     } else { println!("FAIL int64_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // uint8_max
+fn test_scalar_uint8_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/uint8_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_uint32() {
@@ -122,8 +147,12 @@ fn main() {
             } else { println!("FAIL uint8_max mp: write error"); failed += 1; }
         } else { println!("FAIL uint8_max mp: read error"); failed += 1; }
     } else { println!("FAIL uint8_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // uint16_max
+fn test_scalar_uint16_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/uint16_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_uint32() {
@@ -134,8 +163,12 @@ fn main() {
             } else { println!("FAIL uint16_max mp: write error"); failed += 1; }
         } else { println!("FAIL uint16_max mp: read error"); failed += 1; }
     } else { println!("FAIL uint16_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // uint32_max
+fn test_scalar_uint32_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/uint32_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_uint32() {
@@ -146,8 +179,12 @@ fn main() {
             } else { println!("FAIL uint32_max mp: write error"); failed += 1; }
         } else { println!("FAIL uint32_max mp: read error"); failed += 1; }
     } else { println!("FAIL uint32_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // uint64_max
+fn test_scalar_uint64_max(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/uint64_max.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_uint64() {
@@ -158,8 +195,12 @@ fn main() {
             } else { println!("FAIL uint64_max mp: write error"); failed += 1; }
         } else { println!("FAIL uint64_max mp: read error"); failed += 1; }
     } else { println!("FAIL uint64_max mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float32_1.5
+fn test_scalar_float32_1_5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float32_1.5.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float32() {
@@ -170,8 +211,12 @@ fn main() {
             } else { println!("FAIL float32_1.5 mp: write error"); failed += 1; }
         } else { println!("FAIL float32_1.5 mp: read error"); failed += 1; }
     } else { println!("FAIL float32_1.5 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float32_neg_zero
+fn test_scalar_float32_neg_zero(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float32_neg_zero.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float32() {
@@ -182,8 +227,12 @@ fn main() {
             } else { println!("FAIL float32_neg_zero mp: write error"); failed += 1; }
         } else { println!("FAIL float32_neg_zero mp: read error"); failed += 1; }
     } else { println!("FAIL float32_neg_zero mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float32_inf
+fn test_scalar_float32_inf(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float32_inf.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float32() {
@@ -194,8 +243,12 @@ fn main() {
             } else { println!("FAIL float32_inf mp: write error"); failed += 1; }
         } else { println!("FAIL float32_inf mp: read error"); failed += 1; }
     } else { println!("FAIL float32_inf mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float32_neg_inf
+fn test_scalar_float32_neg_inf(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float32_neg_inf.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float32() {
@@ -206,8 +259,12 @@ fn main() {
             } else { println!("FAIL float32_neg_inf mp: write error"); failed += 1; }
         } else { println!("FAIL float32_neg_inf mp: read error"); failed += 1; }
     } else { println!("FAIL float32_neg_inf mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float32_nan
+fn test_scalar_float32_nan(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float32_nan.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float32() {
@@ -218,8 +275,12 @@ fn main() {
             } else { println!("FAIL float32_nan mp: write error"); failed += 1; }
         } else { println!("FAIL float32_nan mp: read error"); failed += 1; }
     } else { println!("FAIL float32_nan mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float64_pi
+fn test_scalar_float64_pi(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float64_pi.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float64() {
@@ -230,8 +291,12 @@ fn main() {
             } else { println!("FAIL float64_pi mp: write error"); failed += 1; }
         } else { println!("FAIL float64_pi mp: read error"); failed += 1; }
     } else { println!("FAIL float64_pi mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float64_neg_zero
+fn test_scalar_float64_neg_zero(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float64_neg_zero.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float64() {
@@ -242,8 +307,12 @@ fn main() {
             } else { println!("FAIL float64_neg_zero mp: write error"); failed += 1; }
         } else { println!("FAIL float64_neg_zero mp: read error"); failed += 1; }
     } else { println!("FAIL float64_neg_zero mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float64_inf
+fn test_scalar_float64_inf(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float64_inf.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float64() {
@@ -254,8 +323,12 @@ fn main() {
             } else { println!("FAIL float64_inf mp: write error"); failed += 1; }
         } else { println!("FAIL float64_inf mp: read error"); failed += 1; }
     } else { println!("FAIL float64_inf mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float64_neg_inf
+fn test_scalar_float64_neg_inf(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float64_neg_inf.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float64() {
@@ -266,8 +339,12 @@ fn main() {
             } else { println!("FAIL float64_neg_inf mp: write error"); failed += 1; }
         } else { println!("FAIL float64_neg_inf mp: read error"); failed += 1; }
     } else { println!("FAIL float64_neg_inf mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // float64_nan
+fn test_scalar_float64_nan(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/float64_nan.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_float64() {
@@ -278,212 +355,284 @@ fn main() {
             } else { println!("FAIL float64_nan mp: write error"); failed += 1; }
         } else { println!("FAIL float64_nan mp: read error"); failed += 1; }
     } else { println!("FAIL float64_nan mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_empty
+fn test_scalar_str_empty(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_empty.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_empty.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_empty mp: write error"); failed += 1; }
         } else { println!("FAIL str_empty mp: read error"); failed += 1; }
     } else { println!("FAIL str_empty mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_ascii
+fn test_scalar_str_ascii(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_ascii.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_ascii.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_ascii mp: write error"); failed += 1; }
         } else { println!("FAIL str_ascii mp: read error"); failed += 1; }
     } else { println!("FAIL str_ascii mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_null_byte
+fn test_scalar_str_null_byte(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_null_byte.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_null_byte.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_null_byte mp: write error"); failed += 1; }
         } else { println!("FAIL str_null_byte mp: read error"); failed += 1; }
     } else { println!("FAIL str_null_byte mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_escape
+fn test_scalar_str_escape(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_escape.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_escape.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_escape mp: write error"); failed += 1; }
         } else { println!("FAIL str_escape mp: read error"); failed += 1; }
     } else { println!("FAIL str_escape mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_unicode
+fn test_scalar_str_unicode(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_unicode.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_unicode.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_unicode mp: write error"); failed += 1; }
         } else { println!("FAIL str_unicode mp: read error"); failed += 1; }
     } else { println!("FAIL str_unicode mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_31
+fn test_scalar_str_31(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_31.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_31.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_31 mp: write error"); failed += 1; }
         } else { println!("FAIL str_31 mp: read error"); failed += 1; }
     } else { println!("FAIL str_31 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_32
+fn test_scalar_str_32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_32.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_32.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_32 mp: write error"); failed += 1; }
         } else { println!("FAIL str_32 mp: read error"); failed += 1; }
     } else { println!("FAIL str_32 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_255
+fn test_scalar_str_255(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_255.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_255.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_255 mp: write error"); failed += 1; }
         } else { println!("FAIL str_255 mp: read error"); failed += 1; }
     } else { println!("FAIL str_255 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // str_256
+fn test_scalar_str_256(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/str_256.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_string() {
             let mut w = MsgPackWriter::new();
-            w.write_string(val);
+            w.write_string(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/str_256.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL str_256 mp: write error"); failed += 1; }
         } else { println!("FAIL str_256 mp: read error"); failed += 1; }
     } else { println!("FAIL str_256 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_empty
+fn test_scalar_bytes_empty(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_empty.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_empty.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_empty mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_empty mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_empty mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_small
+fn test_scalar_bytes_small(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_small.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_small.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_small mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_small mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_small mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_31
+fn test_scalar_bytes_31(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_31.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_31.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_31 mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_31 mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_31 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_32
+fn test_scalar_bytes_32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_32.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_32.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_32 mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_32 mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_32 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_255
+fn test_scalar_bytes_255(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_255.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_255.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_255 mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_255 mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_255 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_256
+fn test_scalar_bytes_256(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_256.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_256.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_256 mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_256 mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_256 mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_zeros
+fn test_scalar_bytes_zeros(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_zeros.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_zeros.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_zeros mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_zeros mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_zeros mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bytes_ff
+fn test_scalar_bytes_ff(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bytes_ff.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bytes() {
             let mut w = MsgPackWriter::new();
-            w.write_bytes(val);
+            w.write_bytes(&val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/bytes_ff.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL bytes_ff mp: write error"); failed += 1; }
         } else { println!("FAIL bytes_ff mp: read error"); failed += 1; }
     } else { println!("FAIL bytes_ff mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bool_true
+fn test_scalar_bool_true(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bool_true.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bool() {
@@ -494,8 +643,12 @@ fn main() {
             } else { println!("FAIL bool_true mp: write error"); failed += 1; }
         } else { println!("FAIL bool_true mp: read error"); failed += 1; }
     } else { println!("FAIL bool_true mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // bool_false
+fn test_scalar_bool_false(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/bool_false.mp")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(val) = r.read_bool() {
@@ -506,9 +659,15 @@ fn main() {
             } else { println!("FAIL bool_false mp: write error"); failed += 1; }
         } else { println!("FAIL bool_false mp: read error"); failed += 1; }
     } else { println!("FAIL bool_false mp: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Object tests
-    // OptInner
+
+
+fn test_model_opt_inner(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptInner.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_inner_decode(&mut r) {
@@ -519,29 +678,31 @@ fn main() {
             } else { println!("FAIL OptInner mp: write error"); failed += 1; }
         } else { println!("FAIL OptInner mp: decode error"); failed += 1; }
     } else { println!("FAIL OptInner mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptInner.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptInner.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptInner json: write error"); failed += 1; }
-        } else { println!("FAIL OptInner json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptInner.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptInner json: write error"); failed += 1; }
+            } else { println!("FAIL OptInner json: decode error"); failed += 1; }
+        } else { println!("FAIL OptInner json: reader error"); failed += 1; }
     } else { println!("FAIL OptInner json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptInner.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptInner.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptInner unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptInner unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptInner.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptInner unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptInner unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptInner unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptInner unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptInner.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_inner_decode(&mut r) {
@@ -552,8 +713,13 @@ fn main() {
             } else { println!("FAIL OptInner gron: write error"); failed += 1; }
         } else { println!("FAIL OptInner gron: decode error"); failed += 1; }
     } else { println!("FAIL OptInner gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleString
+fn test_model_single_string(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleString.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_string_decode(&mut r) {
@@ -564,29 +730,31 @@ fn main() {
             } else { println!("FAIL SingleString mp: write error"); failed += 1; }
         } else { println!("FAIL SingleString mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleString mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleString.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleString.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleString json: write error"); failed += 1; }
-        } else { println!("FAIL SingleString json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleString.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleString json: write error"); failed += 1; }
+            } else { println!("FAIL SingleString json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleString json: reader error"); failed += 1; }
     } else { println!("FAIL SingleString json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleString.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleString.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleString unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleString unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleString.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleString unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleString unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleString unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleString unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleString.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_string_decode(&mut r) {
@@ -597,8 +765,13 @@ fn main() {
             } else { println!("FAIL SingleString gron: write error"); failed += 1; }
         } else { println!("FAIL SingleString gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleString gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleBoolean
+fn test_model_single_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBoolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_boolean_decode(&mut r) {
@@ -609,29 +782,31 @@ fn main() {
             } else { println!("FAIL SingleBoolean mp: write error"); failed += 1; }
         } else { println!("FAIL SingleBoolean mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleBoolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBoolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBoolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleBoolean json: write error"); failed += 1; }
-        } else { println!("FAIL SingleBoolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBoolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleBoolean json: write error"); failed += 1; }
+            } else { println!("FAIL SingleBoolean json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleBoolean json: reader error"); failed += 1; }
     } else { println!("FAIL SingleBoolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBoolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBoolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleBoolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleBoolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBoolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleBoolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleBoolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleBoolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleBoolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBoolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_boolean_decode(&mut r) {
@@ -642,8 +817,13 @@ fn main() {
             } else { println!("FAIL SingleBoolean gron: write error"); failed += 1; }
         } else { println!("FAIL SingleBoolean gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleBoolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleInt8
+fn test_model_single_int8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_int8_decode(&mut r) {
@@ -654,29 +834,31 @@ fn main() {
             } else { println!("FAIL SingleInt8 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleInt8 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt8 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt8 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt8 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt8 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_int8_decode(&mut r) {
@@ -687,8 +869,13 @@ fn main() {
             } else { println!("FAIL SingleInt8 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleInt8 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleInt16
+fn test_model_single_int16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_int16_decode(&mut r) {
@@ -699,29 +886,31 @@ fn main() {
             } else { println!("FAIL SingleInt16 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleInt16 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt16 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt16 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt16 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt16 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_int16_decode(&mut r) {
@@ -732,8 +921,13 @@ fn main() {
             } else { println!("FAIL SingleInt16 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleInt16 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleInt32
+fn test_model_single_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_int32_decode(&mut r) {
@@ -744,29 +938,31 @@ fn main() {
             } else { println!("FAIL SingleInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_int32_decode(&mut r) {
@@ -777,8 +973,13 @@ fn main() {
             } else { println!("FAIL SingleInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleInt64
+fn test_model_single_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_int64_decode(&mut r) {
@@ -789,29 +990,31 @@ fn main() {
             } else { println!("FAIL SingleInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_int64_decode(&mut r) {
@@ -822,8 +1025,13 @@ fn main() {
             } else { println!("FAIL SingleInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleUint8
+fn test_model_single_uint8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_uint8_decode(&mut r) {
@@ -834,29 +1042,31 @@ fn main() {
             } else { println!("FAIL SingleUint8 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleUint8 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint8 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint8 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint8 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint8 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_uint8_decode(&mut r) {
@@ -867,8 +1077,13 @@ fn main() {
             } else { println!("FAIL SingleUint8 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleUint8 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleUint16
+fn test_model_single_uint16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_uint16_decode(&mut r) {
@@ -879,29 +1094,31 @@ fn main() {
             } else { println!("FAIL SingleUint16 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleUint16 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint16 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint16 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint16 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint16 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_uint16_decode(&mut r) {
@@ -912,8 +1129,13 @@ fn main() {
             } else { println!("FAIL SingleUint16 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleUint16 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleUint32
+fn test_model_single_uint32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_uint32_decode(&mut r) {
@@ -924,29 +1146,31 @@ fn main() {
             } else { println!("FAIL SingleUint32 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleUint32 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint32 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint32 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint32 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint32 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_uint32_decode(&mut r) {
@@ -957,8 +1181,13 @@ fn main() {
             } else { println!("FAIL SingleUint32 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleUint32 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleUint64
+fn test_model_single_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_uint64_decode(&mut r) {
@@ -969,29 +1198,31 @@ fn main() {
             } else { println!("FAIL SingleUint64 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleUint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint64 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint64 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint64 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleUint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleUint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleUint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleUint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleUint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleUint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleUint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleUint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_uint64_decode(&mut r) {
@@ -1002,8 +1233,13 @@ fn main() {
             } else { println!("FAIL SingleUint64 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleUint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleUint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleFloat32
+fn test_model_single_float32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_float32_decode(&mut r) {
@@ -1014,29 +1250,31 @@ fn main() {
             } else { println!("FAIL SingleFloat32 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleFloat32 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleFloat32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleFloat32 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleFloat32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleFloat32 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleFloat32 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleFloat32 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleFloat32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleFloat32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleFloat32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleFloat32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleFloat32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleFloat32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleFloat32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_float32_decode(&mut r) {
@@ -1047,8 +1285,13 @@ fn main() {
             } else { println!("FAIL SingleFloat32 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleFloat32 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleFloat32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleFloat64
+fn test_model_single_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_float64_decode(&mut r) {
@@ -1059,29 +1302,31 @@ fn main() {
             } else { println!("FAIL SingleFloat64 mp: write error"); failed += 1; }
         } else { println!("FAIL SingleFloat64 mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleFloat64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleFloat64 json: write error"); failed += 1; }
-        } else { println!("FAIL SingleFloat64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleFloat64 json: write error"); failed += 1; }
+            } else { println!("FAIL SingleFloat64 json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleFloat64 json: reader error"); failed += 1; }
     } else { println!("FAIL SingleFloat64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleFloat64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleFloat64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleFloat64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleFloat64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleFloat64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleFloat64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleFloat64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleFloat64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_float64_decode(&mut r) {
@@ -1092,8 +1337,13 @@ fn main() {
             } else { println!("FAIL SingleFloat64 gron: write error"); failed += 1; }
         } else { println!("FAIL SingleFloat64 gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleFloat64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // SingleBytes
+fn test_model_single_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = single_bytes_decode(&mut r) {
@@ -1104,29 +1354,31 @@ fn main() {
             } else { println!("FAIL SingleBytes mp: write error"); failed += 1; }
         } else { println!("FAIL SingleBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL SingleBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleBytes json: write error"); failed += 1; }
-        } else { println!("FAIL SingleBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleBytes json: write error"); failed += 1; }
+            } else { println!("FAIL SingleBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL SingleBytes json: reader error"); failed += 1; }
     } else { println!("FAIL SingleBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = single_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            single_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL SingleBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL SingleBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = single_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                single_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("SingleBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL SingleBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL SingleBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL SingleBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL SingleBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("SingleBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = single_bytes_decode(&mut r) {
@@ -1137,8 +1389,13 @@ fn main() {
             } else { println!("FAIL SingleBytes gron: write error"); failed += 1; }
         } else { println!("FAIL SingleBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL SingleBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleString
+fn test_model_opt_single_string(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleString.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_string_decode(&mut r) {
@@ -1149,29 +1406,31 @@ fn main() {
             } else { println!("FAIL OptSingleString mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleString mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleString mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleString.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleString.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleString json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleString json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleString.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleString json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleString json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleString json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleString json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleString.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleString.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleString unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleString unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleString.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleString unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleString unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleString unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleString unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleString.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_string_decode(&mut r) {
@@ -1182,8 +1441,13 @@ fn main() {
             } else { println!("FAIL OptSingleString gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleString gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleString gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleBoolean
+fn test_model_opt_single_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBoolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_boolean_decode(&mut r) {
@@ -1194,29 +1458,31 @@ fn main() {
             } else { println!("FAIL OptSingleBoolean mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleBoolean mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleBoolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBoolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBoolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleBoolean json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleBoolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBoolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleBoolean json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleBoolean json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleBoolean json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleBoolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBoolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBoolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleBoolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleBoolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBoolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleBoolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleBoolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleBoolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleBoolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBoolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_boolean_decode(&mut r) {
@@ -1227,8 +1493,13 @@ fn main() {
             } else { println!("FAIL OptSingleBoolean gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleBoolean gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleBoolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleInt8
+fn test_model_opt_single_int8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_int8_decode(&mut r) {
@@ -1239,29 +1510,31 @@ fn main() {
             } else { println!("FAIL OptSingleInt8 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt8 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt8 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt8 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt8 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt8 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_int8_decode(&mut r) {
@@ -1272,8 +1545,13 @@ fn main() {
             } else { println!("FAIL OptSingleInt8 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt8 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleInt16
+fn test_model_opt_single_int16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_int16_decode(&mut r) {
@@ -1284,29 +1562,31 @@ fn main() {
             } else { println!("FAIL OptSingleInt16 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt16 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt16 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt16 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt16 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt16 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_int16_decode(&mut r) {
@@ -1317,8 +1597,13 @@ fn main() {
             } else { println!("FAIL OptSingleInt16 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt16 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleInt32
+fn test_model_opt_single_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_int32_decode(&mut r) {
@@ -1329,29 +1614,31 @@ fn main() {
             } else { println!("FAIL OptSingleInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_int32_decode(&mut r) {
@@ -1362,8 +1649,13 @@ fn main() {
             } else { println!("FAIL OptSingleInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleInt64
+fn test_model_opt_single_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_int64_decode(&mut r) {
@@ -1374,29 +1666,31 @@ fn main() {
             } else { println!("FAIL OptSingleInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_int64_decode(&mut r) {
@@ -1407,8 +1701,13 @@ fn main() {
             } else { println!("FAIL OptSingleInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleUint8
+fn test_model_opt_single_uint8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_uint8_decode(&mut r) {
@@ -1419,29 +1718,31 @@ fn main() {
             } else { println!("FAIL OptSingleUint8 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint8 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint8 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint8 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint8 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint8 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_uint8_decode(&mut r) {
@@ -1452,8 +1753,13 @@ fn main() {
             } else { println!("FAIL OptSingleUint8 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint8 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleUint16
+fn test_model_opt_single_uint16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_uint16_decode(&mut r) {
@@ -1464,29 +1770,31 @@ fn main() {
             } else { println!("FAIL OptSingleUint16 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint16 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint16 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint16 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint16 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint16 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_uint16_decode(&mut r) {
@@ -1497,8 +1805,13 @@ fn main() {
             } else { println!("FAIL OptSingleUint16 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint16 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleUint32
+fn test_model_opt_single_uint32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_uint32_decode(&mut r) {
@@ -1509,29 +1822,31 @@ fn main() {
             } else { println!("FAIL OptSingleUint32 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint32 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint32 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint32 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint32 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint32 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_uint32_decode(&mut r) {
@@ -1542,8 +1857,13 @@ fn main() {
             } else { println!("FAIL OptSingleUint32 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint32 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleUint64
+fn test_model_opt_single_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_uint64_decode(&mut r) {
@@ -1554,29 +1874,31 @@ fn main() {
             } else { println!("FAIL OptSingleUint64 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint64 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint64 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint64 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleUint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleUint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleUint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleUint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleUint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleUint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleUint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleUint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_uint64_decode(&mut r) {
@@ -1587,8 +1909,13 @@ fn main() {
             } else { println!("FAIL OptSingleUint64 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleUint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleUint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleFloat32
+fn test_model_opt_single_float32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_float32_decode(&mut r) {
@@ -1599,29 +1926,31 @@ fn main() {
             } else { println!("FAIL OptSingleFloat32 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleFloat32 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleFloat32 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleFloat32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleFloat32 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleFloat32 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleFloat32 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleFloat32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleFloat32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleFloat32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleFloat32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleFloat32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_float32_decode(&mut r) {
@@ -1632,8 +1961,13 @@ fn main() {
             } else { println!("FAIL OptSingleFloat32 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleFloat32 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleFloat64
+fn test_model_opt_single_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_float64_decode(&mut r) {
@@ -1644,29 +1978,31 @@ fn main() {
             } else { println!("FAIL OptSingleFloat64 mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleFloat64 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleFloat64 json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleFloat64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleFloat64 json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleFloat64 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleFloat64 json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleFloat64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleFloat64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleFloat64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleFloat64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleFloat64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleFloat64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleFloat64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_float64_decode(&mut r) {
@@ -1677,8 +2013,13 @@ fn main() {
             } else { println!("FAIL OptSingleFloat64 gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleFloat64 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleFloat64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptSingleBytes
+fn test_model_opt_single_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_single_bytes_decode(&mut r) {
@@ -1689,29 +2030,31 @@ fn main() {
             } else { println!("FAIL OptSingleBytes mp: write error"); failed += 1; }
         } else { println!("FAIL OptSingleBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleBytes json: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleBytes json: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleBytes json: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_single_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_single_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptSingleBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptSingleBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_single_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_single_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptSingleBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptSingleBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptSingleBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptSingleBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptSingleBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptSingleBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_single_bytes_decode(&mut r) {
@@ -1722,8 +2065,13 @@ fn main() {
             } else { println!("FAIL OptSingleBytes gron: write error"); failed += 1; }
         } else { println!("FAIL OptSingleBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL OptSingleBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairString
+fn test_model_pair_string(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairString.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_string_decode(&mut r) {
@@ -1734,29 +2082,31 @@ fn main() {
             } else { println!("FAIL PairString mp: write error"); failed += 1; }
         } else { println!("FAIL PairString mp: decode error"); failed += 1; }
     } else { println!("FAIL PairString mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairString.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairString.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairString json: write error"); failed += 1; }
-        } else { println!("FAIL PairString json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairString.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairString json: write error"); failed += 1; }
+            } else { println!("FAIL PairString json: decode error"); failed += 1; }
+        } else { println!("FAIL PairString json: reader error"); failed += 1; }
     } else { println!("FAIL PairString json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairString.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairString.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairString unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairString unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairString.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairString unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairString unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairString unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairString unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairString.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_string_decode(&mut r) {
@@ -1767,8 +2117,13 @@ fn main() {
             } else { println!("FAIL PairString gron: write error"); failed += 1; }
         } else { println!("FAIL PairString gron: decode error"); failed += 1; }
     } else { println!("FAIL PairString gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairBoolean
+fn test_model_pair_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBoolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_boolean_decode(&mut r) {
@@ -1779,29 +2134,31 @@ fn main() {
             } else { println!("FAIL PairBoolean mp: write error"); failed += 1; }
         } else { println!("FAIL PairBoolean mp: decode error"); failed += 1; }
     } else { println!("FAIL PairBoolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBoolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBoolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairBoolean json: write error"); failed += 1; }
-        } else { println!("FAIL PairBoolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBoolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairBoolean json: write error"); failed += 1; }
+            } else { println!("FAIL PairBoolean json: decode error"); failed += 1; }
+        } else { println!("FAIL PairBoolean json: reader error"); failed += 1; }
     } else { println!("FAIL PairBoolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBoolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBoolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairBoolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairBoolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBoolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairBoolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairBoolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairBoolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairBoolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBoolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_boolean_decode(&mut r) {
@@ -1812,8 +2169,13 @@ fn main() {
             } else { println!("FAIL PairBoolean gron: write error"); failed += 1; }
         } else { println!("FAIL PairBoolean gron: decode error"); failed += 1; }
     } else { println!("FAIL PairBoolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairInt8
+fn test_model_pair_int8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_int8_decode(&mut r) {
@@ -1824,29 +2186,31 @@ fn main() {
             } else { println!("FAIL PairInt8 mp: write error"); failed += 1; }
         } else { println!("FAIL PairInt8 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairInt8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt8 json: write error"); failed += 1; }
-        } else { println!("FAIL PairInt8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt8 json: write error"); failed += 1; }
+            } else { println!("FAIL PairInt8 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt8 json: reader error"); failed += 1; }
     } else { println!("FAIL PairInt8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairInt8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairInt8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairInt8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_int8_decode(&mut r) {
@@ -1857,8 +2221,13 @@ fn main() {
             } else { println!("FAIL PairInt8 gron: write error"); failed += 1; }
         } else { println!("FAIL PairInt8 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairInt8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairInt16
+fn test_model_pair_int16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_int16_decode(&mut r) {
@@ -1869,29 +2238,31 @@ fn main() {
             } else { println!("FAIL PairInt16 mp: write error"); failed += 1; }
         } else { println!("FAIL PairInt16 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairInt16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt16 json: write error"); failed += 1; }
-        } else { println!("FAIL PairInt16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt16 json: write error"); failed += 1; }
+            } else { println!("FAIL PairInt16 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt16 json: reader error"); failed += 1; }
     } else { println!("FAIL PairInt16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairInt16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairInt16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairInt16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_int16_decode(&mut r) {
@@ -1902,8 +2273,13 @@ fn main() {
             } else { println!("FAIL PairInt16 gron: write error"); failed += 1; }
         } else { println!("FAIL PairInt16 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairInt16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairInt32
+fn test_model_pair_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_int32_decode(&mut r) {
@@ -1914,29 +2290,31 @@ fn main() {
             } else { println!("FAIL PairInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL PairInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL PairInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL PairInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL PairInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_int32_decode(&mut r) {
@@ -1947,8 +2325,13 @@ fn main() {
             } else { println!("FAIL PairInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL PairInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairInt64
+fn test_model_pair_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_int64_decode(&mut r) {
@@ -1959,29 +2342,31 @@ fn main() {
             } else { println!("FAIL PairInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL PairInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL PairInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL PairInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL PairInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_int64_decode(&mut r) {
@@ -1992,8 +2377,13 @@ fn main() {
             } else { println!("FAIL PairInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL PairInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairUint8
+fn test_model_pair_uint8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_uint8_decode(&mut r) {
@@ -2004,29 +2394,31 @@ fn main() {
             } else { println!("FAIL PairUint8 mp: write error"); failed += 1; }
         } else { println!("FAIL PairUint8 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairUint8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint8 json: write error"); failed += 1; }
-        } else { println!("FAIL PairUint8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint8 json: write error"); failed += 1; }
+            } else { println!("FAIL PairUint8 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint8 json: reader error"); failed += 1; }
     } else { println!("FAIL PairUint8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairUint8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairUint8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairUint8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_uint8_decode(&mut r) {
@@ -2037,8 +2429,13 @@ fn main() {
             } else { println!("FAIL PairUint8 gron: write error"); failed += 1; }
         } else { println!("FAIL PairUint8 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairUint8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairUint16
+fn test_model_pair_uint16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_uint16_decode(&mut r) {
@@ -2049,29 +2446,31 @@ fn main() {
             } else { println!("FAIL PairUint16 mp: write error"); failed += 1; }
         } else { println!("FAIL PairUint16 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairUint16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint16 json: write error"); failed += 1; }
-        } else { println!("FAIL PairUint16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint16 json: write error"); failed += 1; }
+            } else { println!("FAIL PairUint16 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint16 json: reader error"); failed += 1; }
     } else { println!("FAIL PairUint16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairUint16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairUint16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairUint16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_uint16_decode(&mut r) {
@@ -2082,8 +2481,13 @@ fn main() {
             } else { println!("FAIL PairUint16 gron: write error"); failed += 1; }
         } else { println!("FAIL PairUint16 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairUint16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairUint32
+fn test_model_pair_uint32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_uint32_decode(&mut r) {
@@ -2094,29 +2498,31 @@ fn main() {
             } else { println!("FAIL PairUint32 mp: write error"); failed += 1; }
         } else { println!("FAIL PairUint32 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairUint32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint32 json: write error"); failed += 1; }
-        } else { println!("FAIL PairUint32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint32 json: write error"); failed += 1; }
+            } else { println!("FAIL PairUint32 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint32 json: reader error"); failed += 1; }
     } else { println!("FAIL PairUint32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairUint32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairUint32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairUint32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_uint32_decode(&mut r) {
@@ -2127,8 +2533,13 @@ fn main() {
             } else { println!("FAIL PairUint32 gron: write error"); failed += 1; }
         } else { println!("FAIL PairUint32 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairUint32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairUint64
+fn test_model_pair_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_uint64_decode(&mut r) {
@@ -2139,29 +2550,31 @@ fn main() {
             } else { println!("FAIL PairUint64 mp: write error"); failed += 1; }
         } else { println!("FAIL PairUint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairUint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint64 json: write error"); failed += 1; }
-        } else { println!("FAIL PairUint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint64 json: write error"); failed += 1; }
+            } else { println!("FAIL PairUint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint64 json: reader error"); failed += 1; }
     } else { println!("FAIL PairUint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairUint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairUint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairUint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairUint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairUint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairUint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairUint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairUint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_uint64_decode(&mut r) {
@@ -2172,8 +2585,13 @@ fn main() {
             } else { println!("FAIL PairUint64 gron: write error"); failed += 1; }
         } else { println!("FAIL PairUint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairUint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairFloat32
+fn test_model_pair_float32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_float32_decode(&mut r) {
@@ -2184,29 +2602,31 @@ fn main() {
             } else { println!("FAIL PairFloat32 mp: write error"); failed += 1; }
         } else { println!("FAIL PairFloat32 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairFloat32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairFloat32 json: write error"); failed += 1; }
-        } else { println!("FAIL PairFloat32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairFloat32 json: write error"); failed += 1; }
+            } else { println!("FAIL PairFloat32 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairFloat32 json: reader error"); failed += 1; }
     } else { println!("FAIL PairFloat32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairFloat32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairFloat32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairFloat32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairFloat32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairFloat32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairFloat32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_float32_decode(&mut r) {
@@ -2217,8 +2637,13 @@ fn main() {
             } else { println!("FAIL PairFloat32 gron: write error"); failed += 1; }
         } else { println!("FAIL PairFloat32 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairFloat32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairFloat64
+fn test_model_pair_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_float64_decode(&mut r) {
@@ -2229,29 +2654,31 @@ fn main() {
             } else { println!("FAIL PairFloat64 mp: write error"); failed += 1; }
         } else { println!("FAIL PairFloat64 mp: decode error"); failed += 1; }
     } else { println!("FAIL PairFloat64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairFloat64 json: write error"); failed += 1; }
-        } else { println!("FAIL PairFloat64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairFloat64 json: write error"); failed += 1; }
+            } else { println!("FAIL PairFloat64 json: decode error"); failed += 1; }
+        } else { println!("FAIL PairFloat64 json: reader error"); failed += 1; }
     } else { println!("FAIL PairFloat64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairFloat64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairFloat64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairFloat64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairFloat64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairFloat64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairFloat64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairFloat64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairFloat64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_float64_decode(&mut r) {
@@ -2262,8 +2689,13 @@ fn main() {
             } else { println!("FAIL PairFloat64 gron: write error"); failed += 1; }
         } else { println!("FAIL PairFloat64 gron: decode error"); failed += 1; }
     } else { println!("FAIL PairFloat64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // PairBytes
+fn test_model_pair_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = pair_bytes_decode(&mut r) {
@@ -2274,29 +2706,31 @@ fn main() {
             } else { println!("FAIL PairBytes mp: write error"); failed += 1; }
         } else { println!("FAIL PairBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL PairBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairBytes json: write error"); failed += 1; }
-        } else { println!("FAIL PairBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairBytes json: write error"); failed += 1; }
+            } else { println!("FAIL PairBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL PairBytes json: reader error"); failed += 1; }
     } else { println!("FAIL PairBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = pair_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            pair_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL PairBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL PairBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = pair_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                pair_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("PairBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL PairBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL PairBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL PairBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL PairBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("PairBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = pair_bytes_decode(&mut r) {
@@ -2307,8 +2741,13 @@ fn main() {
             } else { println!("FAIL PairBytes gron: write error"); failed += 1; }
         } else { println!("FAIL PairBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL PairBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringInt32
+fn test_model_dual_string_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_int32_decode(&mut r) {
@@ -2319,29 +2758,31 @@ fn main() {
             } else { println!("FAIL DualStringInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_int32_decode(&mut r) {
@@ -2352,8 +2793,13 @@ fn main() {
             } else { println!("FAIL DualStringInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringBoolean
+fn test_model_dual_string_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBoolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_boolean_decode(&mut r) {
@@ -2364,29 +2810,31 @@ fn main() {
             } else { println!("FAIL DualStringBoolean mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringBoolean mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringBoolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBoolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBoolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringBoolean json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringBoolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBoolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringBoolean json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringBoolean json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringBoolean json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringBoolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBoolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBoolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringBoolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringBoolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBoolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringBoolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringBoolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringBoolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringBoolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBoolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_boolean_decode(&mut r) {
@@ -2397,8 +2845,13 @@ fn main() {
             } else { println!("FAIL DualStringBoolean gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringBoolean gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringBoolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringFloat64
+fn test_model_dual_string_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringFloat64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_float64_decode(&mut r) {
@@ -2409,29 +2862,31 @@ fn main() {
             } else { println!("FAIL DualStringFloat64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringFloat64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringFloat64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringFloat64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringFloat64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringFloat64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringFloat64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringFloat64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringFloat64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringFloat64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringFloat64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringFloat64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringFloat64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringFloat64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringFloat64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringFloat64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringFloat64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringFloat64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringFloat64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringFloat64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringFloat64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringFloat64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_float64_decode(&mut r) {
@@ -2442,8 +2897,13 @@ fn main() {
             } else { println!("FAIL DualStringFloat64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringFloat64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringFloat64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringBytes
+fn test_model_dual_string_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_bytes_decode(&mut r) {
@@ -2454,29 +2914,31 @@ fn main() {
             } else { println!("FAIL DualStringBytes mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringBytes json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringBytes json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringBytes json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_bytes_decode(&mut r) {
@@ -2487,8 +2949,13 @@ fn main() {
             } else { println!("FAIL DualStringBytes gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt32Boolean
+fn test_model_dual_int32_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Boolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
@@ -2499,29 +2966,31 @@ fn main() {
             } else { println!("FAIL DualInt32Boolean mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Boolean mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Boolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Boolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Boolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Boolean json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Boolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Boolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Boolean json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Boolean json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Boolean json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Boolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Boolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Boolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Boolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Boolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Boolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Boolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Boolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Boolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Boolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Boolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int32_boolean_decode(&mut r) {
@@ -2532,8 +3001,13 @@ fn main() {
             } else { println!("FAIL DualInt32Boolean gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Boolean gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Boolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt32Float64
+fn test_model_dual_int32_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Float64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int32_float64_decode(&mut r) {
@@ -2544,29 +3018,31 @@ fn main() {
             } else { println!("FAIL DualInt32Float64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Float64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Float64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Float64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Float64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Float64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Float64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Float64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Float64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Float64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Float64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Float64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Float64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Float64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Float64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Float64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Float64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Float64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Float64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Float64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Float64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Float64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int32_float64_decode(&mut r) {
@@ -2577,8 +3053,13 @@ fn main() {
             } else { println!("FAIL DualInt32Float64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Float64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Float64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt32Int64
+fn test_model_dual_int32_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Int64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int32_int64_decode(&mut r) {
@@ -2589,29 +3070,31 @@ fn main() {
             } else { println!("FAIL DualInt32Int64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Int64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Int64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Int64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Int64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Int64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Int64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Int64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Int64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Int64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Int64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Int64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Int64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Int64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Int64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Int64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Int64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Int64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Int64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Int64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Int64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Int64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int32_int64_decode(&mut r) {
@@ -2622,8 +3105,13 @@ fn main() {
             } else { println!("FAIL DualInt32Int64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Int64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Int64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt32Uint32
+fn test_model_dual_int32_uint32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Uint32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
@@ -2634,29 +3122,31 @@ fn main() {
             } else { println!("FAIL DualInt32Uint32 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Uint32 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Uint32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Uint32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Uint32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Uint32 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Uint32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Uint32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Uint32 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Uint32 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Uint32 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Uint32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Uint32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_uint32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Uint32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Uint32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Uint32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_uint32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Uint32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Uint32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Uint32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Uint32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Uint32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Uint32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int32_uint32_decode(&mut r) {
@@ -2667,8 +3157,13 @@ fn main() {
             } else { println!("FAIL DualInt32Uint32 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Uint32 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Uint32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt64Uint64
+fn test_model_dual_int64_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Uint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
@@ -2679,29 +3174,31 @@ fn main() {
             } else { println!("FAIL DualInt64Uint64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt64Uint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt64Uint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Uint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int64_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Uint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt64Uint64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt64Uint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int64_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Uint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt64Uint64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt64Uint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt64Uint64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt64Uint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Uint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int64_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Uint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt64Uint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt64Uint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int64_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Uint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt64Uint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt64Uint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt64Uint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt64Uint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Uint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int64_uint64_decode(&mut r) {
@@ -2712,8 +3209,13 @@ fn main() {
             } else { println!("FAIL DualInt64Uint64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt64Uint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt64Uint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualFloat32Float64
+fn test_model_dual_float32_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat32Float64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_float32_float64_decode(&mut r) {
@@ -2724,29 +3226,31 @@ fn main() {
             } else { println!("FAIL DualFloat32Float64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualFloat32Float64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat32Float64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat32Float64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float32_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float32_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat32Float64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat32Float64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat32Float64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float32_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float32_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat32Float64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat32Float64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat32Float64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat32Float64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat32Float64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat32Float64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float32_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float32_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat32Float64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat32Float64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat32Float64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float32_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float32_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat32Float64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat32Float64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat32Float64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat32Float64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat32Float64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat32Float64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_float32_float64_decode(&mut r) {
@@ -2757,8 +3261,13 @@ fn main() {
             } else { println!("FAIL DualFloat32Float64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualFloat32Float64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat32Float64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualFloat64Boolean
+fn test_model_dual_float64_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Boolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
@@ -2769,29 +3278,31 @@ fn main() {
             } else { println!("FAIL DualFloat64Boolean mp: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Boolean mp: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Boolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Boolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Boolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Boolean json: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Boolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Boolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Boolean json: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Boolean json: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Boolean json: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Boolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Boolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Boolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Boolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Boolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Boolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Boolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Boolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Boolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Boolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Boolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_float64_boolean_decode(&mut r) {
@@ -2802,8 +3313,13 @@ fn main() {
             } else { println!("FAIL DualFloat64Boolean gron: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Boolean gron: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Boolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualFloat64Bytes
+fn test_model_dual_float64_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Bytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
@@ -2814,29 +3330,31 @@ fn main() {
             } else { println!("FAIL DualFloat64Bytes mp: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Bytes mp: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Bytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Bytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Bytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Bytes json: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Bytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Bytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Bytes json: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Bytes json: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Bytes json: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Bytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Bytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Bytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Bytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Bytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Bytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Bytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Bytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Bytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Bytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Bytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_float64_bytes_decode(&mut r) {
@@ -2847,8 +3365,13 @@ fn main() {
             } else { println!("FAIL DualFloat64Bytes gron: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Bytes gron: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Bytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualUint32Uint64
+fn test_model_dual_uint32_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint32Uint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
@@ -2859,29 +3382,31 @@ fn main() {
             } else { println!("FAIL DualUint32Uint64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualUint32Uint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualUint32Uint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint32Uint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint32_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint32Uint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint32Uint64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualUint32Uint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint32_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint32Uint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint32Uint64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualUint32Uint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint32Uint64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualUint32Uint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint32Uint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint32_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint32Uint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint32Uint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualUint32Uint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint32_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint32Uint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint32Uint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualUint32Uint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint32Uint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualUint32Uint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint32Uint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_uint32_uint64_decode(&mut r) {
@@ -2892,8 +3417,13 @@ fn main() {
             } else { println!("FAIL DualUint32Uint64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualUint32Uint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualUint32Uint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualBooleanBytes
+fn test_model_dual_boolean_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
@@ -2904,29 +3434,31 @@ fn main() {
             } else { println!("FAIL DualBooleanBytes mp: write error"); failed += 1; }
         } else { println!("FAIL DualBooleanBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL DualBooleanBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_boolean_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBooleanBytes json: write error"); failed += 1; }
-        } else { println!("FAIL DualBooleanBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_boolean_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBooleanBytes json: write error"); failed += 1; }
+            } else { println!("FAIL DualBooleanBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL DualBooleanBytes json: reader error"); failed += 1; }
     } else { println!("FAIL DualBooleanBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_boolean_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBooleanBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualBooleanBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_boolean_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBooleanBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualBooleanBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualBooleanBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualBooleanBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_boolean_bytes_decode(&mut r) {
@@ -2937,8 +3469,13 @@ fn main() {
             } else { println!("FAIL DualBooleanBytes gron: write error"); failed += 1; }
         } else { println!("FAIL DualBooleanBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL DualBooleanBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt8Uint8
+fn test_model_dual_int8_uint8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Uint8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
@@ -2949,29 +3486,31 @@ fn main() {
             } else { println!("FAIL DualInt8Uint8 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt8Uint8 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt8Uint8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Uint8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int8_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Uint8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt8Uint8 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt8Uint8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int8_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Uint8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt8Uint8 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt8Uint8 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt8Uint8 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt8Uint8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Uint8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int8_uint8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Uint8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt8Uint8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt8Uint8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int8_uint8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Uint8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt8Uint8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt8Uint8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt8Uint8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt8Uint8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Uint8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int8_uint8_decode(&mut r) {
@@ -2982,8 +3521,13 @@ fn main() {
             } else { println!("FAIL DualInt8Uint8 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt8Uint8 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt8Uint8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt16Uint16
+fn test_model_dual_int16_uint16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt16Uint16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
@@ -2994,29 +3538,31 @@ fn main() {
             } else { println!("FAIL DualInt16Uint16 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt16Uint16 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt16Uint16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt16Uint16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int16_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt16Uint16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt16Uint16 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt16Uint16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int16_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt16Uint16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt16Uint16 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt16Uint16 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt16Uint16 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt16Uint16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt16Uint16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int16_uint16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt16Uint16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt16Uint16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt16Uint16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int16_uint16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt16Uint16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt16Uint16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt16Uint16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt16Uint16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt16Uint16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt16Uint16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int16_uint16_decode(&mut r) {
@@ -3027,8 +3573,13 @@ fn main() {
             } else { println!("FAIL DualInt16Uint16 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt16Uint16 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt16Uint16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringInt64
+fn test_model_dual_string_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_int64_decode(&mut r) {
@@ -3039,29 +3590,31 @@ fn main() {
             } else { println!("FAIL DualStringInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_int64_decode(&mut r) {
@@ -3072,8 +3625,13 @@ fn main() {
             } else { println!("FAIL DualStringInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualStringUint64
+fn test_model_dual_string_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringUint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_string_uint64_decode(&mut r) {
@@ -3084,29 +3642,31 @@ fn main() {
             } else { println!("FAIL DualStringUint64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualStringUint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualStringUint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringUint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringUint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringUint64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualStringUint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringUint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringUint64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualStringUint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringUint64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualStringUint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringUint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_string_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_string_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringUint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualStringUint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualStringUint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_string_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_string_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualStringUint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualStringUint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualStringUint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualStringUint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualStringUint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualStringUint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_string_uint64_decode(&mut r) {
@@ -3117,8 +3677,13 @@ fn main() {
             } else { println!("FAIL DualStringUint64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualStringUint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualStringUint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt32Bytes
+fn test_model_dual_int32_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Bytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
@@ -3129,29 +3694,31 @@ fn main() {
             } else { println!("FAIL DualInt32Bytes mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Bytes mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Bytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Bytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Bytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Bytes json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Bytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Bytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Bytes json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Bytes json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Bytes json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Bytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Bytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int32_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Bytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt32Bytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt32Bytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int32_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt32Bytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt32Bytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt32Bytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt32Bytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt32Bytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt32Bytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int32_bytes_decode(&mut r) {
@@ -3162,8 +3729,13 @@ fn main() {
             } else { println!("FAIL DualInt32Bytes gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt32Bytes gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt32Bytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualFloat64Int32
+fn test_model_dual_float64_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Int32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_float64_int32_decode(&mut r) {
@@ -3174,29 +3746,31 @@ fn main() {
             } else { println!("FAIL DualFloat64Int32 mp: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Int32 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Int32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Int32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Int32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Int32 json: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Int32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Int32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Int32 json: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Int32 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Int32 json: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Int32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Int32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_float64_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_float64_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Int32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualFloat64Int32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualFloat64Int32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_float64_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_float64_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualFloat64Int32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualFloat64Int32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualFloat64Int32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualFloat64Int32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualFloat64Int32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualFloat64Int32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_float64_int32_decode(&mut r) {
@@ -3207,8 +3781,13 @@ fn main() {
             } else { println!("FAIL DualFloat64Int32 gron: write error"); failed += 1; }
         } else { println!("FAIL DualFloat64Int32 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualFloat64Int32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualBooleanInt32
+fn test_model_dual_boolean_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
@@ -3219,29 +3798,31 @@ fn main() {
             } else { println!("FAIL DualBooleanInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL DualBooleanInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualBooleanInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_boolean_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBooleanInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL DualBooleanInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_boolean_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBooleanInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL DualBooleanInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualBooleanInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL DualBooleanInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_boolean_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBooleanInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualBooleanInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_boolean_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBooleanInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBooleanInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualBooleanInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualBooleanInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualBooleanInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBooleanInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_boolean_int32_decode(&mut r) {
@@ -3252,8 +3833,13 @@ fn main() {
             } else { println!("FAIL DualBooleanInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL DualBooleanInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualBooleanInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualBytesInt64
+fn test_model_dual_bytes_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBytesInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
@@ -3264,29 +3850,31 @@ fn main() {
             } else { println!("FAIL DualBytesInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualBytesInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualBytesInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBytesInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_bytes_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBytesInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBytesInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualBytesInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_bytes_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBytesInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBytesInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualBytesInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualBytesInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualBytesInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBytesInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_bytes_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBytesInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualBytesInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualBytesInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_bytes_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualBytesInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualBytesInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualBytesInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualBytesInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualBytesInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualBytesInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_bytes_int64_decode(&mut r) {
@@ -3297,8 +3885,13 @@ fn main() {
             } else { println!("FAIL DualBytesInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualBytesInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualBytesInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt8Float32
+fn test_model_dual_int8_float32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Float32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int8_float32_decode(&mut r) {
@@ -3309,29 +3902,31 @@ fn main() {
             } else { println!("FAIL DualInt8Float32 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt8Float32 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt8Float32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Float32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int8_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int8_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Float32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt8Float32 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt8Float32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int8_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int8_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Float32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt8Float32 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt8Float32 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt8Float32 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt8Float32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Float32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int8_float32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int8_float32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Float32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt8Float32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt8Float32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int8_float32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int8_float32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt8Float32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt8Float32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt8Float32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt8Float32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt8Float32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt8Float32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int8_float32_decode(&mut r) {
@@ -3342,8 +3937,13 @@ fn main() {
             } else { println!("FAIL DualInt8Float32 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt8Float32 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt8Float32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualUint8Int16
+fn test_model_dual_uint8_int16(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint8Int16.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
@@ -3354,29 +3954,31 @@ fn main() {
             } else { println!("FAIL DualUint8Int16 mp: write error"); failed += 1; }
         } else { println!("FAIL DualUint8Int16 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualUint8Int16 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint8Int16.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint8_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint8Int16.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint8Int16 json: write error"); failed += 1; }
-        } else { println!("FAIL DualUint8Int16 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint8_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint8Int16.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint8Int16 json: write error"); failed += 1; }
+            } else { println!("FAIL DualUint8Int16 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint8Int16 json: reader error"); failed += 1; }
     } else { println!("FAIL DualUint8Int16 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint8Int16.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint8_int16_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint8Int16.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint8Int16 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualUint8Int16 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint8_int16_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint8Int16.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint8Int16 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualUint8Int16 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint8Int16 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualUint8Int16 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint8Int16.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_uint8_int16_decode(&mut r) {
@@ -3387,8 +3989,13 @@ fn main() {
             } else { println!("FAIL DualUint8Int16 gron: write error"); failed += 1; }
         } else { println!("FAIL DualUint8Int16 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualUint8Int16 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualInt64Float64
+fn test_model_dual_int64_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Float64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_int64_float64_decode(&mut r) {
@@ -3399,29 +4006,31 @@ fn main() {
             } else { println!("FAIL DualInt64Float64 mp: write error"); failed += 1; }
         } else { println!("FAIL DualInt64Float64 mp: decode error"); failed += 1; }
     } else { println!("FAIL DualInt64Float64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Float64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int64_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int64_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Float64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt64Float64 json: write error"); failed += 1; }
-        } else { println!("FAIL DualInt64Float64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int64_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int64_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Float64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt64Float64 json: write error"); failed += 1; }
+            } else { println!("FAIL DualInt64Float64 json: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt64Float64 json: reader error"); failed += 1; }
     } else { println!("FAIL DualInt64Float64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Float64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_int64_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_int64_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Float64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualInt64Float64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualInt64Float64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_int64_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_int64_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualInt64Float64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualInt64Float64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualInt64Float64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualInt64Float64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualInt64Float64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualInt64Float64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_int64_float64_decode(&mut r) {
@@ -3432,8 +4041,13 @@ fn main() {
             } else { println!("FAIL DualInt64Float64 gron: write error"); failed += 1; }
         } else { println!("FAIL DualInt64Float64 gron: decode error"); failed += 1; }
     } else { println!("FAIL DualInt64Float64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DualUint64String
+fn test_model_dual_uint64_string(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint64String.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = dual_uint64_string_decode(&mut r) {
@@ -3444,29 +4058,31 @@ fn main() {
             } else { println!("FAIL DualUint64String mp: write error"); failed += 1; }
         } else { println!("FAIL DualUint64String mp: decode error"); failed += 1; }
     } else { println!("FAIL DualUint64String mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint64String.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint64_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint64_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint64String.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint64String json: write error"); failed += 1; }
-        } else { println!("FAIL DualUint64String json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint64_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint64_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint64String.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint64String json: write error"); failed += 1; }
+            } else { println!("FAIL DualUint64String json: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint64String json: reader error"); failed += 1; }
     } else { println!("FAIL DualUint64String json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint64String.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = dual_uint64_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            dual_uint64_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint64String.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DualUint64String unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DualUint64String unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = dual_uint64_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                dual_uint64_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DualUint64String.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DualUint64String unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DualUint64String unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DualUint64String unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DualUint64String unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DualUint64String.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = dual_uint64_string_decode(&mut r) {
@@ -3477,8 +4093,13 @@ fn main() {
             } else { println!("FAIL DualUint64String gron: write error"); failed += 1; }
         } else { println!("FAIL DualUint64String gron: decode error"); failed += 1; }
     } else { println!("FAIL DualUint64String gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple01
+fn test_model_triple01(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple01.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple01_decode(&mut r) {
@@ -3489,29 +4110,31 @@ fn main() {
             } else { println!("FAIL Triple01 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple01 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple01 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple01.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple01.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple01 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple01 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple01.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple01 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple01 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple01 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple01 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple01.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple01.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple01 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple01 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple01.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple01 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple01 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple01 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple01 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple01.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple01_decode(&mut r) {
@@ -3522,8 +4145,13 @@ fn main() {
             } else { println!("FAIL Triple01 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple01 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple01 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple02
+fn test_model_triple02(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple02.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple02_decode(&mut r) {
@@ -3534,29 +4162,31 @@ fn main() {
             } else { println!("FAIL Triple02 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple02 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple02 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple02.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple02.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple02 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple02 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple02.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple02 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple02 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple02 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple02 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple02.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple02.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple02 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple02 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple02.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple02 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple02 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple02 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple02 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple02.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple02_decode(&mut r) {
@@ -3567,8 +4197,13 @@ fn main() {
             } else { println!("FAIL Triple02 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple02 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple02 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple03
+fn test_model_triple03(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple03.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple03_decode(&mut r) {
@@ -3579,29 +4214,31 @@ fn main() {
             } else { println!("FAIL Triple03 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple03 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple03 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple03.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple03.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple03 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple03 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple03.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple03 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple03 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple03 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple03 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple03.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple03.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple03 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple03 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple03.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple03 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple03 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple03 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple03 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple03.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple03_decode(&mut r) {
@@ -3612,8 +4249,13 @@ fn main() {
             } else { println!("FAIL Triple03 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple03 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple03 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple04
+fn test_model_triple04(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple04.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple04_decode(&mut r) {
@@ -3624,29 +4266,31 @@ fn main() {
             } else { println!("FAIL Triple04 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple04 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple04 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple04.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple04.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple04 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple04 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple04.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple04 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple04 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple04 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple04 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple04.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple04.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple04 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple04 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple04.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple04 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple04 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple04 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple04 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple04.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple04_decode(&mut r) {
@@ -3657,8 +4301,13 @@ fn main() {
             } else { println!("FAIL Triple04 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple04 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple04 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple05
+fn test_model_triple05(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple05.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple05_decode(&mut r) {
@@ -3669,29 +4318,31 @@ fn main() {
             } else { println!("FAIL Triple05 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple05 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple05 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple05.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple05.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple05 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple05 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple05.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple05 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple05 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple05 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple05 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple05.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple05.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple05 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple05 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple05.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple05 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple05 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple05 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple05 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple05.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple05_decode(&mut r) {
@@ -3702,8 +4353,13 @@ fn main() {
             } else { println!("FAIL Triple05 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple05 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple05 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple06
+fn test_model_triple06(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple06.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple06_decode(&mut r) {
@@ -3714,29 +4370,31 @@ fn main() {
             } else { println!("FAIL Triple06 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple06 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple06 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple06.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple06.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple06 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple06 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple06.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple06 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple06 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple06 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple06 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple06.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple06.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple06 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple06 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple06.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple06 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple06 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple06 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple06 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple06.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple06_decode(&mut r) {
@@ -3747,8 +4405,13 @@ fn main() {
             } else { println!("FAIL Triple06 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple06 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple06 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple07
+fn test_model_triple07(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple07.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple07_decode(&mut r) {
@@ -3759,29 +4422,31 @@ fn main() {
             } else { println!("FAIL Triple07 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple07 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple07 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple07.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple07.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple07 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple07 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple07.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple07 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple07 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple07 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple07 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple07.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple07.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple07 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple07 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple07.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple07 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple07 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple07 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple07 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple07.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple07_decode(&mut r) {
@@ -3792,8 +4457,13 @@ fn main() {
             } else { println!("FAIL Triple07 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple07 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple07 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple08
+fn test_model_triple08(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple08.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple08_decode(&mut r) {
@@ -3804,29 +4474,31 @@ fn main() {
             } else { println!("FAIL Triple08 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple08 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple08 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple08.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple08.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple08 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple08 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple08.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple08 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple08 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple08 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple08 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple08.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple08.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple08 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple08 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple08.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple08 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple08 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple08 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple08 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple08.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple08_decode(&mut r) {
@@ -3837,8 +4509,13 @@ fn main() {
             } else { println!("FAIL Triple08 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple08 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple08 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple09
+fn test_model_triple09(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple09.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple09_decode(&mut r) {
@@ -3849,29 +4526,31 @@ fn main() {
             } else { println!("FAIL Triple09 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple09 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple09 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple09.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple09.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple09 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple09 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple09.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple09 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple09 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple09 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple09 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple09.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple09.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple09 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple09 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple09.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple09 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple09 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple09 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple09 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple09.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple09_decode(&mut r) {
@@ -3882,8 +4561,13 @@ fn main() {
             } else { println!("FAIL Triple09 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple09 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple09 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple10
+fn test_model_triple10(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple10.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple10_decode(&mut r) {
@@ -3894,29 +4578,31 @@ fn main() {
             } else { println!("FAIL Triple10 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple10 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple10 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple10.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple10.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple10 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple10 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple10.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple10 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple10 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple10 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple10 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple10.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple10.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple10 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple10 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple10.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple10 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple10 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple10 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple10 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple10.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple10_decode(&mut r) {
@@ -3927,8 +4613,13 @@ fn main() {
             } else { println!("FAIL Triple10 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple10 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple10 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple11
+fn test_model_triple11(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple11.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple11_decode(&mut r) {
@@ -3939,29 +4630,31 @@ fn main() {
             } else { println!("FAIL Triple11 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple11 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple11 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple11.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple11_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple11_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple11.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple11 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple11 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple11_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple11_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple11.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple11 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple11 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple11 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple11 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple11.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple11_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple11_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple11.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple11 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple11 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple11_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple11_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple11.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple11 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple11 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple11 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple11 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple11.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple11_decode(&mut r) {
@@ -3972,8 +4665,13 @@ fn main() {
             } else { println!("FAIL Triple11 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple11 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple11 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple12
+fn test_model_triple12(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple12.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple12_decode(&mut r) {
@@ -3984,29 +4682,31 @@ fn main() {
             } else { println!("FAIL Triple12 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple12 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple12 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple12.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple12_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple12_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple12.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple12 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple12 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple12_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple12_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple12.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple12 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple12 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple12 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple12 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple12.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple12_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple12_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple12.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple12 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple12 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple12_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple12_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple12.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple12 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple12 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple12 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple12 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple12.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple12_decode(&mut r) {
@@ -4017,8 +4717,13 @@ fn main() {
             } else { println!("FAIL Triple12 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple12 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple12 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple13
+fn test_model_triple13(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple13.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple13_decode(&mut r) {
@@ -4029,29 +4734,31 @@ fn main() {
             } else { println!("FAIL Triple13 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple13 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple13 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple13.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple13_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple13_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple13.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple13 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple13 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple13_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple13_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple13.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple13 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple13 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple13 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple13 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple13.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple13_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple13_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple13.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple13 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple13 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple13_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple13_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple13.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple13 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple13 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple13 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple13 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple13.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple13_decode(&mut r) {
@@ -4062,8 +4769,13 @@ fn main() {
             } else { println!("FAIL Triple13 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple13 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple13 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple14
+fn test_model_triple14(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple14.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple14_decode(&mut r) {
@@ -4074,29 +4786,31 @@ fn main() {
             } else { println!("FAIL Triple14 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple14 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple14 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple14.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple14_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple14_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple14.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple14 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple14 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple14_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple14_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple14.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple14 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple14 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple14 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple14 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple14.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple14_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple14_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple14.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple14 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple14 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple14_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple14_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple14.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple14 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple14 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple14 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple14 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple14.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple14_decode(&mut r) {
@@ -4107,8 +4821,13 @@ fn main() {
             } else { println!("FAIL Triple14 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple14 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple14 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Triple15
+fn test_model_triple15(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple15.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = triple15_decode(&mut r) {
@@ -4119,29 +4838,31 @@ fn main() {
             } else { println!("FAIL Triple15 mp: write error"); failed += 1; }
         } else { println!("FAIL Triple15 mp: decode error"); failed += 1; }
     } else { println!("FAIL Triple15 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple15.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple15_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple15_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple15.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple15 json: write error"); failed += 1; }
-        } else { println!("FAIL Triple15 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple15_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple15_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple15.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple15 json: write error"); failed += 1; }
+            } else { println!("FAIL Triple15 json: decode error"); failed += 1; }
+        } else { println!("FAIL Triple15 json: reader error"); failed += 1; }
     } else { println!("FAIL Triple15 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple15.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = triple15_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            triple15_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple15.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Triple15 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Triple15 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = triple15_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                triple15_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Triple15.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Triple15 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Triple15 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Triple15 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Triple15 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Triple15.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = triple15_decode(&mut r) {
@@ -4152,8 +4873,13 @@ fn main() {
             } else { println!("FAIL Triple15 gron: write error"); failed += 1; }
         } else { println!("FAIL Triple15 gron: decode error"); failed += 1; }
     } else { println!("FAIL Triple15 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five01
+fn test_model_five01(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five01.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five01_decode(&mut r) {
@@ -4164,29 +4890,31 @@ fn main() {
             } else { println!("FAIL Five01 mp: write error"); failed += 1; }
         } else { println!("FAIL Five01 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five01 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five01.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five01.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five01 json: write error"); failed += 1; }
-        } else { println!("FAIL Five01 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five01.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five01 json: write error"); failed += 1; }
+            } else { println!("FAIL Five01 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five01 json: reader error"); failed += 1; }
     } else { println!("FAIL Five01 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five01.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five01.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five01 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five01 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five01.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five01 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five01 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five01 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five01 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five01.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five01_decode(&mut r) {
@@ -4197,8 +4925,13 @@ fn main() {
             } else { println!("FAIL Five01 gron: write error"); failed += 1; }
         } else { println!("FAIL Five01 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five01 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five02
+fn test_model_five02(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five02.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five02_decode(&mut r) {
@@ -4209,29 +4942,31 @@ fn main() {
             } else { println!("FAIL Five02 mp: write error"); failed += 1; }
         } else { println!("FAIL Five02 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five02 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five02.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five02.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five02 json: write error"); failed += 1; }
-        } else { println!("FAIL Five02 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five02.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five02 json: write error"); failed += 1; }
+            } else { println!("FAIL Five02 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five02 json: reader error"); failed += 1; }
     } else { println!("FAIL Five02 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five02.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five02.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five02 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five02 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five02.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five02 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five02 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five02 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five02 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five02.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five02_decode(&mut r) {
@@ -4242,8 +4977,13 @@ fn main() {
             } else { println!("FAIL Five02 gron: write error"); failed += 1; }
         } else { println!("FAIL Five02 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five02 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five03
+fn test_model_five03(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five03.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five03_decode(&mut r) {
@@ -4254,29 +4994,31 @@ fn main() {
             } else { println!("FAIL Five03 mp: write error"); failed += 1; }
         } else { println!("FAIL Five03 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five03 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five03.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five03.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five03 json: write error"); failed += 1; }
-        } else { println!("FAIL Five03 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five03.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five03 json: write error"); failed += 1; }
+            } else { println!("FAIL Five03 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five03 json: reader error"); failed += 1; }
     } else { println!("FAIL Five03 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five03.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five03.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five03 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five03 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five03.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five03 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five03 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five03 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five03 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five03.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five03_decode(&mut r) {
@@ -4287,8 +5029,13 @@ fn main() {
             } else { println!("FAIL Five03 gron: write error"); failed += 1; }
         } else { println!("FAIL Five03 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five03 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five04
+fn test_model_five04(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five04.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five04_decode(&mut r) {
@@ -4299,29 +5046,31 @@ fn main() {
             } else { println!("FAIL Five04 mp: write error"); failed += 1; }
         } else { println!("FAIL Five04 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five04 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five04.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five04.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five04 json: write error"); failed += 1; }
-        } else { println!("FAIL Five04 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five04.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five04 json: write error"); failed += 1; }
+            } else { println!("FAIL Five04 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five04 json: reader error"); failed += 1; }
     } else { println!("FAIL Five04 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five04.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five04.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five04 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five04 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five04.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five04 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five04 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five04 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five04 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five04.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five04_decode(&mut r) {
@@ -4332,8 +5081,13 @@ fn main() {
             } else { println!("FAIL Five04 gron: write error"); failed += 1; }
         } else { println!("FAIL Five04 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five04 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five05
+fn test_model_five05(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five05.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five05_decode(&mut r) {
@@ -4344,29 +5098,31 @@ fn main() {
             } else { println!("FAIL Five05 mp: write error"); failed += 1; }
         } else { println!("FAIL Five05 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five05 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five05.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five05.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five05 json: write error"); failed += 1; }
-        } else { println!("FAIL Five05 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five05.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five05 json: write error"); failed += 1; }
+            } else { println!("FAIL Five05 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five05 json: reader error"); failed += 1; }
     } else { println!("FAIL Five05 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five05.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five05.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five05 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five05 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five05.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five05 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five05 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five05 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five05 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five05.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five05_decode(&mut r) {
@@ -4377,8 +5133,13 @@ fn main() {
             } else { println!("FAIL Five05 gron: write error"); failed += 1; }
         } else { println!("FAIL Five05 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five05 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five06
+fn test_model_five06(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five06.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five06_decode(&mut r) {
@@ -4389,29 +5150,31 @@ fn main() {
             } else { println!("FAIL Five06 mp: write error"); failed += 1; }
         } else { println!("FAIL Five06 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five06 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five06.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five06.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five06 json: write error"); failed += 1; }
-        } else { println!("FAIL Five06 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five06.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five06 json: write error"); failed += 1; }
+            } else { println!("FAIL Five06 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five06 json: reader error"); failed += 1; }
     } else { println!("FAIL Five06 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five06.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five06.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five06 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five06 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five06.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five06 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five06 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five06 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five06 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five06.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five06_decode(&mut r) {
@@ -4422,8 +5185,13 @@ fn main() {
             } else { println!("FAIL Five06 gron: write error"); failed += 1; }
         } else { println!("FAIL Five06 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five06 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five07
+fn test_model_five07(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five07.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five07_decode(&mut r) {
@@ -4434,29 +5202,31 @@ fn main() {
             } else { println!("FAIL Five07 mp: write error"); failed += 1; }
         } else { println!("FAIL Five07 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five07 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five07.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five07.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five07 json: write error"); failed += 1; }
-        } else { println!("FAIL Five07 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five07.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five07 json: write error"); failed += 1; }
+            } else { println!("FAIL Five07 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five07 json: reader error"); failed += 1; }
     } else { println!("FAIL Five07 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five07.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five07.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five07 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five07 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five07.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five07 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five07 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five07 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five07 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five07.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five07_decode(&mut r) {
@@ -4467,8 +5237,13 @@ fn main() {
             } else { println!("FAIL Five07 gron: write error"); failed += 1; }
         } else { println!("FAIL Five07 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five07 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five08
+fn test_model_five08(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five08.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five08_decode(&mut r) {
@@ -4479,29 +5254,31 @@ fn main() {
             } else { println!("FAIL Five08 mp: write error"); failed += 1; }
         } else { println!("FAIL Five08 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five08 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five08.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five08.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five08 json: write error"); failed += 1; }
-        } else { println!("FAIL Five08 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five08.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five08 json: write error"); failed += 1; }
+            } else { println!("FAIL Five08 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five08 json: reader error"); failed += 1; }
     } else { println!("FAIL Five08 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five08.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five08.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five08 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five08 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five08.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five08 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five08 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five08 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five08 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five08.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five08_decode(&mut r) {
@@ -4512,8 +5289,13 @@ fn main() {
             } else { println!("FAIL Five08 gron: write error"); failed += 1; }
         } else { println!("FAIL Five08 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five08 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five09
+fn test_model_five09(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five09.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five09_decode(&mut r) {
@@ -4524,29 +5306,31 @@ fn main() {
             } else { println!("FAIL Five09 mp: write error"); failed += 1; }
         } else { println!("FAIL Five09 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five09 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five09.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five09.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five09 json: write error"); failed += 1; }
-        } else { println!("FAIL Five09 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five09.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five09 json: write error"); failed += 1; }
+            } else { println!("FAIL Five09 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five09 json: reader error"); failed += 1; }
     } else { println!("FAIL Five09 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five09.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five09.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five09 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five09 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five09.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five09 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five09 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five09 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five09 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five09.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five09_decode(&mut r) {
@@ -4557,8 +5341,13 @@ fn main() {
             } else { println!("FAIL Five09 gron: write error"); failed += 1; }
         } else { println!("FAIL Five09 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five09 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Five10
+fn test_model_five10(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five10.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = five10_decode(&mut r) {
@@ -4569,29 +5358,31 @@ fn main() {
             } else { println!("FAIL Five10 mp: write error"); failed += 1; }
         } else { println!("FAIL Five10 mp: decode error"); failed += 1; }
     } else { println!("FAIL Five10 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five10.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five10.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five10 json: write error"); failed += 1; }
-        } else { println!("FAIL Five10 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five10.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five10 json: write error"); failed += 1; }
+            } else { println!("FAIL Five10 json: decode error"); failed += 1; }
+        } else { println!("FAIL Five10 json: reader error"); failed += 1; }
     } else { println!("FAIL Five10 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five10.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = five10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            five10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Five10.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Five10 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Five10 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = five10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                five10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Five10.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Five10 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Five10 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Five10 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Five10 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Five10.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = five10_decode(&mut r) {
@@ -4602,8 +5393,13 @@ fn main() {
             } else { println!("FAIL Five10 gron: write error"); failed += 1; }
         } else { println!("FAIL Five10 gron: decode error"); failed += 1; }
     } else { println!("FAIL Five10 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Ten01
+fn test_model_ten01(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten01.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = ten01_decode(&mut r) {
@@ -4614,29 +5410,31 @@ fn main() {
             } else { println!("FAIL Ten01 mp: write error"); failed += 1; }
         } else { println!("FAIL Ten01 mp: decode error"); failed += 1; }
     } else { println!("FAIL Ten01 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten01.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten01.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten01 json: write error"); failed += 1; }
-        } else { println!("FAIL Ten01 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten01.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten01 json: write error"); failed += 1; }
+            } else { println!("FAIL Ten01 json: decode error"); failed += 1; }
+        } else { println!("FAIL Ten01 json: reader error"); failed += 1; }
     } else { println!("FAIL Ten01 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten01.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten01.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten01 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Ten01 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten01.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten01 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Ten01 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Ten01 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Ten01 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten01.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = ten01_decode(&mut r) {
@@ -4647,8 +5445,13 @@ fn main() {
             } else { println!("FAIL Ten01 gron: write error"); failed += 1; }
         } else { println!("FAIL Ten01 gron: decode error"); failed += 1; }
     } else { println!("FAIL Ten01 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Ten02
+fn test_model_ten02(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten02.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = ten02_decode(&mut r) {
@@ -4659,29 +5462,31 @@ fn main() {
             } else { println!("FAIL Ten02 mp: write error"); failed += 1; }
         } else { println!("FAIL Ten02 mp: decode error"); failed += 1; }
     } else { println!("FAIL Ten02 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten02.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten02.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten02 json: write error"); failed += 1; }
-        } else { println!("FAIL Ten02 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten02.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten02 json: write error"); failed += 1; }
+            } else { println!("FAIL Ten02 json: decode error"); failed += 1; }
+        } else { println!("FAIL Ten02 json: reader error"); failed += 1; }
     } else { println!("FAIL Ten02 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten02.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten02.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten02 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Ten02 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten02.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten02 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Ten02 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Ten02 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Ten02 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten02.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = ten02_decode(&mut r) {
@@ -4692,8 +5497,13 @@ fn main() {
             } else { println!("FAIL Ten02 gron: write error"); failed += 1; }
         } else { println!("FAIL Ten02 gron: decode error"); failed += 1; }
     } else { println!("FAIL Ten02 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Ten03
+fn test_model_ten03(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten03.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = ten03_decode(&mut r) {
@@ -4704,29 +5514,31 @@ fn main() {
             } else { println!("FAIL Ten03 mp: write error"); failed += 1; }
         } else { println!("FAIL Ten03 mp: decode error"); failed += 1; }
     } else { println!("FAIL Ten03 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten03.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten03.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten03 json: write error"); failed += 1; }
-        } else { println!("FAIL Ten03 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten03.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten03 json: write error"); failed += 1; }
+            } else { println!("FAIL Ten03 json: decode error"); failed += 1; }
+        } else { println!("FAIL Ten03 json: reader error"); failed += 1; }
     } else { println!("FAIL Ten03 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten03.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten03.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten03 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Ten03 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten03.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten03 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Ten03 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Ten03 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Ten03 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten03.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = ten03_decode(&mut r) {
@@ -4737,8 +5549,13 @@ fn main() {
             } else { println!("FAIL Ten03 gron: write error"); failed += 1; }
         } else { println!("FAIL Ten03 gron: decode error"); failed += 1; }
     } else { println!("FAIL Ten03 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Ten04
+fn test_model_ten04(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten04.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = ten04_decode(&mut r) {
@@ -4749,29 +5566,31 @@ fn main() {
             } else { println!("FAIL Ten04 mp: write error"); failed += 1; }
         } else { println!("FAIL Ten04 mp: decode error"); failed += 1; }
     } else { println!("FAIL Ten04 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten04.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten04.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten04 json: write error"); failed += 1; }
-        } else { println!("FAIL Ten04 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten04.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten04 json: write error"); failed += 1; }
+            } else { println!("FAIL Ten04 json: decode error"); failed += 1; }
+        } else { println!("FAIL Ten04 json: reader error"); failed += 1; }
     } else { println!("FAIL Ten04 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten04.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten04.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten04 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Ten04 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten04.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten04 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Ten04 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Ten04 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Ten04 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten04.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = ten04_decode(&mut r) {
@@ -4782,8 +5601,13 @@ fn main() {
             } else { println!("FAIL Ten04 gron: write error"); failed += 1; }
         } else { println!("FAIL Ten04 gron: decode error"); failed += 1; }
     } else { println!("FAIL Ten04 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Ten05
+fn test_model_ten05(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten05.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = ten05_decode(&mut r) {
@@ -4794,29 +5618,31 @@ fn main() {
             } else { println!("FAIL Ten05 mp: write error"); failed += 1; }
         } else { println!("FAIL Ten05 mp: decode error"); failed += 1; }
     } else { println!("FAIL Ten05 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten05.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten05.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten05 json: write error"); failed += 1; }
-        } else { println!("FAIL Ten05 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten05.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten05 json: write error"); failed += 1; }
+            } else { println!("FAIL Ten05 json: decode error"); failed += 1; }
+        } else { println!("FAIL Ten05 json: reader error"); failed += 1; }
     } else { println!("FAIL Ten05 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten05.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = ten05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            ten05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten05.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Ten05 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Ten05 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = ten05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                ten05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Ten05.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Ten05 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Ten05 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Ten05 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Ten05 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Ten05.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = ten05_decode(&mut r) {
@@ -4827,8 +5653,13 @@ fn main() {
             } else { println!("FAIL Ten05 gron: write error"); failed += 1; }
         } else { println!("FAIL Ten05 gron: decode error"); failed += 1; }
     } else { println!("FAIL Ten05 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrString
+fn test_model_arr_string(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrString.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_string_decode(&mut r) {
@@ -4839,29 +5670,31 @@ fn main() {
             } else { println!("FAIL ArrString mp: write error"); failed += 1; }
         } else { println!("FAIL ArrString mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrString mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrString.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrString.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrString json: write error"); failed += 1; }
-        } else { println!("FAIL ArrString json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrString.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrString json: write error"); failed += 1; }
+            } else { println!("FAIL ArrString json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrString json: reader error"); failed += 1; }
     } else { println!("FAIL ArrString json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrString.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_string_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_string_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrString.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrString unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrString unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_string_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_string_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrString.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrString unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrString unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrString unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrString unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrString.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_string_decode(&mut r) {
@@ -4872,8 +5705,13 @@ fn main() {
             } else { println!("FAIL ArrString gron: write error"); failed += 1; }
         } else { println!("FAIL ArrString gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrString gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrInt32
+fn test_model_arr_int32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_int32_decode(&mut r) {
@@ -4884,29 +5722,31 @@ fn main() {
             } else { println!("FAIL ArrInt32 mp: write error"); failed += 1; }
         } else { println!("FAIL ArrInt32 mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrInt32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrInt32 json: write error"); failed += 1; }
-        } else { println!("FAIL ArrInt32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrInt32 json: write error"); failed += 1; }
+            } else { println!("FAIL ArrInt32 json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrInt32 json: reader error"); failed += 1; }
     } else { println!("FAIL ArrInt32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_int32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_int32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrInt32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrInt32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_int32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_int32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrInt32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrInt32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrInt32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrInt32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_int32_decode(&mut r) {
@@ -4917,8 +5757,13 @@ fn main() {
             } else { println!("FAIL ArrInt32 gron: write error"); failed += 1; }
         } else { println!("FAIL ArrInt32 gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrInt32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrBoolean
+fn test_model_arr_boolean(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBoolean.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_boolean_decode(&mut r) {
@@ -4929,29 +5774,31 @@ fn main() {
             } else { println!("FAIL ArrBoolean mp: write error"); failed += 1; }
         } else { println!("FAIL ArrBoolean mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrBoolean mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBoolean.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBoolean.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrBoolean json: write error"); failed += 1; }
-        } else { println!("FAIL ArrBoolean json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBoolean.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrBoolean json: write error"); failed += 1; }
+            } else { println!("FAIL ArrBoolean json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrBoolean json: reader error"); failed += 1; }
     } else { println!("FAIL ArrBoolean json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBoolean.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_boolean_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_boolean_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBoolean.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrBoolean unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrBoolean unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_boolean_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_boolean_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBoolean.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrBoolean unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrBoolean unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrBoolean unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrBoolean unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBoolean.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_boolean_decode(&mut r) {
@@ -4962,8 +5809,13 @@ fn main() {
             } else { println!("FAIL ArrBoolean gron: write error"); failed += 1; }
         } else { println!("FAIL ArrBoolean gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrBoolean gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrFloat64
+fn test_model_arr_float64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrFloat64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_float64_decode(&mut r) {
@@ -4974,29 +5826,31 @@ fn main() {
             } else { println!("FAIL ArrFloat64 mp: write error"); failed += 1; }
         } else { println!("FAIL ArrFloat64 mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrFloat64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrFloat64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrFloat64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrFloat64 json: write error"); failed += 1; }
-        } else { println!("FAIL ArrFloat64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrFloat64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrFloat64 json: write error"); failed += 1; }
+            } else { println!("FAIL ArrFloat64 json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrFloat64 json: reader error"); failed += 1; }
     } else { println!("FAIL ArrFloat64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrFloat64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_float64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_float64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrFloat64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrFloat64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrFloat64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_float64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_float64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrFloat64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrFloat64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrFloat64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrFloat64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrFloat64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrFloat64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_float64_decode(&mut r) {
@@ -5007,8 +5861,13 @@ fn main() {
             } else { println!("FAIL ArrFloat64 gron: write error"); failed += 1; }
         } else { println!("FAIL ArrFloat64 gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrFloat64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrBytes
+fn test_model_arr_bytes(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBytes.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_bytes_decode(&mut r) {
@@ -5019,29 +5878,31 @@ fn main() {
             } else { println!("FAIL ArrBytes mp: write error"); failed += 1; }
         } else { println!("FAIL ArrBytes mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrBytes mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBytes.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBytes.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrBytes json: write error"); failed += 1; }
-        } else { println!("FAIL ArrBytes json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBytes.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrBytes json: write error"); failed += 1; }
+            } else { println!("FAIL ArrBytes json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrBytes json: reader error"); failed += 1; }
     } else { println!("FAIL ArrBytes json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBytes.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_bytes_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_bytes_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBytes.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrBytes unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrBytes unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_bytes_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_bytes_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrBytes.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrBytes unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrBytes unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrBytes unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrBytes unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrBytes.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_bytes_decode(&mut r) {
@@ -5052,8 +5913,13 @@ fn main() {
             } else { println!("FAIL ArrBytes gron: write error"); failed += 1; }
         } else { println!("FAIL ArrBytes gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrBytes gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrInt64
+fn test_model_arr_int64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_int64_decode(&mut r) {
@@ -5064,29 +5930,31 @@ fn main() {
             } else { println!("FAIL ArrInt64 mp: write error"); failed += 1; }
         } else { println!("FAIL ArrInt64 mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrInt64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrInt64 json: write error"); failed += 1; }
-        } else { println!("FAIL ArrInt64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrInt64 json: write error"); failed += 1; }
+            } else { println!("FAIL ArrInt64 json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrInt64 json: reader error"); failed += 1; }
     } else { println!("FAIL ArrInt64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_int64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_int64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrInt64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrInt64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_int64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_int64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrInt64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrInt64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrInt64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrInt64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrInt64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrInt64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_int64_decode(&mut r) {
@@ -5097,8 +5965,13 @@ fn main() {
             } else { println!("FAIL ArrInt64 gron: write error"); failed += 1; }
         } else { println!("FAIL ArrInt64 gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrInt64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ArrUint64
+fn test_model_arr_uint64(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrUint64.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = arr_uint64_decode(&mut r) {
@@ -5109,29 +5982,31 @@ fn main() {
             } else { println!("FAIL ArrUint64 mp: write error"); failed += 1; }
         } else { println!("FAIL ArrUint64 mp: decode error"); failed += 1; }
     } else { println!("FAIL ArrUint64 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrUint64.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrUint64.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrUint64 json: write error"); failed += 1; }
-        } else { println!("FAIL ArrUint64 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrUint64.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrUint64 json: write error"); failed += 1; }
+            } else { println!("FAIL ArrUint64 json: decode error"); failed += 1; }
+        } else { println!("FAIL ArrUint64 json: reader error"); failed += 1; }
     } else { println!("FAIL ArrUint64 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrUint64.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = arr_uint64_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            arr_uint64_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrUint64.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ArrUint64 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ArrUint64 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = arr_uint64_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                arr_uint64_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ArrUint64.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ArrUint64 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ArrUint64 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ArrUint64 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ArrUint64 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ArrUint64.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = arr_uint64_decode(&mut r) {
@@ -5142,8 +6017,13 @@ fn main() {
             } else { println!("FAIL ArrUint64 gron: write error"); failed += 1; }
         } else { println!("FAIL ArrUint64 gron: decode error"); failed += 1; }
     } else { println!("FAIL ArrUint64 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // MultiArr1
+fn test_model_multi_arr1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = multi_arr1_decode(&mut r) {
@@ -5154,29 +6034,31 @@ fn main() {
             } else { println!("FAIL MultiArr1 mp: write error"); failed += 1; }
         } else { println!("FAIL MultiArr1 mp: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr1 json: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr1 json: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr1 json: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr1 json: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = multi_arr1_decode(&mut r) {
@@ -5187,8 +6069,13 @@ fn main() {
             } else { println!("FAIL MultiArr1 gron: write error"); failed += 1; }
         } else { println!("FAIL MultiArr1 gron: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // MultiArr2
+fn test_model_multi_arr2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = multi_arr2_decode(&mut r) {
@@ -5199,29 +6086,31 @@ fn main() {
             } else { println!("FAIL MultiArr2 mp: write error"); failed += 1; }
         } else { println!("FAIL MultiArr2 mp: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr2 json: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr2 json: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr2 json: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr2 json: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = multi_arr2_decode(&mut r) {
@@ -5232,8 +6121,13 @@ fn main() {
             } else { println!("FAIL MultiArr2 gron: write error"); failed += 1; }
         } else { println!("FAIL MultiArr2 gron: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // MultiArr3
+fn test_model_multi_arr3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = multi_arr3_decode(&mut r) {
@@ -5244,29 +6138,31 @@ fn main() {
             } else { println!("FAIL MultiArr3 mp: write error"); failed += 1; }
         } else { println!("FAIL MultiArr3 mp: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr3 json: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr3 json: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr3 json: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr3 json: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = multi_arr3_decode(&mut r) {
@@ -5277,8 +6173,13 @@ fn main() {
             } else { println!("FAIL MultiArr3 gron: write error"); failed += 1; }
         } else { println!("FAIL MultiArr3 gron: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // MultiArr4
+fn test_model_multi_arr4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = multi_arr4_decode(&mut r) {
@@ -5289,29 +6190,31 @@ fn main() {
             } else { println!("FAIL MultiArr4 mp: write error"); failed += 1; }
         } else { println!("FAIL MultiArr4 mp: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr4 json: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr4 json: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr4 json: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr4 json: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = multi_arr4_decode(&mut r) {
@@ -5322,8 +6225,13 @@ fn main() {
             } else { println!("FAIL MultiArr4 gron: write error"); failed += 1; }
         } else { println!("FAIL MultiArr4 gron: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // MultiArr5
+fn test_model_multi_arr5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = multi_arr5_decode(&mut r) {
@@ -5334,29 +6242,31 @@ fn main() {
             } else { println!("FAIL MultiArr5 mp: write error"); failed += 1; }
         } else { println!("FAIL MultiArr5 mp: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr5 json: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr5 json: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr5 json: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr5 json: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = multi_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            multi_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL MultiArr5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL MultiArr5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = multi_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                multi_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("MultiArr5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL MultiArr5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL MultiArr5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL MultiArr5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL MultiArr5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("MultiArr5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = multi_arr5_decode(&mut r) {
@@ -5367,8 +6277,13 @@ fn main() {
             } else { println!("FAIL MultiArr5 gron: write error"); failed += 1; }
         } else { println!("FAIL MultiArr5 gron: decode error"); failed += 1; }
     } else { println!("FAIL MultiArr5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo1
+fn test_model_opt_combo1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo1_decode(&mut r) {
@@ -5379,29 +6294,31 @@ fn main() {
             } else { println!("FAIL OptCombo1 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo1 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo1 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo1 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo1 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo1 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo1_decode(&mut r) {
@@ -5412,8 +6329,13 @@ fn main() {
             } else { println!("FAIL OptCombo1 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo1 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo2
+fn test_model_opt_combo2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo2_decode(&mut r) {
@@ -5424,29 +6346,31 @@ fn main() {
             } else { println!("FAIL OptCombo2 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo2 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo2 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo2 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo2 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo2 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo2_decode(&mut r) {
@@ -5457,8 +6381,13 @@ fn main() {
             } else { println!("FAIL OptCombo2 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo2 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo3
+fn test_model_opt_combo3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo3_decode(&mut r) {
@@ -5469,29 +6398,31 @@ fn main() {
             } else { println!("FAIL OptCombo3 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo3 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo3 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo3 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo3 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo3 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo3_decode(&mut r) {
@@ -5502,8 +6433,13 @@ fn main() {
             } else { println!("FAIL OptCombo3 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo3 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo4
+fn test_model_opt_combo4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo4_decode(&mut r) {
@@ -5514,29 +6450,31 @@ fn main() {
             } else { println!("FAIL OptCombo4 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo4 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo4 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo4 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo4 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo4 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo4_decode(&mut r) {
@@ -5547,8 +6485,13 @@ fn main() {
             } else { println!("FAIL OptCombo4 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo4 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo5
+fn test_model_opt_combo5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo5_decode(&mut r) {
@@ -5559,29 +6502,31 @@ fn main() {
             } else { println!("FAIL OptCombo5 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo5 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo5 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo5 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo5 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo5 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo5_decode(&mut r) {
@@ -5592,8 +6537,13 @@ fn main() {
             } else { println!("FAIL OptCombo5 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo5 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo6
+fn test_model_opt_combo6(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo6.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo6_decode(&mut r) {
@@ -5604,29 +6554,31 @@ fn main() {
             } else { println!("FAIL OptCombo6 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo6 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo6 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo6.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo6_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo6_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo6.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo6 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo6 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo6_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo6_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo6.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo6 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo6 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo6 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo6 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo6.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo6_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo6_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo6.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo6 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo6 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo6_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo6_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo6.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo6 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo6 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo6 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo6 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo6.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo6_decode(&mut r) {
@@ -5637,8 +6589,13 @@ fn main() {
             } else { println!("FAIL OptCombo6 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo6 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo6 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo7
+fn test_model_opt_combo7(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo7.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo7_decode(&mut r) {
@@ -5649,29 +6606,31 @@ fn main() {
             } else { println!("FAIL OptCombo7 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo7 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo7 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo7.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo7_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo7_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo7.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo7 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo7 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo7_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo7_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo7.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo7 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo7 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo7 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo7 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo7.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo7_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo7_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo7.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo7 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo7 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo7_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo7_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo7.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo7 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo7 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo7 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo7 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo7.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo7_decode(&mut r) {
@@ -5682,8 +6641,13 @@ fn main() {
             } else { println!("FAIL OptCombo7 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo7 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo7 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo8
+fn test_model_opt_combo8(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo8.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo8_decode(&mut r) {
@@ -5694,29 +6658,31 @@ fn main() {
             } else { println!("FAIL OptCombo8 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo8 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo8 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo8.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo8.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo8 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo8 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo8.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo8 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo8 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo8 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo8 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo8.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo8_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo8_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo8.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo8 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo8 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo8_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo8_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo8.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo8 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo8 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo8 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo8 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo8.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo8_decode(&mut r) {
@@ -5727,8 +6693,13 @@ fn main() {
             } else { println!("FAIL OptCombo8 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo8 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo8 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo9
+fn test_model_opt_combo9(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo9.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo9_decode(&mut r) {
@@ -5739,29 +6710,31 @@ fn main() {
             } else { println!("FAIL OptCombo9 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo9 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo9 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo9.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo9_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo9_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo9.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo9 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo9 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo9_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo9_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo9.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo9 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo9 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo9 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo9 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo9.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo9_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo9_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo9.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo9 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo9 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo9_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo9_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo9.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo9 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo9 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo9 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo9 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo9.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo9_decode(&mut r) {
@@ -5772,8 +6745,13 @@ fn main() {
             } else { println!("FAIL OptCombo9 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo9 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo9 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptCombo10
+fn test_model_opt_combo10(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo10.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_combo10_decode(&mut r) {
@@ -5784,29 +6762,31 @@ fn main() {
             } else { println!("FAIL OptCombo10 mp: write error"); failed += 1; }
         } else { println!("FAIL OptCombo10 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo10 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo10.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo10.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo10 json: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo10 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo10.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo10 json: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo10 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo10 json: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo10 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo10.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_combo10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_combo10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo10.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptCombo10 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptCombo10 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_combo10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_combo10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptCombo10.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptCombo10 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptCombo10 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptCombo10 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptCombo10 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptCombo10.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_combo10_decode(&mut r) {
@@ -5817,8 +6797,13 @@ fn main() {
             } else { println!("FAIL OptCombo10 gron: write error"); failed += 1; }
         } else { println!("FAIL OptCombo10 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptCombo10 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestInner
+fn test_model_nest_inner(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestInner.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_inner_decode(&mut r) {
@@ -5829,29 +6814,31 @@ fn main() {
             } else { println!("FAIL NestInner mp: write error"); failed += 1; }
         } else { println!("FAIL NestInner mp: decode error"); failed += 1; }
     } else { println!("FAIL NestInner mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestInner.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestInner.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestInner json: write error"); failed += 1; }
-        } else { println!("FAIL NestInner json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestInner.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestInner json: write error"); failed += 1; }
+            } else { println!("FAIL NestInner json: decode error"); failed += 1; }
+        } else { println!("FAIL NestInner json: reader error"); failed += 1; }
     } else { println!("FAIL NestInner json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestInner.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestInner.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestInner unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestInner unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestInner.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestInner unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestInner unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestInner unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestInner unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestInner.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_inner_decode(&mut r) {
@@ -5862,8 +6849,13 @@ fn main() {
             } else { println!("FAIL NestInner gron: write error"); failed += 1; }
         } else { println!("FAIL NestInner gron: decode error"); failed += 1; }
     } else { println!("FAIL NestInner gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestCoord
+fn test_model_nest_coord(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestCoord.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_coord_decode(&mut r) {
@@ -5874,29 +6866,31 @@ fn main() {
             } else { println!("FAIL NestCoord mp: write error"); failed += 1; }
         } else { println!("FAIL NestCoord mp: decode error"); failed += 1; }
     } else { println!("FAIL NestCoord mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestCoord.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_coord_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_coord_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestCoord.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestCoord json: write error"); failed += 1; }
-        } else { println!("FAIL NestCoord json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_coord_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_coord_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestCoord.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestCoord json: write error"); failed += 1; }
+            } else { println!("FAIL NestCoord json: decode error"); failed += 1; }
+        } else { println!("FAIL NestCoord json: reader error"); failed += 1; }
     } else { println!("FAIL NestCoord json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestCoord.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_coord_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_coord_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestCoord.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestCoord unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestCoord unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_coord_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_coord_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestCoord.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestCoord unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestCoord unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestCoord unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestCoord unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestCoord.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_coord_decode(&mut r) {
@@ -5907,8 +6901,13 @@ fn main() {
             } else { println!("FAIL NestCoord gron: write error"); failed += 1; }
         } else { println!("FAIL NestCoord gron: decode error"); failed += 1; }
     } else { println!("FAIL NestCoord gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestIdVal
+fn test_model_nest_id_val(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestIdVal.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_id_val_decode(&mut r) {
@@ -5919,29 +6918,31 @@ fn main() {
             } else { println!("FAIL NestIdVal mp: write error"); failed += 1; }
         } else { println!("FAIL NestIdVal mp: decode error"); failed += 1; }
     } else { println!("FAIL NestIdVal mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestIdVal.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_id_val_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_id_val_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestIdVal.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestIdVal json: write error"); failed += 1; }
-        } else { println!("FAIL NestIdVal json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_id_val_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_id_val_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestIdVal.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestIdVal json: write error"); failed += 1; }
+            } else { println!("FAIL NestIdVal json: decode error"); failed += 1; }
+        } else { println!("FAIL NestIdVal json: reader error"); failed += 1; }
     } else { println!("FAIL NestIdVal json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestIdVal.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_id_val_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_id_val_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestIdVal.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestIdVal unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestIdVal unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_id_val_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_id_val_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestIdVal.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestIdVal unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestIdVal unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestIdVal unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestIdVal unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestIdVal.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_id_val_decode(&mut r) {
@@ -5952,8 +6953,13 @@ fn main() {
             } else { println!("FAIL NestIdVal gron: write error"); failed += 1; }
         } else { println!("FAIL NestIdVal gron: decode error"); failed += 1; }
     } else { println!("FAIL NestIdVal gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestLabel
+fn test_model_nest_label(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestLabel.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_label_decode(&mut r) {
@@ -5964,29 +6970,31 @@ fn main() {
             } else { println!("FAIL NestLabel mp: write error"); failed += 1; }
         } else { println!("FAIL NestLabel mp: decode error"); failed += 1; }
     } else { println!("FAIL NestLabel mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestLabel.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_label_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_label_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestLabel.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestLabel json: write error"); failed += 1; }
-        } else { println!("FAIL NestLabel json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_label_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_label_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestLabel.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestLabel json: write error"); failed += 1; }
+            } else { println!("FAIL NestLabel json: decode error"); failed += 1; }
+        } else { println!("FAIL NestLabel json: reader error"); failed += 1; }
     } else { println!("FAIL NestLabel json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestLabel.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_label_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_label_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestLabel.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestLabel unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestLabel unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_label_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_label_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestLabel.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestLabel unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestLabel unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestLabel unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestLabel unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestLabel.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_label_decode(&mut r) {
@@ -5997,8 +7005,13 @@ fn main() {
             } else { println!("FAIL NestLabel gron: write error"); failed += 1; }
         } else { println!("FAIL NestLabel gron: decode error"); failed += 1; }
     } else { println!("FAIL NestLabel gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestMoney
+fn test_model_nest_money(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestMoney.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_money_decode(&mut r) {
@@ -6009,29 +7022,31 @@ fn main() {
             } else { println!("FAIL NestMoney mp: write error"); failed += 1; }
         } else { println!("FAIL NestMoney mp: decode error"); failed += 1; }
     } else { println!("FAIL NestMoney mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestMoney.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_money_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_money_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestMoney.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestMoney json: write error"); failed += 1; }
-        } else { println!("FAIL NestMoney json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_money_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_money_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestMoney.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestMoney json: write error"); failed += 1; }
+            } else { println!("FAIL NestMoney json: decode error"); failed += 1; }
+        } else { println!("FAIL NestMoney json: reader error"); failed += 1; }
     } else { println!("FAIL NestMoney json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestMoney.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_money_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_money_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestMoney.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestMoney unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestMoney unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_money_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_money_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestMoney.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestMoney unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestMoney unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestMoney unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestMoney unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestMoney.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_money_decode(&mut r) {
@@ -6042,8 +7057,13 @@ fn main() {
             } else { println!("FAIL NestMoney gron: write error"); failed += 1; }
         } else { println!("FAIL NestMoney gron: decode error"); failed += 1; }
     } else { println!("FAIL NestMoney gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestRange32
+fn test_model_nest_range32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestRange32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_range32_decode(&mut r) {
@@ -6054,29 +7074,31 @@ fn main() {
             } else { println!("FAIL NestRange32 mp: write error"); failed += 1; }
         } else { println!("FAIL NestRange32 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestRange32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestRange32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_range32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_range32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestRange32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestRange32 json: write error"); failed += 1; }
-        } else { println!("FAIL NestRange32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_range32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_range32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestRange32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestRange32 json: write error"); failed += 1; }
+            } else { println!("FAIL NestRange32 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestRange32 json: reader error"); failed += 1; }
     } else { println!("FAIL NestRange32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestRange32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_range32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_range32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestRange32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestRange32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestRange32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_range32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_range32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestRange32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestRange32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestRange32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestRange32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestRange32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestRange32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_range32_decode(&mut r) {
@@ -6087,8 +7109,13 @@ fn main() {
             } else { println!("FAIL NestRange32 gron: write error"); failed += 1; }
         } else { println!("FAIL NestRange32 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestRange32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestAddr
+fn test_model_nest_addr(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestAddr.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_addr_decode(&mut r) {
@@ -6099,29 +7126,31 @@ fn main() {
             } else { println!("FAIL NestAddr mp: write error"); failed += 1; }
         } else { println!("FAIL NestAddr mp: decode error"); failed += 1; }
     } else { println!("FAIL NestAddr mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestAddr.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_addr_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_addr_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestAddr.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestAddr json: write error"); failed += 1; }
-        } else { println!("FAIL NestAddr json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_addr_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_addr_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestAddr.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestAddr json: write error"); failed += 1; }
+            } else { println!("FAIL NestAddr json: decode error"); failed += 1; }
+        } else { println!("FAIL NestAddr json: reader error"); failed += 1; }
     } else { println!("FAIL NestAddr json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestAddr.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_addr_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_addr_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestAddr.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestAddr unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestAddr unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_addr_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_addr_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestAddr.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestAddr unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestAddr unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestAddr unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestAddr unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestAddr.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_addr_decode(&mut r) {
@@ -6132,8 +7161,13 @@ fn main() {
             } else { println!("FAIL NestAddr gron: write error"); failed += 1; }
         } else { println!("FAIL NestAddr gron: decode error"); failed += 1; }
     } else { println!("FAIL NestAddr gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestPoint3
+fn test_model_nest_point3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestPoint3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_point3_decode(&mut r) {
@@ -6144,29 +7178,31 @@ fn main() {
             } else { println!("FAIL NestPoint3 mp: write error"); failed += 1; }
         } else { println!("FAIL NestPoint3 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestPoint3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestPoint3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_point3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_point3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestPoint3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestPoint3 json: write error"); failed += 1; }
-        } else { println!("FAIL NestPoint3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_point3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_point3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestPoint3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestPoint3 json: write error"); failed += 1; }
+            } else { println!("FAIL NestPoint3 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestPoint3 json: reader error"); failed += 1; }
     } else { println!("FAIL NestPoint3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestPoint3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_point3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_point3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestPoint3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestPoint3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestPoint3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_point3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_point3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestPoint3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestPoint3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestPoint3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestPoint3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestPoint3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestPoint3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_point3_decode(&mut r) {
@@ -6177,8 +7213,13 @@ fn main() {
             } else { println!("FAIL NestPoint3 gron: write error"); failed += 1; }
         } else { println!("FAIL NestPoint3 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestPoint3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestInner
+fn test_model_opt_nest_inner(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestInner.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_inner_decode(&mut r) {
@@ -6189,29 +7230,31 @@ fn main() {
             } else { println!("FAIL OptNestInner mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestInner mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestInner mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestInner.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestInner.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestInner json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestInner json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestInner.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestInner json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestInner json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestInner json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestInner json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestInner.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_inner_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_inner_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestInner.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestInner unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestInner unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_inner_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_inner_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestInner.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestInner unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestInner unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestInner unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestInner unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestInner.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_inner_decode(&mut r) {
@@ -6222,8 +7265,13 @@ fn main() {
             } else { println!("FAIL OptNestInner gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestInner gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestInner gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestCoord
+fn test_model_opt_nest_coord(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestCoord.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_coord_decode(&mut r) {
@@ -6234,29 +7282,31 @@ fn main() {
             } else { println!("FAIL OptNestCoord mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestCoord mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestCoord mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestCoord.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_coord_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_coord_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestCoord.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestCoord json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestCoord json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_coord_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_coord_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestCoord.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestCoord json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestCoord json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestCoord json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestCoord json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestCoord.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_coord_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_coord_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestCoord.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestCoord unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestCoord unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_coord_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_coord_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestCoord.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestCoord unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestCoord unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestCoord unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestCoord unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestCoord.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_coord_decode(&mut r) {
@@ -6267,8 +7317,13 @@ fn main() {
             } else { println!("FAIL OptNestCoord gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestCoord gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestCoord gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestIdVal
+fn test_model_opt_nest_id_val(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestIdVal.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
@@ -6279,29 +7334,31 @@ fn main() {
             } else { println!("FAIL OptNestIdVal mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestIdVal mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestIdVal mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestIdVal.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_id_val_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestIdVal.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestIdVal json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestIdVal json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_id_val_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestIdVal.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestIdVal json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestIdVal json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestIdVal json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestIdVal json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestIdVal.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_id_val_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestIdVal.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestIdVal unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestIdVal unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_id_val_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestIdVal.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestIdVal unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestIdVal unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestIdVal unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestIdVal unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestIdVal.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_id_val_decode(&mut r) {
@@ -6312,8 +7369,13 @@ fn main() {
             } else { println!("FAIL OptNestIdVal gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestIdVal gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestIdVal gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestLabel
+fn test_model_opt_nest_label(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestLabel.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_label_decode(&mut r) {
@@ -6324,29 +7386,31 @@ fn main() {
             } else { println!("FAIL OptNestLabel mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestLabel mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestLabel mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestLabel.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_label_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_label_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestLabel.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestLabel json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestLabel json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_label_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_label_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestLabel.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestLabel json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestLabel json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestLabel json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestLabel json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestLabel.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_label_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_label_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestLabel.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestLabel unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestLabel unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_label_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_label_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestLabel.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestLabel unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestLabel unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestLabel unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestLabel unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestLabel.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_label_decode(&mut r) {
@@ -6357,8 +7421,13 @@ fn main() {
             } else { println!("FAIL OptNestLabel gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestLabel gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestLabel gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestMoney
+fn test_model_opt_nest_money(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestMoney.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_money_decode(&mut r) {
@@ -6369,29 +7438,31 @@ fn main() {
             } else { println!("FAIL OptNestMoney mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestMoney mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestMoney mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestMoney.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_money_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_money_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestMoney.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestMoney json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestMoney json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_money_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_money_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestMoney.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestMoney json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestMoney json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestMoney json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestMoney json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestMoney.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_money_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_money_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestMoney.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestMoney unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestMoney unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_money_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_money_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestMoney.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestMoney unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestMoney unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestMoney unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestMoney unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestMoney.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_money_decode(&mut r) {
@@ -6402,8 +7473,13 @@ fn main() {
             } else { println!("FAIL OptNestMoney gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestMoney gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestMoney gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestRange32
+fn test_model_opt_nest_range32(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestRange32.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_range32_decode(&mut r) {
@@ -6414,29 +7490,31 @@ fn main() {
             } else { println!("FAIL OptNestRange32 mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestRange32 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestRange32 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestRange32.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_range32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_range32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestRange32.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestRange32 json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestRange32 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_range32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_range32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestRange32.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestRange32 json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestRange32 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestRange32 json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestRange32 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestRange32.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_range32_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_range32_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestRange32.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestRange32 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestRange32 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_range32_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_range32_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestRange32.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestRange32 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestRange32 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestRange32 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestRange32 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestRange32.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_range32_decode(&mut r) {
@@ -6447,8 +7525,13 @@ fn main() {
             } else { println!("FAIL OptNestRange32 gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestRange32 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestRange32 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestAddr
+fn test_model_opt_nest_addr(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestAddr.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_addr_decode(&mut r) {
@@ -6459,29 +7542,31 @@ fn main() {
             } else { println!("FAIL OptNestAddr mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestAddr mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestAddr mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestAddr.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_addr_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_addr_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestAddr.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestAddr json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestAddr json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_addr_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_addr_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestAddr.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestAddr json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestAddr json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestAddr json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestAddr json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestAddr.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_addr_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_addr_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestAddr.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestAddr unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestAddr unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_addr_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_addr_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestAddr.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestAddr unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestAddr unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestAddr unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestAddr unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestAddr.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_addr_decode(&mut r) {
@@ -6492,8 +7577,13 @@ fn main() {
             } else { println!("FAIL OptNestAddr gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestAddr gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestAddr gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptNestPoint3
+fn test_model_opt_nest_point3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestPoint3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_nest_point3_decode(&mut r) {
@@ -6504,29 +7594,31 @@ fn main() {
             } else { println!("FAIL OptNestPoint3 mp: write error"); failed += 1; }
         } else { println!("FAIL OptNestPoint3 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptNestPoint3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestPoint3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_point3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_point3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestPoint3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestPoint3 json: write error"); failed += 1; }
-        } else { println!("FAIL OptNestPoint3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_point3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_point3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestPoint3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestPoint3 json: write error"); failed += 1; }
+            } else { println!("FAIL OptNestPoint3 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestPoint3 json: reader error"); failed += 1; }
     } else { println!("FAIL OptNestPoint3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestPoint3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_nest_point3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_nest_point3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestPoint3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptNestPoint3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptNestPoint3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_nest_point3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_nest_point3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptNestPoint3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptNestPoint3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptNestPoint3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptNestPoint3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptNestPoint3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptNestPoint3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_nest_point3_decode(&mut r) {
@@ -6537,8 +7629,13 @@ fn main() {
             } else { println!("FAIL OptNestPoint3 gron: write error"); failed += 1; }
         } else { println!("FAIL OptNestPoint3 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptNestPoint3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ModelArr1
+fn test_model_model_arr1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = model_arr1_decode(&mut r) {
@@ -6549,29 +7646,31 @@ fn main() {
             } else { println!("FAIL ModelArr1 mp: write error"); failed += 1; }
         } else { println!("FAIL ModelArr1 mp: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr1 json: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr1 json: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr1 json: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr1 json: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = model_arr1_decode(&mut r) {
@@ -6582,8 +7681,13 @@ fn main() {
             } else { println!("FAIL ModelArr1 gron: write error"); failed += 1; }
         } else { println!("FAIL ModelArr1 gron: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ModelArr2
+fn test_model_model_arr2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = model_arr2_decode(&mut r) {
@@ -6594,29 +7698,31 @@ fn main() {
             } else { println!("FAIL ModelArr2 mp: write error"); failed += 1; }
         } else { println!("FAIL ModelArr2 mp: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr2 json: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr2 json: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr2 json: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr2 json: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = model_arr2_decode(&mut r) {
@@ -6627,8 +7733,13 @@ fn main() {
             } else { println!("FAIL ModelArr2 gron: write error"); failed += 1; }
         } else { println!("FAIL ModelArr2 gron: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ModelArr3
+fn test_model_model_arr3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = model_arr3_decode(&mut r) {
@@ -6639,29 +7750,31 @@ fn main() {
             } else { println!("FAIL ModelArr3 mp: write error"); failed += 1; }
         } else { println!("FAIL ModelArr3 mp: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr3 json: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr3 json: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr3 json: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr3 json: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = model_arr3_decode(&mut r) {
@@ -6672,8 +7785,13 @@ fn main() {
             } else { println!("FAIL ModelArr3 gron: write error"); failed += 1; }
         } else { println!("FAIL ModelArr3 gron: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ModelArr4
+fn test_model_model_arr4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = model_arr4_decode(&mut r) {
@@ -6684,29 +7802,31 @@ fn main() {
             } else { println!("FAIL ModelArr4 mp: write error"); failed += 1; }
         } else { println!("FAIL ModelArr4 mp: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr4 json: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr4 json: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr4 json: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr4 json: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = model_arr4_decode(&mut r) {
@@ -6717,8 +7837,13 @@ fn main() {
             } else { println!("FAIL ModelArr4 gron: write error"); failed += 1; }
         } else { println!("FAIL ModelArr4 gron: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ModelArr5
+fn test_model_model_arr5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = model_arr5_decode(&mut r) {
@@ -6729,29 +7854,31 @@ fn main() {
             } else { println!("FAIL ModelArr5 mp: write error"); failed += 1; }
         } else { println!("FAIL ModelArr5 mp: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr5 json: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr5 json: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr5 json: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr5 json: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = model_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            model_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ModelArr5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ModelArr5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = model_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                model_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ModelArr5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ModelArr5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ModelArr5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ModelArr5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ModelArr5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ModelArr5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = model_arr5_decode(&mut r) {
@@ -6762,8 +7889,13 @@ fn main() {
             } else { println!("FAIL ModelArr5 gron: write error"); failed += 1; }
         } else { println!("FAIL ModelArr5 gron: decode error"); failed += 1; }
     } else { println!("FAIL ModelArr5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix01
+fn test_model_mix01(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix01.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix01_decode(&mut r) {
@@ -6774,29 +7906,31 @@ fn main() {
             } else { println!("FAIL Mix01 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix01 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix01 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix01.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix01.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix01 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix01 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix01.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix01 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix01 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix01 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix01 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix01.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix01_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix01_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix01.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix01 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix01 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix01_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix01_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix01.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix01 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix01 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix01 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix01 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix01.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix01_decode(&mut r) {
@@ -6807,8 +7941,13 @@ fn main() {
             } else { println!("FAIL Mix01 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix01 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix01 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix02
+fn test_model_mix02(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix02.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix02_decode(&mut r) {
@@ -6819,29 +7958,31 @@ fn main() {
             } else { println!("FAIL Mix02 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix02 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix02 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix02.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix02.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix02 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix02 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix02.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix02 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix02 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix02 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix02 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix02.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix02_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix02_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix02.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix02 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix02 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix02_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix02_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix02.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix02 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix02 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix02 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix02 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix02.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix02_decode(&mut r) {
@@ -6852,8 +7993,13 @@ fn main() {
             } else { println!("FAIL Mix02 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix02 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix02 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix03
+fn test_model_mix03(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix03.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix03_decode(&mut r) {
@@ -6864,29 +8010,31 @@ fn main() {
             } else { println!("FAIL Mix03 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix03 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix03 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix03.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix03.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix03 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix03 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix03.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix03 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix03 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix03 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix03 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix03.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix03_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix03_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix03.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix03 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix03 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix03_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix03_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix03.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix03 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix03 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix03 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix03 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix03.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix03_decode(&mut r) {
@@ -6897,8 +8045,13 @@ fn main() {
             } else { println!("FAIL Mix03 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix03 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix03 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix04
+fn test_model_mix04(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix04.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix04_decode(&mut r) {
@@ -6909,29 +8062,31 @@ fn main() {
             } else { println!("FAIL Mix04 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix04 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix04 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix04.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix04.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix04 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix04 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix04.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix04 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix04 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix04 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix04 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix04.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix04_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix04_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix04.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix04 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix04 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix04_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix04_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix04.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix04 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix04 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix04 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix04 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix04.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix04_decode(&mut r) {
@@ -6942,8 +8097,13 @@ fn main() {
             } else { println!("FAIL Mix04 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix04 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix04 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix05
+fn test_model_mix05(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix05.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix05_decode(&mut r) {
@@ -6954,29 +8114,31 @@ fn main() {
             } else { println!("FAIL Mix05 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix05 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix05 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix05.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix05.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix05 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix05 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix05.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix05 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix05 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix05 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix05 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix05.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix05_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix05_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix05.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix05 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix05 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix05_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix05_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix05.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix05 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix05 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix05 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix05 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix05.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix05_decode(&mut r) {
@@ -6987,8 +8149,13 @@ fn main() {
             } else { println!("FAIL Mix05 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix05 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix05 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix06
+fn test_model_mix06(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix06.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix06_decode(&mut r) {
@@ -6999,29 +8166,31 @@ fn main() {
             } else { println!("FAIL Mix06 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix06 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix06 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix06.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix06.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix06 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix06 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix06.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix06 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix06 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix06 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix06 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix06.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix06_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix06_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix06.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix06 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix06 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix06_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix06_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix06.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix06 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix06 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix06 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix06 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix06.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix06_decode(&mut r) {
@@ -7032,8 +8201,13 @@ fn main() {
             } else { println!("FAIL Mix06 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix06 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix06 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix07
+fn test_model_mix07(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix07.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix07_decode(&mut r) {
@@ -7044,29 +8218,31 @@ fn main() {
             } else { println!("FAIL Mix07 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix07 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix07 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix07.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix07.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix07 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix07 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix07.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix07 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix07 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix07 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix07 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix07.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix07_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix07_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix07.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix07 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix07 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix07_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix07_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix07.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix07 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix07 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix07 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix07 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix07.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix07_decode(&mut r) {
@@ -7077,8 +8253,13 @@ fn main() {
             } else { println!("FAIL Mix07 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix07 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix07 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix08
+fn test_model_mix08(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix08.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix08_decode(&mut r) {
@@ -7089,29 +8270,31 @@ fn main() {
             } else { println!("FAIL Mix08 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix08 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix08 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix08.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix08.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix08 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix08 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix08.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix08 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix08 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix08 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix08 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix08.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix08_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix08_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix08.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix08 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix08 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix08_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix08_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix08.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix08 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix08 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix08 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix08 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix08.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix08_decode(&mut r) {
@@ -7122,8 +8305,13 @@ fn main() {
             } else { println!("FAIL Mix08 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix08 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix08 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix09
+fn test_model_mix09(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix09.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix09_decode(&mut r) {
@@ -7134,29 +8322,31 @@ fn main() {
             } else { println!("FAIL Mix09 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix09 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix09 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix09.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix09.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix09 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix09 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix09.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix09 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix09 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix09 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix09 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix09.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix09_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix09_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix09.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix09 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix09 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix09_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix09_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix09.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix09 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix09 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix09 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix09 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix09.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix09_decode(&mut r) {
@@ -7167,8 +8357,13 @@ fn main() {
             } else { println!("FAIL Mix09 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix09 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix09 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix10
+fn test_model_mix10(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix10.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix10_decode(&mut r) {
@@ -7179,29 +8374,31 @@ fn main() {
             } else { println!("FAIL Mix10 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix10 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix10 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix10.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix10.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix10 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix10 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix10.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix10 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix10 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix10 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix10 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix10.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix10_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix10_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix10.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix10 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix10 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix10_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix10_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix10.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix10 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix10 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix10 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix10 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix10.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix10_decode(&mut r) {
@@ -7212,8 +8409,13 @@ fn main() {
             } else { println!("FAIL Mix10 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix10 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix10 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix11
+fn test_model_mix11(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix11.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix11_decode(&mut r) {
@@ -7224,29 +8426,31 @@ fn main() {
             } else { println!("FAIL Mix11 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix11 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix11 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix11.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix11_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix11_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix11.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix11 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix11 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix11_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix11_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix11.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix11 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix11 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix11 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix11 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix11.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix11_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix11_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix11.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix11 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix11 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix11_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix11_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix11.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix11 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix11 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix11 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix11 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix11.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix11_decode(&mut r) {
@@ -7257,8 +8461,13 @@ fn main() {
             } else { println!("FAIL Mix11 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix11 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix11 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix12
+fn test_model_mix12(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix12.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix12_decode(&mut r) {
@@ -7269,29 +8478,31 @@ fn main() {
             } else { println!("FAIL Mix12 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix12 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix12 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix12.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix12_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix12_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix12.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix12 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix12 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix12_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix12_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix12.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix12 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix12 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix12 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix12 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix12.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix12_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix12_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix12.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix12 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix12 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix12_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix12_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix12.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix12 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix12 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix12 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix12 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix12.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix12_decode(&mut r) {
@@ -7302,8 +8513,13 @@ fn main() {
             } else { println!("FAIL Mix12 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix12 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix12 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix13
+fn test_model_mix13(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix13.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix13_decode(&mut r) {
@@ -7314,29 +8530,31 @@ fn main() {
             } else { println!("FAIL Mix13 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix13 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix13 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix13.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix13_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix13_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix13.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix13 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix13 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix13_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix13_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix13.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix13 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix13 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix13 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix13 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix13.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix13_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix13_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix13.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix13 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix13 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix13_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix13_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix13.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix13 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix13 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix13 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix13 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix13.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix13_decode(&mut r) {
@@ -7347,8 +8565,13 @@ fn main() {
             } else { println!("FAIL Mix13 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix13 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix13 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix14
+fn test_model_mix14(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix14.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix14_decode(&mut r) {
@@ -7359,29 +8582,31 @@ fn main() {
             } else { println!("FAIL Mix14 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix14 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix14 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix14.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix14_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix14_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix14.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix14 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix14 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix14_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix14_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix14.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix14 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix14 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix14 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix14 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix14.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix14_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix14_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix14.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix14 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix14 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix14_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix14_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix14.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix14 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix14 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix14 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix14 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix14.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix14_decode(&mut r) {
@@ -7392,8 +8617,13 @@ fn main() {
             } else { println!("FAIL Mix14 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix14 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix14 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Mix15
+fn test_model_mix15(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix15.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = mix15_decode(&mut r) {
@@ -7404,29 +8634,31 @@ fn main() {
             } else { println!("FAIL Mix15 mp: write error"); failed += 1; }
         } else { println!("FAIL Mix15 mp: decode error"); failed += 1; }
     } else { println!("FAIL Mix15 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix15.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix15_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix15_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix15.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix15 json: write error"); failed += 1; }
-        } else { println!("FAIL Mix15 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix15_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix15_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix15.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix15 json: write error"); failed += 1; }
+            } else { println!("FAIL Mix15 json: decode error"); failed += 1; }
+        } else { println!("FAIL Mix15 json: reader error"); failed += 1; }
     } else { println!("FAIL Mix15 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix15.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = mix15_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            mix15_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix15.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Mix15 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Mix15 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = mix15_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                mix15_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Mix15.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Mix15 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Mix15 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Mix15 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Mix15 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Mix15.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = mix15_decode(&mut r) {
@@ -7437,8 +8669,13 @@ fn main() {
             } else { println!("FAIL Mix15 gron: write error"); failed += 1; }
         } else { println!("FAIL Mix15 gron: decode error"); failed += 1; }
     } else { println!("FAIL Mix15 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // AllOpt1
+fn test_model_all_opt1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = all_opt1_decode(&mut r) {
@@ -7449,29 +8686,31 @@ fn main() {
             } else { println!("FAIL AllOpt1 mp: write error"); failed += 1; }
         } else { println!("FAIL AllOpt1 mp: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt1 json: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt1 json: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt1 json: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt1 json: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = all_opt1_decode(&mut r) {
@@ -7482,8 +8721,13 @@ fn main() {
             } else { println!("FAIL AllOpt1 gron: write error"); failed += 1; }
         } else { println!("FAIL AllOpt1 gron: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // AllOpt2
+fn test_model_all_opt2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = all_opt2_decode(&mut r) {
@@ -7494,29 +8738,31 @@ fn main() {
             } else { println!("FAIL AllOpt2 mp: write error"); failed += 1; }
         } else { println!("FAIL AllOpt2 mp: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt2 json: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt2 json: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt2 json: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt2 json: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = all_opt2_decode(&mut r) {
@@ -7527,8 +8773,13 @@ fn main() {
             } else { println!("FAIL AllOpt2 gron: write error"); failed += 1; }
         } else { println!("FAIL AllOpt2 gron: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // AllOpt3
+fn test_model_all_opt3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = all_opt3_decode(&mut r) {
@@ -7539,29 +8790,31 @@ fn main() {
             } else { println!("FAIL AllOpt3 mp: write error"); failed += 1; }
         } else { println!("FAIL AllOpt3 mp: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt3 json: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt3 json: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt3 json: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt3 json: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = all_opt3_decode(&mut r) {
@@ -7572,8 +8825,13 @@ fn main() {
             } else { println!("FAIL AllOpt3 gron: write error"); failed += 1; }
         } else { println!("FAIL AllOpt3 gron: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // AllOpt4
+fn test_model_all_opt4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = all_opt4_decode(&mut r) {
@@ -7584,29 +8842,31 @@ fn main() {
             } else { println!("FAIL AllOpt4 mp: write error"); failed += 1; }
         } else { println!("FAIL AllOpt4 mp: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt4 json: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt4 json: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt4 json: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt4 json: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = all_opt4_decode(&mut r) {
@@ -7617,8 +8877,13 @@ fn main() {
             } else { println!("FAIL AllOpt4 gron: write error"); failed += 1; }
         } else { println!("FAIL AllOpt4 gron: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // AllOpt5
+fn test_model_all_opt5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = all_opt5_decode(&mut r) {
@@ -7629,29 +8894,31 @@ fn main() {
             } else { println!("FAIL AllOpt5 mp: write error"); failed += 1; }
         } else { println!("FAIL AllOpt5 mp: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt5 json: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt5 json: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt5 json: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt5 json: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = all_opt5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            all_opt5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL AllOpt5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL AllOpt5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = all_opt5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                all_opt5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("AllOpt5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL AllOpt5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL AllOpt5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL AllOpt5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL AllOpt5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("AllOpt5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = all_opt5_decode(&mut r) {
@@ -7662,8 +8929,13 @@ fn main() {
             } else { println!("FAIL AllOpt5 gron: write error"); failed += 1; }
         } else { println!("FAIL AllOpt5 gron: decode error"); failed += 1; }
     } else { println!("FAIL AllOpt5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // RecList
+fn test_model_rec_list(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecList.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = rec_list_decode(&mut r) {
@@ -7674,29 +8946,31 @@ fn main() {
             } else { println!("FAIL RecList mp: write error"); failed += 1; }
         } else { println!("FAIL RecList mp: decode error"); failed += 1; }
     } else { println!("FAIL RecList mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecList.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_list_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_list_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecList.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecList json: write error"); failed += 1; }
-        } else { println!("FAIL RecList json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_list_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_list_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecList.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecList json: write error"); failed += 1; }
+            } else { println!("FAIL RecList json: decode error"); failed += 1; }
+        } else { println!("FAIL RecList json: reader error"); failed += 1; }
     } else { println!("FAIL RecList json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecList.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_list_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_list_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecList.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecList unformatted: write error"); failed += 1; }
-        } else { println!("FAIL RecList unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_list_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_list_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecList.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecList unformatted: write error"); failed += 1; }
+            } else { println!("FAIL RecList unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL RecList unformatted: reader error"); failed += 1; }
     } else { println!("FAIL RecList unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecList.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = rec_list_decode(&mut r) {
@@ -7707,8 +8981,13 @@ fn main() {
             } else { println!("FAIL RecList gron: write error"); failed += 1; }
         } else { println!("FAIL RecList gron: decode error"); failed += 1; }
     } else { println!("FAIL RecList gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // RecTree
+fn test_model_rec_tree(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecTree.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = rec_tree_decode(&mut r) {
@@ -7719,29 +8998,31 @@ fn main() {
             } else { println!("FAIL RecTree mp: write error"); failed += 1; }
         } else { println!("FAIL RecTree mp: decode error"); failed += 1; }
     } else { println!("FAIL RecTree mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecTree.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_tree_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_tree_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecTree.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecTree json: write error"); failed += 1; }
-        } else { println!("FAIL RecTree json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_tree_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_tree_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecTree.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecTree json: write error"); failed += 1; }
+            } else { println!("FAIL RecTree json: decode error"); failed += 1; }
+        } else { println!("FAIL RecTree json: reader error"); failed += 1; }
     } else { println!("FAIL RecTree json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecTree.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_tree_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_tree_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecTree.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecTree unformatted: write error"); failed += 1; }
-        } else { println!("FAIL RecTree unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_tree_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_tree_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecTree.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecTree unformatted: write error"); failed += 1; }
+            } else { println!("FAIL RecTree unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL RecTree unformatted: reader error"); failed += 1; }
     } else { println!("FAIL RecTree unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecTree.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = rec_tree_decode(&mut r) {
@@ -7752,8 +9033,13 @@ fn main() {
             } else { println!("FAIL RecTree gron: write error"); failed += 1; }
         } else { println!("FAIL RecTree gron: decode error"); failed += 1; }
     } else { println!("FAIL RecTree gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // RecChain
+fn test_model_rec_chain(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecChain.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = rec_chain_decode(&mut r) {
@@ -7764,29 +9050,31 @@ fn main() {
             } else { println!("FAIL RecChain mp: write error"); failed += 1; }
         } else { println!("FAIL RecChain mp: decode error"); failed += 1; }
     } else { println!("FAIL RecChain mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecChain.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_chain_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_chain_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecChain.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecChain json: write error"); failed += 1; }
-        } else { println!("FAIL RecChain json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_chain_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_chain_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecChain.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecChain json: write error"); failed += 1; }
+            } else { println!("FAIL RecChain json: decode error"); failed += 1; }
+        } else { println!("FAIL RecChain json: reader error"); failed += 1; }
     } else { println!("FAIL RecChain json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecChain.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_chain_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_chain_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecChain.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecChain unformatted: write error"); failed += 1; }
-        } else { println!("FAIL RecChain unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_chain_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_chain_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecChain.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecChain unformatted: write error"); failed += 1; }
+            } else { println!("FAIL RecChain unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL RecChain unformatted: reader error"); failed += 1; }
     } else { println!("FAIL RecChain unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecChain.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = rec_chain_decode(&mut r) {
@@ -7797,8 +9085,13 @@ fn main() {
             } else { println!("FAIL RecChain gron: write error"); failed += 1; }
         } else { println!("FAIL RecChain gron: decode error"); failed += 1; }
     } else { println!("FAIL RecChain gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // RecWrap
+fn test_model_rec_wrap(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWrap.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = rec_wrap_decode(&mut r) {
@@ -7809,29 +9102,31 @@ fn main() {
             } else { println!("FAIL RecWrap mp: write error"); failed += 1; }
         } else { println!("FAIL RecWrap mp: decode error"); failed += 1; }
     } else { println!("FAIL RecWrap mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWrap.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_wrap_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_wrap_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWrap.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecWrap json: write error"); failed += 1; }
-        } else { println!("FAIL RecWrap json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_wrap_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_wrap_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWrap.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecWrap json: write error"); failed += 1; }
+            } else { println!("FAIL RecWrap json: decode error"); failed += 1; }
+        } else { println!("FAIL RecWrap json: reader error"); failed += 1; }
     } else { println!("FAIL RecWrap json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWrap.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_wrap_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_wrap_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWrap.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecWrap unformatted: write error"); failed += 1; }
-        } else { println!("FAIL RecWrap unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_wrap_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_wrap_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWrap.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecWrap unformatted: write error"); failed += 1; }
+            } else { println!("FAIL RecWrap unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL RecWrap unformatted: reader error"); failed += 1; }
     } else { println!("FAIL RecWrap unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWrap.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = rec_wrap_decode(&mut r) {
@@ -7842,8 +9137,13 @@ fn main() {
             } else { println!("FAIL RecWrap gron: write error"); failed += 1; }
         } else { println!("FAIL RecWrap gron: decode error"); failed += 1; }
     } else { println!("FAIL RecWrap gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // RecWide
+fn test_model_rec_wide(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWide.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = rec_wide_decode(&mut r) {
@@ -7854,29 +9154,31 @@ fn main() {
             } else { println!("FAIL RecWide mp: write error"); failed += 1; }
         } else { println!("FAIL RecWide mp: decode error"); failed += 1; }
     } else { println!("FAIL RecWide mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWide.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_wide_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_wide_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWide.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecWide json: write error"); failed += 1; }
-        } else { println!("FAIL RecWide json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_wide_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_wide_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWide.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecWide json: write error"); failed += 1; }
+            } else { println!("FAIL RecWide json: decode error"); failed += 1; }
+        } else { println!("FAIL RecWide json: reader error"); failed += 1; }
     } else { println!("FAIL RecWide json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWide.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = rec_wide_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            rec_wide_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWide.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL RecWide unformatted: write error"); failed += 1; }
-        } else { println!("FAIL RecWide unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = rec_wide_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                rec_wide_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("RecWide.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL RecWide unformatted: write error"); failed += 1; }
+            } else { println!("FAIL RecWide unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL RecWide unformatted: reader error"); failed += 1; }
     } else { println!("FAIL RecWide unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("RecWide.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = rec_wide_decode(&mut r) {
@@ -7887,8 +9189,13 @@ fn main() {
             } else { println!("FAIL RecWide gron: write error"); failed += 1; }
         } else { println!("FAIL RecWide gron: decode error"); failed += 1; }
     } else { println!("FAIL RecWide gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Wide20
+fn test_model_wide20(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide20.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = wide20_decode(&mut r) {
@@ -7899,29 +9206,31 @@ fn main() {
             } else { println!("FAIL Wide20 mp: write error"); failed += 1; }
         } else { println!("FAIL Wide20 mp: decode error"); failed += 1; }
     } else { println!("FAIL Wide20 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide20.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide20_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide20_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide20.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide20 json: write error"); failed += 1; }
-        } else { println!("FAIL Wide20 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide20_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide20_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide20.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide20 json: write error"); failed += 1; }
+            } else { println!("FAIL Wide20 json: decode error"); failed += 1; }
+        } else { println!("FAIL Wide20 json: reader error"); failed += 1; }
     } else { println!("FAIL Wide20 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide20.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide20_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide20_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide20.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide20 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Wide20 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide20_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide20_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide20.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide20 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Wide20 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Wide20 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Wide20 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide20.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = wide20_decode(&mut r) {
@@ -7932,8 +9241,13 @@ fn main() {
             } else { println!("FAIL Wide20 gron: write error"); failed += 1; }
         } else { println!("FAIL Wide20 gron: decode error"); failed += 1; }
     } else { println!("FAIL Wide20 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Wide25
+fn test_model_wide25(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide25.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = wide25_decode(&mut r) {
@@ -7944,29 +9258,31 @@ fn main() {
             } else { println!("FAIL Wide25 mp: write error"); failed += 1; }
         } else { println!("FAIL Wide25 mp: decode error"); failed += 1; }
     } else { println!("FAIL Wide25 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide25.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide25_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide25_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide25.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide25 json: write error"); failed += 1; }
-        } else { println!("FAIL Wide25 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide25_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide25_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide25.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide25 json: write error"); failed += 1; }
+            } else { println!("FAIL Wide25 json: decode error"); failed += 1; }
+        } else { println!("FAIL Wide25 json: reader error"); failed += 1; }
     } else { println!("FAIL Wide25 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide25.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide25_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide25_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide25.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide25 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Wide25 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide25_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide25_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide25.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide25 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Wide25 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Wide25 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Wide25 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide25.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = wide25_decode(&mut r) {
@@ -7977,8 +9293,13 @@ fn main() {
             } else { println!("FAIL Wide25 gron: write error"); failed += 1; }
         } else { println!("FAIL Wide25 gron: decode error"); failed += 1; }
     } else { println!("FAIL Wide25 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Wide30
+fn test_model_wide30(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide30.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = wide30_decode(&mut r) {
@@ -7989,29 +9310,31 @@ fn main() {
             } else { println!("FAIL Wide30 mp: write error"); failed += 1; }
         } else { println!("FAIL Wide30 mp: decode error"); failed += 1; }
     } else { println!("FAIL Wide30 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide30.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide30_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide30_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide30.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide30 json: write error"); failed += 1; }
-        } else { println!("FAIL Wide30 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide30_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide30_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide30.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide30 json: write error"); failed += 1; }
+            } else { println!("FAIL Wide30 json: decode error"); failed += 1; }
+        } else { println!("FAIL Wide30 json: reader error"); failed += 1; }
     } else { println!("FAIL Wide30 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide30.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide30_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide30_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide30.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide30 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Wide30 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide30_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide30_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide30.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide30 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Wide30 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Wide30 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Wide30 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide30.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = wide30_decode(&mut r) {
@@ -8022,8 +9345,13 @@ fn main() {
             } else { println!("FAIL Wide30 gron: write error"); failed += 1; }
         } else { println!("FAIL Wide30 gron: decode error"); failed += 1; }
     } else { println!("FAIL Wide30 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Wide35
+fn test_model_wide35(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide35.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = wide35_decode(&mut r) {
@@ -8034,29 +9362,31 @@ fn main() {
             } else { println!("FAIL Wide35 mp: write error"); failed += 1; }
         } else { println!("FAIL Wide35 mp: decode error"); failed += 1; }
     } else { println!("FAIL Wide35 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide35.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide35_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide35_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide35.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide35 json: write error"); failed += 1; }
-        } else { println!("FAIL Wide35 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide35_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide35_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide35.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide35 json: write error"); failed += 1; }
+            } else { println!("FAIL Wide35 json: decode error"); failed += 1; }
+        } else { println!("FAIL Wide35 json: reader error"); failed += 1; }
     } else { println!("FAIL Wide35 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide35.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide35_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide35_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide35.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide35 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Wide35 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide35_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide35_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide35.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide35 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Wide35 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Wide35 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Wide35 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide35.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = wide35_decode(&mut r) {
@@ -8067,8 +9397,13 @@ fn main() {
             } else { println!("FAIL Wide35 gron: write error"); failed += 1; }
         } else { println!("FAIL Wide35 gron: decode error"); failed += 1; }
     } else { println!("FAIL Wide35 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // Wide40
+fn test_model_wide40(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide40.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = wide40_decode(&mut r) {
@@ -8079,29 +9414,31 @@ fn main() {
             } else { println!("FAIL Wide40 mp: write error"); failed += 1; }
         } else { println!("FAIL Wide40 mp: decode error"); failed += 1; }
     } else { println!("FAIL Wide40 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide40.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide40_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide40_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide40.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide40 json: write error"); failed += 1; }
-        } else { println!("FAIL Wide40 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide40_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide40_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide40.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide40 json: write error"); failed += 1; }
+            } else { println!("FAIL Wide40 json: decode error"); failed += 1; }
+        } else { println!("FAIL Wide40 json: reader error"); failed += 1; }
     } else { println!("FAIL Wide40 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide40.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = wide40_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            wide40_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide40.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL Wide40 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL Wide40 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = wide40_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                wide40_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("Wide40.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL Wide40 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL Wide40 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL Wide40 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL Wide40 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("Wide40.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = wide40_decode(&mut r) {
@@ -8112,8 +9449,13 @@ fn main() {
             } else { println!("FAIL Wide40 gron: write error"); failed += 1; }
         } else { println!("FAIL Wide40 gron: decode error"); failed += 1; }
     } else { println!("FAIL Wide40 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeEmpty
+fn test_model_edge_empty(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeEmpty.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_empty_decode(&mut r) {
@@ -8124,29 +9466,31 @@ fn main() {
             } else { println!("FAIL EdgeEmpty mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeEmpty mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeEmpty mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeEmpty.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_empty_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_empty_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeEmpty.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeEmpty json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeEmpty json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_empty_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_empty_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeEmpty.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeEmpty json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeEmpty json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeEmpty json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeEmpty json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeEmpty.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_empty_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_empty_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeEmpty.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeEmpty unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeEmpty unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_empty_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_empty_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeEmpty.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeEmpty unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeEmpty unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeEmpty unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeEmpty unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeEmpty.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_empty_decode(&mut r) {
@@ -8157,8 +9501,13 @@ fn main() {
             } else { println!("FAIL EdgeEmpty gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeEmpty gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeEmpty gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeOneOpt
+fn test_model_edge_one_opt(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeOneOpt.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_one_opt_decode(&mut r) {
@@ -8169,29 +9518,31 @@ fn main() {
             } else { println!("FAIL EdgeOneOpt mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeOneOpt mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeOneOpt mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeOneOpt.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_one_opt_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_one_opt_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeOneOpt.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeOneOpt json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeOneOpt json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_one_opt_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_one_opt_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeOneOpt.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeOneOpt json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeOneOpt json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeOneOpt json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeOneOpt json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeOneOpt.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_one_opt_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_one_opt_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeOneOpt.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeOneOpt unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeOneOpt unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_one_opt_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_one_opt_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeOneOpt.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeOneOpt unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeOneOpt unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeOneOpt unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeOneOpt unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeOneOpt.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_one_opt_decode(&mut r) {
@@ -8202,8 +9553,13 @@ fn main() {
             } else { println!("FAIL EdgeOneOpt gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeOneOpt gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeOneOpt gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeBigNums
+fn test_model_edge_big_nums(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBigNums.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_big_nums_decode(&mut r) {
@@ -8214,29 +9570,31 @@ fn main() {
             } else { println!("FAIL EdgeBigNums mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeBigNums mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBigNums mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBigNums.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_big_nums_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_big_nums_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBigNums.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBigNums json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBigNums json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_big_nums_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_big_nums_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBigNums.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBigNums json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBigNums json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBigNums json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBigNums json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBigNums.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_big_nums_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_big_nums_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBigNums.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBigNums unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBigNums unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_big_nums_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_big_nums_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBigNums.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBigNums unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBigNums unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBigNums unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBigNums unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBigNums.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_big_nums_decode(&mut r) {
@@ -8247,8 +9605,13 @@ fn main() {
             } else { println!("FAIL EdgeBigNums gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeBigNums gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBigNums gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeZeroVals
+fn test_model_edge_zero_vals(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeZeroVals.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_zero_vals_decode(&mut r) {
@@ -8259,29 +9622,31 @@ fn main() {
             } else { println!("FAIL EdgeZeroVals mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeZeroVals mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeZeroVals mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeZeroVals.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_zero_vals_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_zero_vals_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeZeroVals.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeZeroVals json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeZeroVals json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_zero_vals_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_zero_vals_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeZeroVals.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeZeroVals json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeZeroVals json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeZeroVals json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeZeroVals json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeZeroVals.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_zero_vals_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_zero_vals_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeZeroVals.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeZeroVals unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeZeroVals unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_zero_vals_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_zero_vals_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeZeroVals.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeZeroVals unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeZeroVals unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeZeroVals unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeZeroVals unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeZeroVals.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_zero_vals_decode(&mut r) {
@@ -8292,8 +9657,13 @@ fn main() {
             } else { println!("FAIL EdgeZeroVals gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeZeroVals gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeZeroVals gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeNullable
+fn test_model_edge_nullable(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullable.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_nullable_decode(&mut r) {
@@ -8304,29 +9674,31 @@ fn main() {
             } else { println!("FAIL EdgeNullable mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeNullable mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNullable mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullable.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_nullable_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_nullable_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullable.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNullable json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNullable json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_nullable_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_nullable_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullable.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNullable json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNullable json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNullable json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNullable json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullable.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_nullable_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_nullable_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullable.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNullable unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNullable unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_nullable_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_nullable_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullable.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNullable unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNullable unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNullable unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNullable unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullable.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_nullable_decode(&mut r) {
@@ -8337,8 +9709,13 @@ fn main() {
             } else { println!("FAIL EdgeNullable gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeNullable gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNullable gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeNegZero
+fn test_model_edge_neg_zero(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNegZero.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_neg_zero_decode(&mut r) {
@@ -8349,29 +9726,31 @@ fn main() {
             } else { println!("FAIL EdgeNegZero mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeNegZero mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNegZero mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNegZero.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_neg_zero_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_neg_zero_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNegZero.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNegZero json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNegZero json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_neg_zero_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_neg_zero_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNegZero.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNegZero json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNegZero json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNegZero json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNegZero json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNegZero.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_neg_zero_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_neg_zero_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNegZero.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNegZero unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNegZero unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_neg_zero_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_neg_zero_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNegZero.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNegZero unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNegZero unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNegZero unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNegZero unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNegZero.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_neg_zero_decode(&mut r) {
@@ -8382,8 +9761,13 @@ fn main() {
             } else { println!("FAIL EdgeNegZero gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeNegZero gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNegZero gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeNullByte
+fn test_model_edge_null_byte(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullByte.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_null_byte_decode(&mut r) {
@@ -8394,29 +9778,31 @@ fn main() {
             } else { println!("FAIL EdgeNullByte mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeNullByte mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNullByte mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullByte.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_null_byte_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_null_byte_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullByte.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNullByte json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNullByte json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_null_byte_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_null_byte_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullByte.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNullByte json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNullByte json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNullByte json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNullByte json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullByte.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_null_byte_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_null_byte_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullByte.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeNullByte unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeNullByte unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_null_byte_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_null_byte_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeNullByte.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeNullByte unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeNullByte unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeNullByte unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeNullByte unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeNullByte.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_null_byte_decode(&mut r) {
@@ -8427,8 +9813,13 @@ fn main() {
             } else { println!("FAIL EdgeNullByte gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeNullByte gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeNullByte gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeBoundary
+fn test_model_edge_boundary(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBoundary.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_boundary_decode(&mut r) {
@@ -8439,29 +9830,31 @@ fn main() {
             } else { println!("FAIL EdgeBoundary mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeBoundary mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBoundary mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBoundary.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_boundary_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_boundary_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBoundary.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBoundary json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBoundary json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_boundary_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_boundary_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBoundary.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBoundary json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBoundary json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBoundary json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBoundary json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBoundary.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_boundary_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_boundary_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBoundary.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBoundary unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBoundary unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_boundary_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_boundary_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBoundary.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBoundary unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBoundary unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBoundary unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBoundary unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBoundary.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_boundary_decode(&mut r) {
@@ -8472,8 +9865,13 @@ fn main() {
             } else { println!("FAIL EdgeBoundary gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeBoundary gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBoundary gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeStrLen
+fn test_model_edge_str_len(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeStrLen.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_str_len_decode(&mut r) {
@@ -8484,29 +9882,31 @@ fn main() {
             } else { println!("FAIL EdgeStrLen mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeStrLen mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeStrLen mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeStrLen.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_str_len_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_str_len_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeStrLen.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeStrLen json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeStrLen json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_str_len_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_str_len_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeStrLen.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeStrLen json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeStrLen json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeStrLen json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeStrLen json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeStrLen.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_str_len_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_str_len_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeStrLen.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeStrLen unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeStrLen unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_str_len_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_str_len_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeStrLen.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeStrLen unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeStrLen unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeStrLen unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeStrLen unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeStrLen.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_str_len_decode(&mut r) {
@@ -8517,8 +9917,13 @@ fn main() {
             } else { println!("FAIL EdgeStrLen gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeStrLen gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeStrLen gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeBytesLen
+fn test_model_edge_bytes_len(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBytesLen.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_bytes_len_decode(&mut r) {
@@ -8529,29 +9934,31 @@ fn main() {
             } else { println!("FAIL EdgeBytesLen mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeBytesLen mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBytesLen mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBytesLen.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_bytes_len_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_bytes_len_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBytesLen.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBytesLen json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBytesLen json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_bytes_len_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_bytes_len_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBytesLen.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBytesLen json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBytesLen json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBytesLen json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBytesLen json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBytesLen.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_bytes_len_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_bytes_len_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBytesLen.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeBytesLen unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeBytesLen unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_bytes_len_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_bytes_len_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeBytesLen.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeBytesLen unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeBytesLen unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeBytesLen unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeBytesLen unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeBytesLen.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_bytes_len_decode(&mut r) {
@@ -8562,8 +9969,13 @@ fn main() {
             } else { println!("FAIL EdgeBytesLen gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeBytesLen gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeBytesLen gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeArrEmpty
+fn test_model_edge_arr_empty(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrEmpty.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_arr_empty_decode(&mut r) {
@@ -8574,29 +9986,31 @@ fn main() {
             } else { println!("FAIL EdgeArrEmpty mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeArrEmpty mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeArrEmpty mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrEmpty.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_arr_empty_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_arr_empty_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrEmpty.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeArrEmpty json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeArrEmpty json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_arr_empty_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_arr_empty_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrEmpty.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeArrEmpty json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeArrEmpty json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeArrEmpty json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeArrEmpty json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrEmpty.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_arr_empty_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_arr_empty_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrEmpty.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeArrEmpty unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeArrEmpty unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_arr_empty_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_arr_empty_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrEmpty.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeArrEmpty unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeArrEmpty unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeArrEmpty unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeArrEmpty unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrEmpty.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_arr_empty_decode(&mut r) {
@@ -8607,8 +10021,13 @@ fn main() {
             } else { println!("FAIL EdgeArrEmpty gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeArrEmpty gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeArrEmpty gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // EdgeArrBoundary
+fn test_model_edge_arr_boundary(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrBoundary.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
@@ -8619,29 +10038,31 @@ fn main() {
             } else { println!("FAIL EdgeArrBoundary mp: write error"); failed += 1; }
         } else { println!("FAIL EdgeArrBoundary mp: decode error"); failed += 1; }
     } else { println!("FAIL EdgeArrBoundary mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrBoundary.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_arr_boundary_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrBoundary.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeArrBoundary json: write error"); failed += 1; }
-        } else { println!("FAIL EdgeArrBoundary json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_arr_boundary_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrBoundary.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeArrBoundary json: write error"); failed += 1; }
+            } else { println!("FAIL EdgeArrBoundary json: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeArrBoundary json: reader error"); failed += 1; }
     } else { println!("FAIL EdgeArrBoundary json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrBoundary.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            edge_arr_boundary_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrBoundary.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL EdgeArrBoundary unformatted: write error"); failed += 1; }
-        } else { println!("FAIL EdgeArrBoundary unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                edge_arr_boundary_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("EdgeArrBoundary.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL EdgeArrBoundary unformatted: write error"); failed += 1; }
+            } else { println!("FAIL EdgeArrBoundary unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL EdgeArrBoundary unformatted: reader error"); failed += 1; }
     } else { println!("FAIL EdgeArrBoundary unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("EdgeArrBoundary.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = edge_arr_boundary_decode(&mut r) {
@@ -8652,8 +10073,13 @@ fn main() {
             } else { println!("FAIL EdgeArrBoundary gron: write error"); failed += 1; }
         } else { println!("FAIL EdgeArrBoundary gron: decode error"); failed += 1; }
     } else { println!("FAIL EdgeArrBoundary gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptArr1
+fn test_model_opt_arr1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_arr1_decode(&mut r) {
@@ -8664,29 +10090,31 @@ fn main() {
             } else { println!("FAIL OptArr1 mp: write error"); failed += 1; }
         } else { println!("FAIL OptArr1 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptArr1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr1 json: write error"); failed += 1; }
-        } else { println!("FAIL OptArr1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr1 json: write error"); failed += 1; }
+            } else { println!("FAIL OptArr1 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr1 json: reader error"); failed += 1; }
     } else { println!("FAIL OptArr1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptArr1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptArr1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptArr1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_arr1_decode(&mut r) {
@@ -8697,8 +10125,13 @@ fn main() {
             } else { println!("FAIL OptArr1 gron: write error"); failed += 1; }
         } else { println!("FAIL OptArr1 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptArr1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptArr2
+fn test_model_opt_arr2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_arr2_decode(&mut r) {
@@ -8709,29 +10142,31 @@ fn main() {
             } else { println!("FAIL OptArr2 mp: write error"); failed += 1; }
         } else { println!("FAIL OptArr2 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptArr2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr2 json: write error"); failed += 1; }
-        } else { println!("FAIL OptArr2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr2 json: write error"); failed += 1; }
+            } else { println!("FAIL OptArr2 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr2 json: reader error"); failed += 1; }
     } else { println!("FAIL OptArr2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptArr2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptArr2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptArr2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_arr2_decode(&mut r) {
@@ -8742,8 +10177,13 @@ fn main() {
             } else { println!("FAIL OptArr2 gron: write error"); failed += 1; }
         } else { println!("FAIL OptArr2 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptArr2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptArr3
+fn test_model_opt_arr3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_arr3_decode(&mut r) {
@@ -8754,29 +10194,31 @@ fn main() {
             } else { println!("FAIL OptArr3 mp: write error"); failed += 1; }
         } else { println!("FAIL OptArr3 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptArr3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr3 json: write error"); failed += 1; }
-        } else { println!("FAIL OptArr3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr3 json: write error"); failed += 1; }
+            } else { println!("FAIL OptArr3 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr3 json: reader error"); failed += 1; }
     } else { println!("FAIL OptArr3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptArr3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptArr3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptArr3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_arr3_decode(&mut r) {
@@ -8787,8 +10229,13 @@ fn main() {
             } else { println!("FAIL OptArr3 gron: write error"); failed += 1; }
         } else { println!("FAIL OptArr3 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptArr3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptArr4
+fn test_model_opt_arr4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_arr4_decode(&mut r) {
@@ -8799,29 +10246,31 @@ fn main() {
             } else { println!("FAIL OptArr4 mp: write error"); failed += 1; }
         } else { println!("FAIL OptArr4 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptArr4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr4 json: write error"); failed += 1; }
-        } else { println!("FAIL OptArr4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr4 json: write error"); failed += 1; }
+            } else { println!("FAIL OptArr4 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr4 json: reader error"); failed += 1; }
     } else { println!("FAIL OptArr4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptArr4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptArr4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptArr4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_arr4_decode(&mut r) {
@@ -8832,8 +10281,13 @@ fn main() {
             } else { println!("FAIL OptArr4 gron: write error"); failed += 1; }
         } else { println!("FAIL OptArr4 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptArr4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // OptArr5
+fn test_model_opt_arr5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = opt_arr5_decode(&mut r) {
@@ -8844,29 +10298,31 @@ fn main() {
             } else { println!("FAIL OptArr5 mp: write error"); failed += 1; }
         } else { println!("FAIL OptArr5 mp: decode error"); failed += 1; }
     } else { println!("FAIL OptArr5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr5 json: write error"); failed += 1; }
-        } else { println!("FAIL OptArr5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr5 json: write error"); failed += 1; }
+            } else { println!("FAIL OptArr5 json: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr5 json: reader error"); failed += 1; }
     } else { println!("FAIL OptArr5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = opt_arr5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            opt_arr5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL OptArr5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL OptArr5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = opt_arr5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                opt_arr5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("OptArr5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL OptArr5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL OptArr5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL OptArr5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL OptArr5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("OptArr5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = opt_arr5_decode(&mut r) {
@@ -8877,8 +10333,13 @@ fn main() {
             } else { println!("FAIL OptArr5 gron: write error"); failed += 1; }
         } else { println!("FAIL OptArr5 gron: decode error"); failed += 1; }
     } else { println!("FAIL OptArr5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOpt1
+fn test_model_nest_opt1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt1_decode(&mut r) {
@@ -8889,29 +10350,31 @@ fn main() {
             } else { println!("FAIL NestOpt1 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOpt1 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt1 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt1 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt1 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt1 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt1_decode(&mut r) {
@@ -8922,8 +10385,13 @@ fn main() {
             } else { println!("FAIL NestOpt1 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOpt1 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOpt2
+fn test_model_nest_opt2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt2_decode(&mut r) {
@@ -8934,29 +10402,31 @@ fn main() {
             } else { println!("FAIL NestOpt2 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOpt2 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt2 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt2 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt2 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt2 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt2_decode(&mut r) {
@@ -8967,8 +10437,13 @@ fn main() {
             } else { println!("FAIL NestOpt2 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOpt2 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOpt3
+fn test_model_nest_opt3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt3_decode(&mut r) {
@@ -8979,29 +10454,31 @@ fn main() {
             } else { println!("FAIL NestOpt3 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOpt3 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt3 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt3 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt3 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt3 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt3_decode(&mut r) {
@@ -9012,8 +10489,13 @@ fn main() {
             } else { println!("FAIL NestOpt3 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOpt3 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOpt4
+fn test_model_nest_opt4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt4_decode(&mut r) {
@@ -9024,29 +10506,31 @@ fn main() {
             } else { println!("FAIL NestOpt4 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOpt4 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt4 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt4 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt4 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt4 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt4_decode(&mut r) {
@@ -9057,8 +10541,13 @@ fn main() {
             } else { println!("FAIL NestOpt4 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOpt4 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOpt5
+fn test_model_nest_opt5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt5_decode(&mut r) {
@@ -9069,29 +10558,31 @@ fn main() {
             } else { println!("FAIL NestOpt5 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOpt5 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt5 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt5 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt5 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt5 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOpt5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOpt5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOpt5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOpt5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOpt5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOpt5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOpt5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOpt5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt5_decode(&mut r) {
@@ -9102,8 +10593,13 @@ fn main() {
             } else { println!("FAIL NestOpt5 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOpt5 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOpt5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOptInner1
+fn test_model_nest_opt_inner1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
@@ -9114,29 +10610,31 @@ fn main() {
             } else { println!("FAIL NestOptInner1 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner1 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner1 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner1 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner1 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner1 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt_inner1_decode(&mut r) {
@@ -9147,8 +10645,13 @@ fn main() {
             } else { println!("FAIL NestOptInner1 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner1 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOptInner2
+fn test_model_nest_opt_inner2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
@@ -9159,29 +10662,31 @@ fn main() {
             } else { println!("FAIL NestOptInner2 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner2 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner2 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner2 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner2 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner2 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt_inner2_decode(&mut r) {
@@ -9192,8 +10697,13 @@ fn main() {
             } else { println!("FAIL NestOptInner2 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner2 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // NestOptInner3
+fn test_model_nest_opt_inner3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
@@ -9204,29 +10714,31 @@ fn main() {
             } else { println!("FAIL NestOptInner3 mp: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner3 mp: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner3 json: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner3 json: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner3 json: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner3 json: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            nest_opt_inner3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL NestOptInner3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL NestOptInner3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                nest_opt_inner3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("NestOptInner3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL NestOptInner3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL NestOptInner3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL NestOptInner3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL NestOptInner3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("NestOptInner3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = nest_opt_inner3_decode(&mut r) {
@@ -9237,8 +10749,13 @@ fn main() {
             } else { println!("FAIL NestOptInner3 gron: write error"); failed += 1; }
         } else { println!("FAIL NestOptInner3 gron: decode error"); failed += 1; }
     } else { println!("FAIL NestOptInner3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest1
+fn test_model_deep_nest1(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest1.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest1_decode(&mut r) {
@@ -9249,29 +10766,31 @@ fn main() {
             } else { println!("FAIL DeepNest1 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest1 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest1 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest1.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest1.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest1 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest1 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest1.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest1 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest1 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest1 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest1 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest1.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest1_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest1_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest1.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest1 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest1 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest1_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest1_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest1.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest1 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest1 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest1 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest1 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest1.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest1_decode(&mut r) {
@@ -9282,8 +10801,13 @@ fn main() {
             } else { println!("FAIL DeepNest1 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest1 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest1 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest2
+fn test_model_deep_nest2(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest2.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest2_decode(&mut r) {
@@ -9294,29 +10818,31 @@ fn main() {
             } else { println!("FAIL DeepNest2 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest2 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest2 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest2.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest2.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest2 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest2 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest2.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest2 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest2 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest2 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest2 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest2.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest2_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest2_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest2.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest2 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest2 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest2_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest2_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest2.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest2 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest2 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest2 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest2 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest2.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest2_decode(&mut r) {
@@ -9327,8 +10853,13 @@ fn main() {
             } else { println!("FAIL DeepNest2 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest2 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest2 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest3
+fn test_model_deep_nest3(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest3.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest3_decode(&mut r) {
@@ -9339,29 +10870,31 @@ fn main() {
             } else { println!("FAIL DeepNest3 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest3 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest3 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest3.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest3.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest3 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest3 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest3.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest3 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest3 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest3 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest3 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest3.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest3_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest3_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest3.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest3 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest3 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest3_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest3_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest3.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest3 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest3 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest3 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest3 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest3.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest3_decode(&mut r) {
@@ -9372,8 +10905,13 @@ fn main() {
             } else { println!("FAIL DeepNest3 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest3 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest3 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest4
+fn test_model_deep_nest4(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest4.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest4_decode(&mut r) {
@@ -9384,29 +10922,31 @@ fn main() {
             } else { println!("FAIL DeepNest4 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest4 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest4 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest4.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest4.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest4 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest4 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest4.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest4 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest4 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest4 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest4 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest4.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest4_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest4_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest4.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest4 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest4 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest4_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest4_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest4.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest4 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest4 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest4 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest4 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest4.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest4_decode(&mut r) {
@@ -9417,8 +10957,13 @@ fn main() {
             } else { println!("FAIL DeepNest4 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest4 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest4 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest5
+fn test_model_deep_nest5(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest5.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest5_decode(&mut r) {
@@ -9429,29 +10974,31 @@ fn main() {
             } else { println!("FAIL DeepNest5 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest5 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest5 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest5.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest5.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest5 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest5 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest5.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest5 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest5 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest5 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest5 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest5.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest5_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest5_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest5.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest5 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest5 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest5_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest5_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest5.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest5 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest5 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest5 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest5 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest5.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest5_decode(&mut r) {
@@ -9462,8 +11009,13 @@ fn main() {
             } else { println!("FAIL DeepNest5 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest5 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest5 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest6
+fn test_model_deep_nest6(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest6.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest6_decode(&mut r) {
@@ -9474,29 +11026,31 @@ fn main() {
             } else { println!("FAIL DeepNest6 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest6 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest6 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest6.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest6_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest6_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest6.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest6 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest6 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest6_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest6_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest6.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest6 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest6 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest6 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest6 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest6.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest6_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest6_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest6.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest6 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest6 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest6_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest6_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest6.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest6 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest6 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest6 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest6 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest6.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest6_decode(&mut r) {
@@ -9507,8 +11061,13 @@ fn main() {
             } else { println!("FAIL DeepNest6 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest6 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest6 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // DeepNest7
+fn test_model_deep_nest7(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest7.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = deep_nest7_decode(&mut r) {
@@ -9519,29 +11078,31 @@ fn main() {
             } else { println!("FAIL DeepNest7 mp: write error"); failed += 1; }
         } else { println!("FAIL DeepNest7 mp: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest7 mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest7.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest7_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest7_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest7.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest7 json: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest7 json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest7_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest7_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest7.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest7 json: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest7 json: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest7 json: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest7 json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest7.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = deep_nest7_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            deep_nest7_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest7.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL DeepNest7 unformatted: write error"); failed += 1; }
-        } else { println!("FAIL DeepNest7 unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = deep_nest7_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                deep_nest7_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("DeepNest7.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL DeepNest7 unformatted: write error"); failed += 1; }
+            } else { println!("FAIL DeepNest7 unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL DeepNest7 unformatted: reader error"); failed += 1; }
     } else { println!("FAIL DeepNest7 unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("DeepNest7.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = deep_nest7_decode(&mut r) {
@@ -9552,8 +11113,13 @@ fn main() {
             } else { println!("FAIL DeepNest7 gron: write error"); failed += 1; }
         } else { println!("FAIL DeepNest7 gron: decode error"); failed += 1; }
     } else { println!("FAIL DeepNest7 gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // TimestampEntry
+fn test_model_timestamp_entry(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("TimestampEntry.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = timestamp_entry_decode(&mut r) {
@@ -9564,29 +11130,31 @@ fn main() {
             } else { println!("FAIL TimestampEntry mp: write error"); failed += 1; }
         } else { println!("FAIL TimestampEntry mp: decode error"); failed += 1; }
     } else { println!("FAIL TimestampEntry mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("TimestampEntry.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = timestamp_entry_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            timestamp_entry_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("TimestampEntry.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL TimestampEntry json: write error"); failed += 1; }
-        } else { println!("FAIL TimestampEntry json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = timestamp_entry_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                timestamp_entry_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("TimestampEntry.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL TimestampEntry json: write error"); failed += 1; }
+            } else { println!("FAIL TimestampEntry json: decode error"); failed += 1; }
+        } else { println!("FAIL TimestampEntry json: reader error"); failed += 1; }
     } else { println!("FAIL TimestampEntry json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("TimestampEntry.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = timestamp_entry_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            timestamp_entry_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("TimestampEntry.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL TimestampEntry unformatted: write error"); failed += 1; }
-        } else { println!("FAIL TimestampEntry unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = timestamp_entry_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                timestamp_entry_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("TimestampEntry.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL TimestampEntry unformatted: write error"); failed += 1; }
+            } else { println!("FAIL TimestampEntry unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL TimestampEntry unformatted: reader error"); failed += 1; }
     } else { println!("FAIL TimestampEntry unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("TimestampEntry.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = timestamp_entry_decode(&mut r) {
@@ -9597,8 +11165,13 @@ fn main() {
             } else { println!("FAIL TimestampEntry gron: write error"); failed += 1; }
         } else { println!("FAIL TimestampEntry gron: decode error"); failed += 1; }
     } else { println!("FAIL TimestampEntry gron: file not found"); failed += 1; }
+    (passed, failed)
+}
 
-    // ConfigEntry
+fn test_model_config_entry(vec_dir: &str, out_dir: &str) -> (u32, u32) {
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+    // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ConfigEntry.msgpack")) {
         let mut r = MsgPackReader::new(&b);
         if let Ok(obj) = config_entry_decode(&mut r) {
@@ -9609,29 +11182,31 @@ fn main() {
             } else { println!("FAIL ConfigEntry mp: write error"); failed += 1; }
         } else { println!("FAIL ConfigEntry mp: decode error"); failed += 1; }
     } else { println!("FAIL ConfigEntry mp: file not found"); failed += 1; }
-
+    // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ConfigEntry.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = config_entry_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            config_entry_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ConfigEntry.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ConfigEntry json: write error"); failed += 1; }
-        } else { println!("FAIL ConfigEntry json: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = config_entry_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                config_entry_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ConfigEntry.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ConfigEntry json: write error"); failed += 1; }
+            } else { println!("FAIL ConfigEntry json: decode error"); failed += 1; }
+        } else { println!("FAIL ConfigEntry json: reader error"); failed += 1; }
     } else { println!("FAIL ConfigEntry json: file not found"); failed += 1; }
-
+    // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ConfigEntry.unformatted.json")) {
-        let mut r = JsonReader::new(&b);
-        if let Ok(obj) = config_entry_decode(&mut r) {
-            let mut w = JsonWriter::new();
-            config_entry_write(&obj, &mut w);
-            if let Ok(_) = fs::write(Path::new(&out_dir).join("ConfigEntry.unformatted.json"), w.to_bytes()) {
-                passed += 1;
-            } else { println!("FAIL ConfigEntry unformatted: write error"); failed += 1; }
-        } else { println!("FAIL ConfigEntry unformatted: decode error"); failed += 1; }
+        if let Ok(mut r) = JsonReader::new(&b) {
+            if let Ok(obj) = config_entry_decode(&mut r) {
+                let mut w = JsonWriter::new();
+                config_entry_write(&obj, &mut w);
+                if let Ok(_) = fs::write(Path::new(&out_dir).join("ConfigEntry.unformatted.json"), w.to_bytes()) {
+                    passed += 1;
+                } else { println!("FAIL ConfigEntry unformatted: write error"); failed += 1; }
+            } else { println!("FAIL ConfigEntry unformatted: decode error"); failed += 1; }
+        } else { println!("FAIL ConfigEntry unformatted: reader error"); failed += 1; }
     } else { println!("FAIL ConfigEntry unformatted: file not found"); failed += 1; }
-
+    // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("ConfigEntry.gron")) {
         let mut r = GronReader::new(&b);
         if let Ok(obj) = config_entry_decode(&mut r) {
@@ -9642,6 +11217,268 @@ fn main() {
             } else { println!("FAIL ConfigEntry gron: write error"); failed += 1; }
         } else { println!("FAIL ConfigEntry gron: decode error"); failed += 1; }
     } else { println!("FAIL ConfigEntry gron: file not found"); failed += 1; }
+    (passed, failed)
+}
+
+
+fn main() {
+    let vec_dir = std::env::var("VEC_DIR").unwrap();
+    let out_dir = std::env::var("OUT_DIR").unwrap();
+    fs::create_dir_all(&out_dir).unwrap();
+    fs::create_dir_all(Path::new(&out_dir).join("scalars")).unwrap();
+
+    let mut passed = 0u32;
+    let mut failed = 0u32;
+
+    // Scalar tests
+    let (p, f) = test_scalar_int8_min(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int8_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int16_min(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int16_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int32_min(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int32_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int64_min(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_int64_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_uint8_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_uint16_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_uint32_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_uint64_max(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float32_1_5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float32_neg_zero(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float32_inf(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float32_neg_inf(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float32_nan(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float64_pi(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float64_neg_zero(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float64_inf(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float64_neg_inf(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_float64_nan(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_empty(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_ascii(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_null_byte(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_escape(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_unicode(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_31(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_255(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_str_256(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_empty(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_small(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_31(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_255(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_256(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_zeros(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bytes_ff(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bool_true(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_scalar_bool_false(&vec_dir, &out_dir); passed += p; failed += f;
+
+
+    // Object tests
+    let (p, f) = test_model_opt_inner(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_string(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_int8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_int16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_uint8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_uint16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_uint32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_float32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_single_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_string(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_int8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_int16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_uint8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_uint16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_uint32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_float32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_single_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_string(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_int8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_int16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_uint8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_uint16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_uint32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_float32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_pair_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int32_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int32_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int32_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int32_uint32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int64_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_float32_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_float64_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_float64_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_uint32_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_boolean_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int8_uint8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int16_uint16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_string_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int32_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_float64_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_boolean_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_bytes_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int8_float32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_uint8_int16(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_int64_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_dual_uint64_string(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple01(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple02(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple03(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple04(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple05(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple06(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple07(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple08(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple09(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple10(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple11(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple12(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple13(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple14(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_triple15(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five01(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five02(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five03(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five04(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five05(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five06(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five07(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five08(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five09(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_five10(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_ten01(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_ten02(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_ten03(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_ten04(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_ten05(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_string(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_int32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_boolean(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_float64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_bytes(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_int64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_arr_uint64(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_multi_arr1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_multi_arr2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_multi_arr3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_multi_arr4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_multi_arr5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo6(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo7(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo8(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo9(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_combo10(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_inner(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_coord(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_id_val(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_label(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_money(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_range32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_addr(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_point3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_inner(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_coord(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_id_val(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_label(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_money(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_range32(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_addr(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_nest_point3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_model_arr1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_model_arr2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_model_arr3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_model_arr4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_model_arr5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix01(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix02(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix03(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix04(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix05(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix06(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix07(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix08(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix09(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix10(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix11(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix12(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix13(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix14(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_mix15(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_all_opt1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_all_opt2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_all_opt3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_all_opt4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_all_opt5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_rec_list(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_rec_tree(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_rec_chain(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_rec_wrap(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_rec_wide(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_wide20(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_wide25(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_wide30(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_wide35(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_wide40(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_empty(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_one_opt(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_big_nums(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_zero_vals(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_nullable(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_neg_zero(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_null_byte(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_boundary(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_str_len(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_bytes_len(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_arr_empty(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_edge_arr_boundary(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_arr1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_arr2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_arr3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_arr4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_opt_arr5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt_inner1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt_inner2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_nest_opt_inner3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest1(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest2(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest3(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest4(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest5(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest6(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_deep_nest7(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_timestamp_entry(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_model_config_entry(&vec_dir, &out_dir); passed += p; failed += f;
+
 
     println!("emit-rust: {} passed, {} failed", passed, failed);
     if failed > 0 {

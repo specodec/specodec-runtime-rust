@@ -4,9 +4,9 @@ const FLOAT_BIAS: u32 = 127;
 const FLOAT_POW5_INV_BITCOUNT: i32 = 59;
 const FLOAT_POW5_BITCOUNT: i32 = 61;
 
-use crate::ryu::ryu_math::*;
-use crate::ryu::tables_f32::*;
-use crate::ryu::tables_f32::*;
+use super::ryu_math::*;
+use super::tables_f32::*;
+use super::tables_f32::*;
 
 pub fn float32_to_string(f: f32) -> String {
     let bits = f.to_bits();

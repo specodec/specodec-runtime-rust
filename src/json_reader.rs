@@ -204,11 +204,27 @@ impl JsonReader {
     }
 
     pub fn read_float32(&mut self) -> Result<f32, SCodecError> {
+        let ch = self.peek()?;
+        if ch == b'"' {
+            let s = self.parse_string()?;
+            if s == "NaN" { return Ok(f32::NAN); }
+            if s == "Infinity" { return Ok(f32::INFINITY); }
+            if s == "-Infinity" { return Ok(f32::NEG_INFINITY); }
+            return s.parse::<f32>().map_err(|_| SCodecError::new(format!("json: invalid float32: {}", s)));
+        }
         let raw = self.parse_number_raw()?;
         raw.parse::<f32>().map_err(|_| SCodecError::new(format!("json: invalid float32: {}", raw)))
     }
 
     pub fn read_float64(&mut self) -> Result<f64, SCodecError> {
+        let ch = self.peek()?;
+        if ch == b'"' {
+            let s = self.parse_string()?;
+            if s == "NaN" { return Ok(f64::NAN); }
+            if s == "Infinity" { return Ok(f64::INFINITY); }
+            if s == "-Infinity" { return Ok(f64::NEG_INFINITY); }
+            return s.parse::<f64>().map_err(|_| SCodecError::new(format!("json: invalid float64: {}", s)));
+        }
         let raw = self.parse_number_raw()?;
         raw.parse::<f64>().map_err(|_| SCodecError::new(format!("json: invalid float64: {}", raw)))
     }

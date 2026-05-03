@@ -82,7 +82,14 @@ impl JsonWriter {
 
     pub fn write_float32(&mut self, value: f32) {
         if !value.is_finite() {
-            panic!("float32: NaN/Infinity not valid JSON");
+            if value.is_nan() {
+                self.buf.extend_from_slice(b"\"NaN\"");
+            } else if value > 0.0 {
+                self.buf.extend_from_slice(b"\"Infinity\"");
+            } else {
+                self.buf.extend_from_slice(b"\"-Infinity\"");
+            }
+            return;
         }
         let s = format_float32(value);
         self.buf.extend_from_slice(s.as_bytes());
@@ -90,7 +97,14 @@ impl JsonWriter {
 
     pub fn write_float64(&mut self, value: f64) {
         if !value.is_finite() {
-            panic!("float64: NaN/Infinity not valid JSON");
+            if value.is_nan() {
+                self.buf.extend_from_slice(b"\"NaN\"");
+            } else if value > 0.0 {
+                self.buf.extend_from_slice(b"\"Infinity\"");
+            } else {
+                self.buf.extend_from_slice(b"\"-Infinity\"");
+            }
+            return;
         }
         let s = format_float64(value);
         self.buf.extend_from_slice(s.as_bytes());
