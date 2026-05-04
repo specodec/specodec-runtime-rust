@@ -4,16 +4,11 @@ use std::path::Path;
 
 // Copy of ryu functions inline for test compilation
 mod ryu {
-    pub mod ryu_f32 {
-        mod ryu_math { include!("../../src/ryu/ryu_math.rs"); }
-        mod tables_f32 { include!("../../src/ryu/tables_f32.rs"); }
-        include!("../../src/ryu/ryu_f32.rs");
-    }
-    pub mod ryu_f64 {
-        mod ryu_math { include!("../../src/ryu/ryu_math.rs"); }
-        mod tables_f64 { include!("../../src/ryu/tables_f64.rs"); }
-        include!("../../src/ryu/ryu_f64.rs");
-    }
+    pub mod ryu_math { include!("../../src/ryu/ryu_math.rs"); }
+    pub mod tables_f32 { include!("../../src/ryu/tables_f32.rs"); }
+    pub mod tables_f64 { include!("../../src/ryu/tables_f64.rs"); }
+    pub mod ryu_f32 { include!("../../src/ryu/ryu_f32.rs"); }
+    pub mod ryu_f64 { include!("../../src/ryu/ryu_f64.rs"); }
 }
 
 fn load_tests(filename: &str) -> Vec<f64> {
