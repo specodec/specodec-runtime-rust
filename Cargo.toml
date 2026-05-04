@@ -1,7 +1,11 @@
 [package]
-name = "specodec"
+name = "specodec-runtime-rust"
 version = "0.0.1"
 edition = "2021"
 description = "Specodec codec runtime for Rust"
+
+[lib]
+name = "specodec"
+path = "src/lib.rs"
 
 [dependencies]
