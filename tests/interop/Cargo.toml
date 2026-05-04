@@ -4,6 +4,4 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-specodec = { git = "https://github.com/specodec/specodec-runtime-rust" }
-
-[build-dependencies]
+specodec = { path = "../.." }
