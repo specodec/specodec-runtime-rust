@@ -1,2 +1,14 @@
-/target
+node_modules/
+dist/
+*.tgz
 .pnpm-store/
+.dart_tool/
+.kotlin/
+.build/
+target/
+__pycache__/
+*.pyc
+output/
+.tests-cache/
+.emit-gen/
+.emit-gen/
