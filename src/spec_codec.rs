@@ -7,6 +7,7 @@ use crate::msgpack_writer::MsgPackWriter;
 use crate::gron_writer::GronWriter;
 use crate::gron_reader::GronReader;
 
+#[derive(Copy, Clone)]
 pub struct SpecCodec<T> {
     pub encode: fn(&T, &mut dyn SpecWriter),
     pub decode: fn(&mut dyn SpecReader) -> Result<T, SCodecError>,

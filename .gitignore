@@ -12,3 +12,10 @@ output/
 .tests-cache/
 .emit-gen/
 .emit-gen/
+*.log
+.DS_Store
+.cache/
+*.swp
+*.swo
+*~
+Cargo.lock

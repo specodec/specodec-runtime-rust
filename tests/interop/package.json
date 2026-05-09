@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@specodec/typespec-emitter-core": "^0.1.2",
-    "@specodec/typespec-emitter-rust": "^0.1.4",
+    "@specodec/typespec-emitter-core": "^0.1.6",
+    "@specodec/typespec-emitter-rust": "*",
     "@typespec/compiler": "1.11.0"
   },
   "devDependencies": {

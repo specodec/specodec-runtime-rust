@@ -5,6 +5,21 @@ use std::path::Path;
 
 mod test_scalars;
 mod test_all_types;
+mod test_all_types_scalars;
+mod test_all_types_opt;
+mod test_all_types_pairs;
+mod test_all_types_many;
+mod test_all_types_arrays;
+mod test_all_types_nests;
+mod test_all_types_mixed;
+mod test_all_types_recursive;
+mod test_all_types_wide;
+mod test_all_types_edge;
+mod test_all_types_extra;
+mod test_all_types_nested;
+mod test_all_types_nested_deep;
+mod test_all_types_enums;
+mod test_all_types_unions;
 
 fn main() {
     let vec_dir = std::env::var("VEC_DIR").unwrap();
@@ -17,6 +32,21 @@ fn main() {
 
     let (p, f) = test_scalars::run(&vec_dir, &out_dir); passed += p; failed += f;
     let (p, f) = test_all_types::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_scalars::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_opt::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_pairs::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_many::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_arrays::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_nests::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_mixed::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_recursive::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_wide::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_edge::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_extra::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_nested::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_nested_deep::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_enums::run(&vec_dir, &out_dir); passed += p; failed += f;
+    let (p, f) = test_all_types_unions::run(&vec_dir, &out_dir); passed += p; failed += f;
 
     println!("emit-rust: {} passed, {} failed", passed, failed);
     if failed > 0 {

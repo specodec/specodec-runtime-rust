@@ -1,3 +1,4 @@
+pub mod spec_undefined;
 pub mod json_reader;
 pub mod json_writer;
 pub mod gron_reader;
@@ -23,4 +24,5 @@ pub use msgpack_reader::MsgPackReader;
 pub use msgpack_writer::MsgPackWriter;
 pub use spec_reader::SpecReader;
 pub use spec_writer::SpecWriter;
+pub use spec_undefined::SpecUndefined;
 pub use spec_codec::SpecCodec;

@@ -8,9 +8,12 @@ const VEC_DIR = process.env.VEC_DIR || path.join(__dir, ".tests-cache", "vectors
 const manifestPath = path.join(VEC_DIR, "manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
 
-const models = manifest.testModels;
+const models = [...(manifest.testModels || []), ...(manifest.testUnions || [])];
 const scalars = manifest.scalars;
 const modelNamespaces = manifest.modelNamespaces || {};
+const testUnions = new Set(manifest.testUnions || []);
+function isUnionTest(name) { return testUnions.has(name); }
+function unionNameOf(testName) { return testName.replace(/_[^_]+$/, ''); }
 
 const generatedDir = path.join(__dir, "src", "generated");
 
@@ -62,6 +65,12 @@ if (fs.existsSync(generatedDir)) {
       const snake = toSnakeCase(model);
       if (content.includes("fn " + snake + "_decode")) {
         modelModule[model] = modName;
+      }
+      if (isUnionTest(model)) {
+        const unionSnake = toSnakeCase(unionNameOf(model));
+        if (content.includes("fn " + unionSnake + "_decode")) {
+          modelModule[model] = modName;
+        }
       }
     }
   }
@@ -132,6 +141,7 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
 function generateModelFunc(model) {
   const snake = toSnakeCase(model);
   const funcName = `test_model_${snake}`;
+  const codecSnake = isUnionTest(model) ? toSnakeCase(unionNameOf(model)) : snake;
   return `
 fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     let mut passed = 0u32;
@@ -139,9 +149,9 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     // msgpack
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("${model}.msgpack")) {
         let mut r = MsgPackReader::new(&b);
-        if let Ok(obj) = ${snake}_decode(&mut r) {
+        if let Ok(obj) = ${codecSnake}_decode(&mut r) {
             let mut w = MsgPackWriter::new();
-            ${snake}_write(&obj, &mut w);
+            ${codecSnake}_write(&obj, &mut w);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("${model}.msgpack"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL ${model} mp: write error"); failed += 1; }
@@ -150,9 +160,9 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     // json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("${model}.json")) {
         if let Ok(mut r) = JsonReader::new(&b) {
-            if let Ok(obj) = ${snake}_decode(&mut r) {
+            if let Ok(obj) = ${codecSnake}_decode(&mut r) {
                 let mut w = JsonWriter::new();
-                ${snake}_write(&obj, &mut w);
+                ${codecSnake}_write(&obj, &mut w);
                 if let Ok(_) = fs::write(Path::new(&out_dir).join("${model}.json"), w.to_bytes()) {
                     passed += 1;
                 } else { println!("FAIL ${model} json: write error"); failed += 1; }
@@ -162,9 +172,9 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     // unformatted json
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("${model}.unformatted.json")) {
         if let Ok(mut r) = JsonReader::new(&b) {
-            if let Ok(obj) = ${snake}_decode(&mut r) {
+            if let Ok(obj) = ${codecSnake}_decode(&mut r) {
                 let mut w = JsonWriter::new();
-                ${snake}_write(&obj, &mut w);
+                ${codecSnake}_write(&obj, &mut w);
                 if let Ok(_) = fs::write(Path::new(&out_dir).join("${model}.unformatted.json"), w.to_bytes()) {
                     passed += 1;
                 } else { println!("FAIL ${model} unformatted: write error"); failed += 1; }
@@ -174,9 +184,9 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     // gron
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("${model}.gron")) {
         let mut r = GronReader::new(&b);
-        if let Ok(obj) = ${snake}_decode(&mut r) {
+        if let Ok(obj) = ${codecSnake}_decode(&mut r) {
             let mut w = GronWriter::new();
-            ${snake}_write(&obj, &mut w);
+            ${codecSnake}_write(&obj, &mut w);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("${model}.gron"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL ${model} gron: write error"); failed += 1; }
