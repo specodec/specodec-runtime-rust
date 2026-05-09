@@ -19,3 +19,4 @@ output/
 *.swo
 *~
 Cargo.lock
+.npmrc
