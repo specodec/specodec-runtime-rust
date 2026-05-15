@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@specodec/typespec-emitter-core": "^0.1.6",
-    "@specodec/typespec-emitter-rust": "*",
-    "@typespec/compiler": "1.11.0"
+    "@specodec/typespec-emitter-core": "^1.0.0",
+    "@specodec/typespec-emitter-rust": "^1.0.0",
+    "@typespec/compiler": "^1.12.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

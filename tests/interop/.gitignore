@@ -2,6 +2,4 @@
 node_modules/
 output/
 src/generated/
-target/
-Cargo.lock
-pnpm-lock.yaml
+emit_gen/

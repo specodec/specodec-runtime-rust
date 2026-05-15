@@ -1,6 +1,6 @@
 [package]
 name = "specodec-runtime-rust"
-version = "0.0.1"
+version = "1.0.0"
 edition = "2021"
 description = "Specodec codec runtime for Rust"
 
