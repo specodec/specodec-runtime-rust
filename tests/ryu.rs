@@ -81,5 +81,6 @@ fn test_ryu() {
     println!("{}/{}", n, n);
 
     println!("=== TOTAL: {}/{} ===", passed, passed + failed);
+    eprintln!("=== TOTAL: {}/{} ===", passed, passed + failed);
     assert_eq!(failed, 0, "{} tests failed", failed);
 }
