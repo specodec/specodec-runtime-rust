@@ -4,4 +4,4 @@ version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-specodec-runtime-rust = { git = "http://10.199.64.20:3000/specodec/specodec-runtime-rust.git", branch = "main" }
+specodec-runtime-rust = { git = "http://10.199.64.20:30000/specodec/specodec-runtime-rust.git", branch = "main" }

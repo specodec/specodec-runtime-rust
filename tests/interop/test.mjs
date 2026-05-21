@@ -4,7 +4,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dir = dirname(fileURLToPath(import.meta.url));
-const CACHE = join(__dir, ".tests-cache");
+const VEC_DIR = join(__dir, "vectors");
 const GENERATED = join(__dir, "src", "generated");
 const OUT_DIR = join(__dir, "output");
 
@@ -20,19 +20,13 @@ function ensure(dir) {
 console.log("\n=== Step 0: Install dependencies ===");
 run(`cd ${__dir} && npm install`);
 
-console.log('\n=== Step 2: Using cached .tests-cache ===');
 
-console.log("\n=== Step 2: Generate vectors ===");
-run(`cd ${CACHE} && npm install`);
-run(`cd ${CACHE} && node gen_types.mjs`);
-
-const VEC_DIR = join(CACHE, "vectors");
 
 console.log("\n=== Step 3: Generate emit code ===");
 if (existsSync(GENERATED)) rmSync(GENERATED, { recursive: true });
 ensure(GENERATED);
 
-run(`cd ${__dir} && node_modules/.bin/tsp compile ${CACHE}/alltypes.tsp --emit=@specodec/typespec-emitter-rust \
+run(`cd ${__dir} && node_modules/.bin/tsp compile ${__dir}/alltypes.tsp --emit=@specodec/typespec-emitter-rust \
   --option @specodec/typespec-emitter-rust.emitter-output-dir=${GENERATED}`);
 
 const rustFiles = readdirSync(GENERATED).filter(f => f.endsWith(".rs"));
