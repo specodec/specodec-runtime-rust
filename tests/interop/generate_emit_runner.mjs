@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dir = path.dirname(fileURLToPath(import.meta.url));
-const VEC_DIR = process.env.VEC_DIR || path.join(__dir, ".tests-cache", "vectors");
+const VEC_DIR = process.env.VEC_DIR || path.join(__dir, "vectors");
 
 const manifestPath = path.join(VEC_DIR, "manifest.json");
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
@@ -17,7 +17,7 @@ function unionNameOf(testName) { return testName.replace(/_[^_]+$/, ''); }
 
 const generatedDir = path.join(__dir, "src", "generated");
 
-function getReadMethod(type) {
+function readMethod(type) {
   const map = {
     "int32": "read_int32", "int64": "read_int64",
     "uint32": "read_uint32", "uint64": "read_uint64",
@@ -28,7 +28,7 @@ function getReadMethod(type) {
   return map[type] || "read_int32";
 }
 
-function getWriteMethod(type) {
+function writeMethod(type) {
   const map = {
     "int32": "write_int32", "int64": "write_int64",
     "uint32": "write_uint32", "uint64": "write_uint64",
@@ -124,9 +124,9 @@ fn ${funcName}(vec_dir: &str, out_dir: &str) -> (u32, u32) {
     let mut failed = 0u32;
     if let Ok(b) = fs::read(Path::new(&vec_dir).join("scalars/${name}.mp")) {
         let mut r = MsgPackReader::new(&b);
-        if let Ok(val) = r.${getReadMethod(info.type)}() {
+        if let Ok(val) = r.${readMethod(info.type)}() {
             let mut w = MsgPackWriter::new();
-            w.${getWriteMethod(info.type)}(${borrow}val);
+            w.${writeMethod(info.type)}(${borrow}val);
             if let Ok(_) = fs::write(Path::new(&out_dir).join("scalars/${name}.mp"), w.to_bytes()) {
                 passed += 1;
             } else { println!("FAIL ${name} mp: write error"); failed += 1; }
