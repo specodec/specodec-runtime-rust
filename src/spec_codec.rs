@@ -7,11 +7,18 @@ use crate::msgpack_writer::MsgPackWriter;
 use crate::gron_writer::GronWriter;
 use crate::gron_reader::GronReader;
 
-#[derive(Copy, Clone)]
 pub struct SpecCodec<T> {
     pub encode: fn(&T, &mut dyn SpecWriter),
     pub decode: fn(&mut dyn SpecReader) -> Result<T, SCodecError>,
 }
+
+impl<T> Clone for SpecCodec<T> {
+    fn clone(&self) -> Self {
+        SpecCodec { encode: self.encode, decode: self.decode }
+    }
+}
+
+impl<T> Copy for SpecCodec<T> {}
 
 // ---------------------------------------------------------------------------
 // FormatEntry: a reader/writer factory pair for one format
